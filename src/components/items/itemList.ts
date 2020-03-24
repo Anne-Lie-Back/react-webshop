@@ -1,12 +1,12 @@
-export interface itemResponse {
-    id: string,
+export interface product {
+    id: number,
     name: string,
     price: number,
     description: string
     imgURL: string        
 }
 
-export  const item = [
+export const items: Array<product> = [
     {
         id: 1,
         name: "Fengqing Black Tea",
