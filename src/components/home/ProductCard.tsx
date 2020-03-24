@@ -8,13 +8,14 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import PurchaseButtons from './PurchaseButtons'
 
+
 interface Props{
  itemData: Product
 }
 
 const useStyles = makeStyles({
     root: {
-      maxWidth: 345,
+      maxWidth: '22em',
     },
     media: {
       height: 200,
@@ -25,20 +26,23 @@ const useStyles = makeStyles({
     const classes = useStyles();
   
     return (
-      <Card className={classes.root}>
-        <CardActionArea>
-          <CardMedia
-            className={classes.media}
-            image={props.itemData.imgURL}
-            title={props.itemData.imgURL + " Image"}
-          />
-          <CardContent>
-            <Typography gutterBottom variant="h5" component="h2">
-              {props.itemData.name}
-            </Typography>
-            <PurchaseButtons itemPrice={props.itemData.price}/>
-          </CardContent>
-        </CardActionArea>
-      </Card>
+      <div>
+        <Card className={classes.root}>
+          <CardActionArea>
+            <CardMedia
+              className={classes.media}
+              image={props.itemData.imgURL}
+              title={props.itemData.imgURL + " Image"}
+            />
+            <CardContent>
+              <Typography gutterBottom variant="h5" component="h2">
+                {props.itemData.name}
+              </Typography>
+            </CardContent>
+          </CardActionArea>
+        <PurchaseButtons itemPrice={props.itemData.price}/>
+        </Card>
+      </div>
+
     );
   }

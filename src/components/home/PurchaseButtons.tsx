@@ -28,7 +28,7 @@ export default function PurchaseButtons(props : Props) {
         fullWidth={true}
         style={centerButton}
       >
-        {props.itemPrice + " kr "}
+        {props.itemPrice + " kr"}
         <ShoppingCartIcon style={{ fontSize: 15, margin: '0 0 0 0.5em' }}/>
       </Button>
     </div>
@@ -36,5 +36,5 @@ export default function PurchaseButtons(props : Props) {
 }
 
 const centerButton: CSSProperties = {
-  margin:'auto'
+  margin:'auto',
 }
