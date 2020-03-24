@@ -1,4 +1,4 @@
-export interface product {
+export interface Product {
     id: number,
     name: string,
     price: number,
@@ -6,7 +6,7 @@ export interface product {
     imgURL: string        
 }
 
-export const items: Array<product> = [
+export const items: Array<Product> = [
     {
         id: 1,
         name: "Fengqing Black Tea",

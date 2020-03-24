@@ -1,5 +1,5 @@
 import React from 'react'
-import { product } from '../items/itemList'
+import { Product } from '../items/itemList'
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
@@ -9,7 +9,7 @@ import Typography from '@material-ui/core/Typography';
 import PurchaseButtons from './PurchaseButtons'
 
 interface Props{
- itemData: product
+ itemData: Product
 }
 
 const useStyles = makeStyles({
