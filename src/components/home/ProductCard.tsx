@@ -7,6 +7,7 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import PurchaseButtons from './PurchaseButtons'
+import { Link } from 'react-router-dom';
 
 
 interface Props{
@@ -28,6 +29,7 @@ const useStyles = makeStyles({
     return (
       <div>
         <Card className={classes.root}>
+        <Link to={"product/"+ props.itemData.id} >
           <CardActionArea>
             <CardMedia
               className={classes.media}
@@ -40,9 +42,9 @@ const useStyles = makeStyles({
               </Typography>
             </CardContent>
           </CardActionArea>
+        </Link>
         <PurchaseButtons itemPrice={props.itemData.price}/>
         </Card>
       </div>
-
     );
   }
