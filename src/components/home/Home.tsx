@@ -1,13 +1,14 @@
-import React, {CSSProperties} from 'react'
-import ProductCard from './ProductCard'
-import { items, Product } from '../items/itemList'
-import Grid from '@material-ui/core/Grid';
+import React, { CSSProperties } from 'react'
+import ViewProduct from './ViewProduct'
+//import ProductCard from './ProductCard'
+import { items, /*Product*/ } from '../items/itemList'
+//import Grid from '@material-ui/core/Grid'
 
 export default function Home() {
-    console.log(items)
     return (
-        <div style={homeContainer}
-        >
+        <div style={homeContainer}>
+            <ViewProduct itemData={items[0]}/>
+            {/*
             <Grid 
                 container
                 spacing={3}
@@ -22,7 +23,7 @@ export default function Home() {
                     <ProductCard itemData={itemData}/>
                 </Grid>
                 )}
-            </Grid>
+            </Grid>*/}
         </div>
     )
 }
