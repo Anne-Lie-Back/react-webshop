@@ -2,6 +2,7 @@ import React from 'react'
 import {RouteComponentProps , withRouter } from 'react-router-dom';
 import { RouteMatch } from '../../typings';
 import { items, Product} from '../items/itemList';
+import ViewProduct from './ViewProduct'
 
 interface Props extends RouteComponentProps{
     match: RouteMatch
@@ -42,10 +43,7 @@ class ProductPage extends React.Component<Props, State>  {
         if(this.state.itemFound){
             return (
                 <div>
-                    <h3>{this.state.selectedItem?.name}</h3>
-                    <img src={this.state.selectedItem?.imgURL} alt="product" height="320"/>
-                    <h1>Product: {this.props.match.params.id}</h1>
-                    <h3>Url: {this.props.match.url}</h3>
+                    <ViewProduct itemData={this.state.selectedItem} />
                 </div>
             );
         } else{
