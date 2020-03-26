@@ -1,13 +1,14 @@
 import React, {CSSProperties} from 'react'
 import ProductCard from './ProductCard'
 import { items, Product } from '../items/itemList'
-import Grid from '@material-ui/core/Grid';
+import Grid from '@material-ui/core/Grid'
+import TextMobileStepper from './TextMobileStepper'
 
 export default function Home() {
     console.log(items)
     return (
-        <div style={homeContainer}
-        >
+        <div style={homeContainer}>
+            <TextMobileStepper/>
             <Grid 
                 container
                 spacing={3}
