@@ -24,7 +24,7 @@ const useStyles = makeStyles({
   });
   
   export default function ProductCard(props : Props) {
-    const classes = useStyles();
+    const classes = useStyles()
   
     return (
       <div>
@@ -37,7 +37,7 @@ const useStyles = makeStyles({
               title={props.itemData.imgURL + " Image"}
             />
             <CardContent>
-              <Typography gutterBottom variant="h5" component="h2">
+              <Typography variant="h5" component="h2">
                 {props.itemData.name}
               </Typography>
             </CardContent>
