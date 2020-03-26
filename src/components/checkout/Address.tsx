@@ -53,6 +53,7 @@ export default function BasicTextFields(props:Props) {
           <TextField id="standard-basic" label="E-Mail" value={props.eMail} onChange = {props.onChangeEMail}/>
           <TextField id="standard-basic" label="Mobile" value={props.mobNr} onChange = {props.onChangeMobNr}/>
         </form>
+        <br/>
         <Button variant="contained" 
           color="primary"
           onClick = {next}> Fortsätt </Button>
