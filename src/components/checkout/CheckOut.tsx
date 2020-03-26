@@ -34,7 +34,7 @@ export default class CheckOut extends React.Component<Props, State>{
             eMail:'',
             mobNr: '',
 
-            shippingMethod: '',
+            shippingMethod: 'PostNord Basic',
             shippingCost: '',
             deliveryDate:'',
         }   
@@ -62,13 +62,17 @@ export default class CheckOut extends React.Component<Props, State>{
       handleEMailInput = (event: { target: { value: any } }) => this.setState({eMail:event.target.value})
       handleMobNrInput = (event: { target: { value: any } }) => this.setState({mobNr:event.target.value})
 
+      //Sets shippinMethod-state value
       handleShippingRadio = (event: { target: { value: any; }; }) => {
           this.setState({shippingMethod:event.target.value})
-          console.log(this.state.shippingMethod)
           this.setShipmentDetails()
         }
 
+        //Sets shipment Details such as wich price and how many days depending on shipmentMethod. 
+        //THIS DOESN'T WORK!!! (wrong already in handleShippingMethod).
+        //Console.logs the most recent value, not the current
     setShipmentDetails = () =>{
+        console.log(this.state.shippingMethod)
         if(this.state.shippingMethod === 'PostNord Express'){
             this.setState({deliveryDate:'24h från nu'})
             this.setState({shippingCost: 99})
@@ -84,9 +88,10 @@ export default class CheckOut extends React.Component<Props, State>{
     }
 
       
-    
+    //Console logs Current shippingMethod-value, but TWO OF THEM
 
     render(){
+        console.log(this.state.shippingMethod)
         let total = 500 + this.state.shippingCost
         const { step } = this.state
         switch(step){
