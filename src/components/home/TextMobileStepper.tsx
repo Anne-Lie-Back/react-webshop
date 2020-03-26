@@ -2,7 +2,8 @@ import React,{useEffect} from 'react';
 import { makeStyles, Theme, useTheme, createStyles } from '@material-ui/core/styles';
 import MobileStepper from '@material-ui/core/MobileStepper';
 import Button from '@material-ui/core/Button';
-
+import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
+import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 
 const tutorialSteps = [
   {
@@ -68,7 +69,7 @@ export default function TextMobileStepper() {
   });
 
   return (
-    <div className={classes.root}>
+    <div className={classes.root} style={{margin:'0 0 1em 0'}} >
       <div
         className={classes.img}
         style={{
@@ -83,12 +84,12 @@ export default function TextMobileStepper() {
         activeStep={activeStep}
         nextButton={
           <Button size="small" onClick={handleNext}>
-            {theme.direction === 'rtl' ? "<" : ">"}
+            {theme.direction === 'rtl' ? <ArrowBackIosIcon/> : <ArrowForwardIosIcon/>}
           </Button>
         }
         backButton={
           <Button size="small" onClick={handleBack}>
-            {theme.direction === 'rtl' ? ">" : "<"}
+            {theme.direction === 'rtl' ? <ArrowForwardIosIcon/> : <ArrowBackIosIcon/>}
           </Button>
         }
       />
