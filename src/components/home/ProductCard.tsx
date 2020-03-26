@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {CSSProperties} from 'react'
 import { Product } from '../items/itemList'
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
@@ -24,12 +24,12 @@ const useStyles = makeStyles({
   });
   
   export default function ProductCard(props : Props) {
-    const classes = useStyles();
+    const classes = useStyles()
   
     return (
       <div>
         <Card className={classes.root}>
-        <Link to={"product/"+ props.itemData.id} >
+        <Link to={"product/"+ props.itemData.id} style={cardTitle}>
           <CardActionArea>
             <CardMedia
               className={classes.media}
@@ -37,7 +37,7 @@ const useStyles = makeStyles({
               title={props.itemData.imgURL + " Image"}
             />
             <CardContent>
-              <Typography gutterBottom variant="h5" component="h2">
+              <Typography variant="h5" component="h1">
                 {props.itemData.name}
               </Typography>
             </CardContent>
@@ -47,4 +47,9 @@ const useStyles = makeStyles({
         </Card>
       </div>
     );
+  }
+
+  const cardTitle:CSSProperties = {
+    color: '#000',
+    textDecoration: 'none' 
   }

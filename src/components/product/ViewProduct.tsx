@@ -32,14 +32,14 @@ export default function ViewProduct(props:Props) {
                 justify="center"
                 alignItems="center"
             >
-                <Grid item xs={12} sm={6}>
-                <CardMedia
-                    className={classes.media}
-                    image={props.itemData?.imgURL}
-                    title={props.itemData?.name + " image"}
-                    />
+                <Grid item xs={12} sm={6} md={4}>
+                    <CardMedia
+                        className={classes.media}
+                        image={props.itemData?.imgURL}
+                        title={props.itemData?.name + " image"}
+                        />
                 </Grid>
-                <Grid item xs={12} sm={6}>
+                <Grid item xs={12} sm={6} md={4}>
                     <CardContent>
                         <Typography gutterBottom variant="h3" component="h2">
                             {props.itemData?.name}

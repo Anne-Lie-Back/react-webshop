@@ -21,7 +21,7 @@ export default function PurchaseButtons(props : Props) {
   const classes = useStyles();
 
   return (
-    <div className={classes.root}>
+    <div className={classes.root} style={{padding:'0 1em 1em'}}>
       <Button 
         variant="contained"
         color="primary"
@@ -29,7 +29,7 @@ export default function PurchaseButtons(props : Props) {
         style={centerButton}
       >
         {props.itemPrice + " kr"}
-        <ShoppingCartIcon style={{ fontSize: 15, margin: '0 0 0 0.5em' }}/>
+        <ShoppingCartIcon style={ShoppingCartIconStyle}/>
       </Button>
     </div>
   );
@@ -37,4 +37,9 @@ export default function PurchaseButtons(props : Props) {
 
 const centerButton: CSSProperties = {
   margin:'auto',
+}
+
+const ShoppingCartIconStyle:CSSProperties={
+  fontSize: 15,
+  margin: '0 0 0 0.5em' 
 }
