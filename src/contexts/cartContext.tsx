@@ -12,6 +12,7 @@ interface State{
     cartList: Array<CartItem>
     addProduct:() => void
 }
+
 export class CartProvider extends React.Component<Props, State>{
     constructor(props: Props){
         super(props)
@@ -21,11 +22,14 @@ export class CartProvider extends React.Component<Props, State>{
         }
     }
 
+    // Push to array does not work in setState.
     addProduct = () => {
         this.setState({
             cartList: [...this.state.cartList, {id:1, nrItems:2}]
         })
     }
+
+    //TODO add functions: removeProduct(id), addToProduct(id, nrToAdd), subtractFromProduct(id,nrToAdd)
 
     render(){
         return(

@@ -7,10 +7,10 @@ export class CartIcon extends React.Component {
     render(){
         return(
             <CartContext.Consumer>
-                { (props) =>(
+                { (cartState) =>(
                     <div>
-                        <ShoppingCartOutlined />{props.cartList.length}
-                        <Button onClick={props.addProduct}>Add</Button>
+                        <ShoppingCartOutlined />{cartState.cartList.length}
+                        <Button onClick={cartState.addProduct}>Add</Button>
                     </div>
                 )}
             </CartContext.Consumer>
