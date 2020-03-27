@@ -34,7 +34,7 @@ export default class CheckOut extends React.Component<Props, State>{
             eMail:'',
             mobNr: '',
 
-            shippingMethod: 'PostNord Basic',
+            shippingMethod: 'PostNord Express',
             shippingCost: '',
             deliveryDate:'',
         }   
@@ -62,36 +62,30 @@ export default class CheckOut extends React.Component<Props, State>{
       handleEMailInput = (event: { target: { value: any } }) => this.setState({eMail:event.target.value})
       handleMobNrInput = (event: { target: { value: any } }) => this.setState({mobNr:event.target.value})
 
-      //Sets shippinMethod-state value
-      handleShippingRadio = (event: { target: { value: any; }; }) => {
-          this.setState({shippingMethod:event.target.value})
-          this.setShipmentDetails()
+      handleShippingRadio = (event: { target: { value: any } }) => { 
+        this.setShipmentDetails(event.target.value)
         }
 
-        //Sets shipment Details such as wich price and how many days depending on shipmentMethod. 
-        //THIS DOESN'T WORK!!! (wrong already in handleShippingMethod).
-        //Console.logs the most recent value, not the current
-    setShipmentDetails = () =>{
-        console.log(this.state.shippingMethod)
-        if(this.state.shippingMethod === 'PostNord Express'){
+    setShipmentDetails = (shipping:string) =>{
+        
+        if(shipping === 'PostNord Express'){
             this.setState({deliveryDate:'24h från nu'})
             this.setState({shippingCost: 99})
+            this.setState({shippingMethod: shipping})
             }
-        else if(this.state.shippingMethod === 'PostNord Basic'){
+        else if(shipping === 'PostNord Basic'){
             this.setState({deliveryDate:'4dagar'})
             this.setState({shippingCost: 39})
+            this.setState({shippingMethod: shipping})
         }
         else{
             this.setState({deliveryDate:'ha ha ha...'})
             this.setState({shippingCost: 0})
+            this.setState({shippingMethod: shipping})
         }
     }
 
-      
-    //Console logs Current shippingMethod-value, but TWO OF THEM
-
     render(){
-        console.log(this.state.shippingMethod)
         let total = 500 + this.state.shippingCost
         const { step } = this.state
         switch(step){
@@ -116,8 +110,10 @@ export default class CheckOut extends React.Component<Props, State>{
                             onChangeMobNr = {this.handleMobNrInput}        
                         />
                         <Shipping
+                            
                             shippingMethod = {this.state.shippingMethod}
-                            onRadioChange = {this.handleShippingRadio}
+                            onShipmentChange = {event =>this.handleShippingRadio(event)}
+                            
 /*                              shippingCost = {this.state.shippingCost}
                             deliveryDate = {this.state.deliveryDate}  */
                             />

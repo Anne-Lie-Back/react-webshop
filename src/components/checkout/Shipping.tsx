@@ -9,7 +9,7 @@ import Button from '@material-ui/core/Button'; */
 
 interface Props{
   shippingMethod:string,
-  onRadioChange: (event:any) => void
+  onShipmentChange: (event: { target: { value: any } }) => void
 /*    shippingCost:any,
   deliveryDate:any  */
 }
@@ -62,13 +62,14 @@ export default function Shipping(props:Props){
       <>
         <FormControl component="fieldset">
           <FormLabel component="legend">Betalsätt</FormLabel>
-          <RadioGroup aria-label="gender" name="gender1" value = {props.shippingMethod} onChange={props.onRadioChange}>
+          <RadioGroup aria-label="gender" name="gender1" value = {props.shippingMethod} onChange={props.onShipmentChange}>
             <h3>PostNord Express!</h3>
             <p>Leverans 24h. Pris: 99kr </p>
             <FormControlLabel
               value="PostNord Express" 
               control={<Radio />} 
-              label="PostNord Express" />
+              label="PostNord Express"
+               />
 
             <h3>PostNord Basic!</h3>
             <p>Leverans: 4 dagar. Pris: 39kr</p>
