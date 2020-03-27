@@ -7,3 +7,8 @@ export interface RouteMatch {
         id: string
     }
 }
+
+export interface CartItem{
+    id: number
+    nrItems: number
+}

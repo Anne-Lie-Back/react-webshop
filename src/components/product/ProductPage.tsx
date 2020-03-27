@@ -34,11 +34,9 @@ class ProductPage extends React.Component<Props, State>  {
             console.log("not found: " + inUrlId)
         }
     }
-
     componentDidMount(){
         this.findProduct(this.props.match.params.id)
     }
-
     render(){
         if(this.state.itemFound){
             return (
