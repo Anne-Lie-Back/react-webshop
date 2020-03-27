@@ -42,8 +42,9 @@ const footerStyle:CSSProperties = {
     backgroundColor: '#346933',
     width: '100vw',
     position: 'relative',
-    bottom: 0,
     height: '7em',
     padding: '1em',
     margin: '1em 0 0 0',
+    marginTop:'calc(15% + 7em)',
+    bottom: 0
 }

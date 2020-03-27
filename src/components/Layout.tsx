@@ -12,6 +12,9 @@ export default class Layout extends React.Component<Props, State> {
     render(){
          return (
             <BrowserRouter>
+                <div >
+
+                </div>
                 <Header/>
                     <Switch>
                         <Route path="/checkout">
@@ -32,3 +35,4 @@ export default class Layout extends React.Component<Props, State> {
         );   
     }
 }
+
