@@ -71,5 +71,4 @@ const logoStyle:CSSProperties = {
 
 const textLogoStyle:CSSProperties = {
     WebkitTextStroke: '0.02em black',
-
 }
