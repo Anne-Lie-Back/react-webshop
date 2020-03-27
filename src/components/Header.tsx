@@ -3,8 +3,7 @@ import { Link } from 'react-router-dom'
 import Container from '@material-ui/core/Container'
 import { Typography } from '@material-ui/core'
 import { Grid } from '@material-ui/core'
-import IconButton from '@material-ui/core/IconButton'
-import ShoppingCartIcon from '@material-ui/icons/ShoppingCart'
+import { CartIcon } from './CartIcon'
 
 export default function Header() {
     const logo = require("./items/images/logo.png")
@@ -45,11 +44,12 @@ export default function Header() {
             </Link>
                 <Grid item>
                     <Link to="/checkout">
-                        <IconButton color="secondary" 
+                        {/* <IconButton color="secondary" 
                             style={{border:'solid #9cba98 0.2em'
                             }}>
                             <ShoppingCartIcon fontSize="large" color="error"/>
-                        </IconButton>
+                        </IconButton> */}
+                        <CartIcon />
                     </Link>
                 </Grid>
             </Grid>
