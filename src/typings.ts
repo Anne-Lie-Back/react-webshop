@@ -17,8 +17,12 @@ export interface customerInfo {
     firstName: string
     lastName: string
     address: string
-    zipCode: number
+    zipCode: any
     city: string
     email: string
-    mobile: number
+    mobile: any
+
+    shippingMethod: string
+    shippingCost:any
+    deliveryDate:any
 }

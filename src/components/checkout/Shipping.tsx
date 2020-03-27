@@ -61,30 +61,7 @@ export default function Shipping(props:Props){
     return (
       <>
         <FormControl component="fieldset">
-          <FormLabel component="legend">Betalsätt</FormLabel>
-          <RadioGroup aria-label="gender" name="gender1" value = {props.shippingMethod} onChange={props.onShipmentChange}>
-            <h3>PostNord Express!</h3>
-            <p>Leverans 24h. Pris: 99kr </p>
-            <FormControlLabel
-              value="PostNord Express" 
-              control={<Radio />} 
-              label="PostNord Express"
-               />
 
-            <h3>PostNord Basic!</h3>
-            <p>Leverans: 4 dagar. Pris: 39kr</p>
-            <FormControlLabel
-                value="PostNord Basic" 
-                control={<Radio />} 
-                label="PostNord Basic" />
-
-            <h3>PostMord!</h3>
-            <p>Leverans: Aldrig. Pris: Fri frakt </p>
-            <FormControlLabel 
-                value="PostMord" 
-                control={<Radio />} 
-                label="PostMord" />
-          </RadioGroup>
         </FormControl>
 {/*         <Button variant="contained" 
             color="primary"
