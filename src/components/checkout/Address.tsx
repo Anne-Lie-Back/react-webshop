@@ -1,10 +1,10 @@
 import React from 'react';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
+//import Button from '@material-ui/core/Button';
 
 interface Props{
-    nextStep: () => void
+
     firstName: string
     onChangeFirstName: (event:any) => void
     lastName: string
@@ -34,10 +34,10 @@ const useStyles = makeStyles((theme: Theme) =>
 export default function BasicTextFields(props:Props) {
   const classes = useStyles();
 
-  const next = (event: { preventDefault: () => void; }) => {
+/*   const next = (event: { preventDefault: () => void; }) => {
     event.preventDefault();
     props.nextStep();
-  }
+  } */
 
   return (
     <>
@@ -53,10 +53,6 @@ export default function BasicTextFields(props:Props) {
           <TextField id="standard-basic" color="secondary" label="E-Mail" value={props.eMail} onChange = {props.onChangeEMail}/>
           <TextField id="standard-basic" color="secondary" label="Mobile" value={props.mobNr} onChange = {props.onChangeMobNr}/>
         </form>
-        <br/>
-        <Button variant="contained" 
-          color="primary"
-          onClick = {next}> Fortsätt </Button>
     </>
   );
 }
