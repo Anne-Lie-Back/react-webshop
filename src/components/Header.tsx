@@ -1,11 +1,10 @@
 import React,{ CSSProperties } from 'react'
 import { Link } from 'react-router-dom'
 import Container from '@material-ui/core/Container'
-import { Typography } from '@material-ui/core';
+import { Typography } from '@material-ui/core'
 import { Grid } from '@material-ui/core'
-import IconButton from '@material-ui/core/IconButton';
-import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
-
+import IconButton from '@material-ui/core/IconButton'
+import ShoppingCartIcon from '@material-ui/icons/ShoppingCart'
 
 export default function Header() {
     const logo = require("./items/images/logo.png")
@@ -55,7 +54,7 @@ export default function Header() {
                 </Grid>
             </Grid>
         </Container>
-    );
+    )
 }
 
 const headerStyle:CSSProperties = {
