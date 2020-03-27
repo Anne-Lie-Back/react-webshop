@@ -45,7 +45,7 @@ export default function BasicTextFields(props:Props) {
           <TextField id="standard-basic" color="secondary" label="Förnamn" value={props.firstName} onChange = {props.onChangeFirstName}/>
           <TextField id="standard-basic" color="secondary" label="Efternamn" value={props.lastName} onChange = {props.onChangeLastName}/>
           <br/>
-          <TextField id="standard-basic" label="Adress" value={props.address} onChange = {props.onChangeAddress}/>
+          <TextField id="standard-full-width" label="Adress" style = {{width:'52ch'}}value={props.address} onChange = {props.onChangeAddress}/>
           <br/>
           <TextField id="standard-basic" color="secondary" label="Postnummer" value={props.zipCode} onChange = {props.onChangeZipCode}/>
           <TextField id="standard-basic" color="secondary" label="Ort" value={props.city} onChange = {props.onChangeCity}/>
