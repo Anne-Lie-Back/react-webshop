@@ -1,7 +1,7 @@
 import React from 'react'
 import { CartContext } from '../contexts/cartContext'
-import ShoppingCartOutlined from '@material-ui/icons/ShoppingCartOutlined'
-import { Button } from '@material-ui/core'
+import { IconButton } from '@material-ui/core'
+import ShoppingCartIcon from '@material-ui/icons/ShoppingCart'
 
 export class CartIcon extends React.Component {
     render(){
@@ -9,8 +9,11 @@ export class CartIcon extends React.Component {
             <CartContext.Consumer>
                 { (cartState) =>(
                     <div>
-                        <ShoppingCartOutlined />{cartState.cartList.length}
-                        <Button onClick={cartState.addProduct}>Add</Button>
+                        <IconButton color="secondary" 
+                            style={{border:'solid #9cba98 0.2em'
+                            }}>
+                            {cartState.cartList.length}<ShoppingCartIcon fontSize="large" color="error"/>
+                        </IconButton>
                     </div>
                 )}
             </CartContext.Consumer>
