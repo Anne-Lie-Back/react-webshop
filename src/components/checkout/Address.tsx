@@ -42,16 +42,16 @@ export default function BasicTextFields(props:Props) {
   return (
     <>
         <form className={classes.root} noValidate autoComplete="off">
-          <TextField id="standard-basic" label="Förnamn" value={props.firstName} onChange = {props.onChangeFirstName}/>
-          <TextField id="standard-basic" label="Efternamn" value={props.lastName} onChange = {props.onChangeLastName}/>
+          <TextField id="standard-basic" color="secondary" label="Förnamn" value={props.firstName} onChange = {props.onChangeFirstName}/>
+          <TextField id="standard-basic" color="secondary" label="Efternamn" value={props.lastName} onChange = {props.onChangeLastName}/>
           <br/>
           <TextField id="standard-basic" label="Adress" value={props.address} onChange = {props.onChangeAddress}/>
           <br/>
-          <TextField id="standard-basic" label="Postnummer" value={props.zipCode} onChange = {props.onChangeZipCode}/>
-          <TextField id="standard-basic" label="Ort" value={props.city} onChange = {props.onChangeCity}/>
+          <TextField id="standard-basic" color="secondary" label="Postnummer" value={props.zipCode} onChange = {props.onChangeZipCode}/>
+          <TextField id="standard-basic" color="secondary" label="Ort" value={props.city} onChange = {props.onChangeCity}/>
           <br/>
-          <TextField id="standard-basic" label="E-Mail" value={props.eMail} onChange = {props.onChangeEMail}/>
-          <TextField id="standard-basic" label="Mobile" value={props.mobNr} onChange = {props.onChangeMobNr}/>
+          <TextField id="standard-basic" color="secondary" label="E-Mail" value={props.eMail} onChange = {props.onChangeEMail}/>
+          <TextField id="standard-basic" color="secondary" label="Mobile" value={props.mobNr} onChange = {props.onChangeMobNr}/>
         </form>
         <br/>
         <Button variant="contained" 
