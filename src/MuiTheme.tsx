@@ -10,9 +10,9 @@ export default createMuiTheme({
       "paper":"#fff",
       "default":"#f5faf6"
     },"primary":{ 
-      "light":"#fafffb",
+      "light":"#a2d293",
       "main":"#558b2f",
-      "dark":"#33691e",
+      "dark":"#346933",
       "contrastText":"#fff"
     },"secondary":{
       "light":"#98ee99",
@@ -21,7 +21,7 @@ export default createMuiTheme({
       "contrastText":"#fff"
     },"error":{
       "light":"#be9c91",
-      "main":"#8d6e63",
+      "main":"#9cba98",
       "dark":"#5f4339",
       "contrastText":"#fff"
     },"text":{
