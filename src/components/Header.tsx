@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { CartIcon } from './CartIcon'
 
 export default function Header() {
 
@@ -14,6 +15,7 @@ export default function Header() {
                     <Link to="/checkout">Checkout</Link>
                 </li>
             </ul>
+            <CartIcon />
         </div>
     );
 }
