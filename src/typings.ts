@@ -12,3 +12,13 @@ export interface CartItem{
     id: number
     nrItems: number
 }
+
+export interface customerInfo {
+    firstName: string
+    lastName: string
+    address: string
+    zipCode: number
+    city: string
+    email: string
+    mobile: number
+}

@@ -1,20 +1,17 @@
 import React, {CSSProperties} from 'react'
-import Address from './Address'
+import AddressForm from './Address'
 import Shipping from './Shipping'
 import Button from '@material-ui/core/Button';
+import { customerInfo } from './../../typings'
 
 interface Props{
 }
+
+
 interface State{
     step:number,
 
-    firstName:string,
-    lastName:string,
-    address: string,
-    zipCode: any,
-    city: string
-    eMail: string,
-    mobNr:any,
+    customerInfo?: customerInfo
 
     shippingMethod:string,
     shippingCost:any,
@@ -26,13 +23,8 @@ export default class CheckOut extends React.Component<Props, State>{
         super(props)
         this.state = {
             step: 1,
-            firstName: '',
-            lastName: '',
-            address: '',
-            zipCode: '',
-            city: '',
-            eMail:'',
-            mobNr: '',
+           
+            customerInfo: undefined
 
             shippingMethod: 'PostNord Express',
             shippingCost: '',
@@ -85,6 +77,14 @@ export default class CheckOut extends React.Component<Props, State>{
         }
     }
 
+    private onSubmit = (customerInfoFromForm: customerInfo) => {
+        // Sätt stateeet i CheckOut
+        this.setState({
+            customerInfo: customerInfoFromForm
+            step: 2
+        })
+    } 
+
     render(){
         let total = 500 + this.state.shippingCost
         const { step } = this.state
@@ -93,22 +93,7 @@ export default class CheckOut extends React.Component<Props, State>{
                 return(
                     <>
                         <h2>Här är listan på allt du vill köpa! (eller kommer vara)</h2>
-                        <Address 
-                            firstName = {this.state.firstName}
-                            onChangeFirstName = {this.handleFirstNameInput}
-                            lastName = {this.state.lastName}
-                            onChangeLastName = {this.handleLastNameInput}
-                            address = {this.state.address}
-                            onChangeAddress = {this.handleAddressInput}
-                            zipCode = {this.state.zipCode}
-                            onChangeZipCode = {this.handleZipCodeInput}
-                            city = {this.state.city}
-                            onChangeCity = {this.handleCityInput}   
-                            eMail = {this.state.eMail}
-                            onChangeEMail = {this.handleEMailInput}
-                            mobNr = {this.state.mobNr}
-                            onChangeMobNr = {this.handleMobNrInput}        
-                        />
+                        <AddressForm onSubmit={this.onSubmit}/>
                         <Shipping
                             
                             shippingMethod = {this.state.shippingMethod}
@@ -126,32 +111,34 @@ export default class CheckOut extends React.Component<Props, State>{
                     </>
                 )
             case 2:
-                return(
-                    <div style = {temporaryStyling}>
-                        <p>Skickas till:</p>
-                        <p>{this.state.firstName} {this.state.lastName}</p>
-                        <p>{this.state.address}</p>
-                        <p>{this.state.zipCode} {this.state.city}</p>
-                        <br/>
-                        <p>E-Mail: {this.state.eMail}</p>
-                        <p>Mobilnummer: {this.state.mobNr}</p>
-
-                        <br/>
-
-                        <p>Valt Fraktsätt: {this.state.shippingMethod} </p>
-                        <p>Förväntad fraktdag: {this.state.deliveryDate} </p>
-                        <p> Kostnad: 500kr plus frakt (+{this.state.shippingCost}kr)</p>
-                        <p>Totalkostnad: {total}</p>
-
-                        <b/>
-                        <h5>Funktionen att det stämmer finns inte än</h5>
-                        <Button variant="contained" 
-                            color="primary"
-                            onClick = {this.previousStep}> Stämmer inte?
-                        </Button>
-
-                    </div>
-                )
+                if(this.state.customerInfo) {
+                    return(
+                        <div style = {temporaryStyling}>
+                            <p>Skickas till:</p>
+                            <p>{this.state.customerInfo.firstName} {this.state.lastName}</p>
+                            <p>{this.state.customerInfo.address}</p>
+                            <p>{this.state.customerInfo.zipCode} {this.state.city}</p>
+                            <br/>
+                            <p>E-Mail: {this.customerInfo.state.eMail}</p>
+                            <p>Mobilnummer: {this.state.mobNr}</p>
+    
+                            <br/>
+    
+                            <p>Valt Fraktsätt: {this.state.shippingMethod} </p>
+                            <p>Förväntad fraktdag: {this.state.deliveryDate} </p>
+                            <p> Kostnad: 500kr plus frakt (+{this.state.shippingCost}kr)</p>
+                            <p>Totalkostnad: {total}</p>
+    
+                            <b/>
+                            <h5>Funktionen att det stämmer finns inte än</h5>
+                            <Button variant="contained" 
+                                color="primary"
+                                onClick = {this.previousStep}> Stämmer inte?
+                            </Button>
+    
+                        </div>
+                    )
+                }
         }
     }
 }
