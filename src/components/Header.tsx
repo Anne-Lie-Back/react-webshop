@@ -16,12 +16,16 @@ export default function Header() {
             backgroundPosition: 'center'
         }
     }
+
     let screenSize = useMediaQuery('(min-width:430px)')
     let imageSize = {width:'4em'}
     let headerSize = {height:'6em'}
-    if(useMediaQuery('(min-width:430px)')){
+    let shoppingLogoY = {top:'0.0em'}
+
+    if(screenSize===true){
         imageSize = {width:'6em'}
         headerSize = {height:'8em'}
+        shoppingLogoY = {top:'1em'}
     }
 
     return (
@@ -40,28 +44,28 @@ export default function Header() {
                     alignItems="center"
                     spacing={3}
                 > 
-                <Grid item>
-                    <img src={logo} alt="" style={imageSize}/>
+                    <Grid item>
+                        <img src={logo} alt="" style={imageSize}/>
+                    </Grid>
+                    <Grid item>
+                        <Typography 
+                            variant={screenSize? "h3" : "h5"}
+                            color="error" 
+                            style={textLogoStyle}
+                        >
+                            Tekulan
+                        </Typography>
+                    </Grid>
                 </Grid>
-                <Grid item>
-                    <Typography 
-                        variant={screenSize? "h3" : "h5"}
-                        color="error" 
-                        style={textLogoStyle}
-                    >
-                        Tekulan
-                    </Typography>
-                </Grid>
-            </Grid>
             </Link>
                 <Grid item>
-                    <Link to="/checkout">
+                    <Link to="/checkout" style={{textDecoration: 'none',...shoppingLogoPos,...shoppingLogoY}}>
                         {/* <IconButton color="secondary" 
                             style={{border:'solid #9cba98 0.2em'
                             }}>
                             <ShoppingCartIcon fontSize="large" color="error"/>
                         </IconButton> */}
-                        <CartIcon />
+                        <CartIcon/>
                     </Link>
                 </Grid>
             </Grid>
@@ -79,4 +83,8 @@ const headerStyle:CSSProperties = {
 
 const textLogoStyle:CSSProperties = {
     WebkitTextStroke: '0.02em black',
+}
+
+const shoppingLogoPos:CSSProperties = {
+    position: 'relative',
 }
