@@ -2,6 +2,7 @@ import React, {CSSProperties} from 'react'
 import Address from './Address'
 import Shipping from './Shipping'
 import Button from '@material-ui/core/Button';
+import ShoppingCart from '../ShoppingCart';
 
 interface Props{
 }
@@ -93,6 +94,7 @@ export default class CheckOut extends React.Component<Props, State>{
                 return(
                     <>
                         <h2>Här är listan på allt du vill köpa! (eller kommer vara)</h2>
+                        <ShoppingCart/>
                         <Address 
                             firstName = {this.state.firstName}
                             onChangeFirstName = {this.handleFirstNameInput}
