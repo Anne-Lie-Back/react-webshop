@@ -8,14 +8,7 @@ import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 export default function Header() {
     const logo = require("./items/images/logo.png")
-    const wave = {
-        backgroundIMG: {
-            backgroundImage: `url(${require("./items/images/wave.png")})`,
-            backgroundRepeat: 'no-repeat',
-            backgroundSize: 'contain',
-            backgroundPosition: 'center'
-        }
-    }
+
 
     let screenSize = useMediaQuery('(min-width:430px)')
     let imageSize = {width:'4em'}
@@ -29,7 +22,7 @@ export default function Header() {
     }
 
     return (
-        <Container style={{...headerStyle,...headerSize,...wave.backgroundIMG}} maxWidth={false}>
+        <Container style={{...headerStyle, ...headerSize, ...wave}} maxWidth={false}>
             <Grid
                 container
                 direction="row"
@@ -87,4 +80,11 @@ const textLogoStyle:CSSProperties = {
 
 const shoppingLogoPos:CSSProperties = {
     position: 'relative',
+}
+
+const wave:CSSProperties = {
+    backgroundImage: `url(${require("./items/images/wave.png")})`,
+    backgroundRepeat: 'no-repeat',
+    backgroundSize: 'contain',
+    backgroundPosition: 'center'
 }
