@@ -2,6 +2,8 @@ import React, {CSSProperties} from 'react'
 import Address from './Address'
 import Shipping from './Shipping'
 import Button from '@material-ui/core/Button';
+import Container from '@material-ui/core/Container';
+
 
 interface Props{
 }
@@ -91,7 +93,7 @@ export default class CheckOut extends React.Component<Props, State>{
         switch(step){
             case 1:
                 return(
-                    <>
+                    <Container>
                         <h2>Här är listan på allt du vill köpa! (eller kommer vara)</h2>
                         <Address 
                             firstName = {this.state.firstName}
@@ -123,10 +125,11 @@ export default class CheckOut extends React.Component<Props, State>{
                             color="primary"
                             onClick = {this.nextStep}> Fortsätt 
                         </Button>
-                    </>
+                    </Container>
                 )
             case 2:
                 return(
+                    <Container>
                     <div style = {temporaryStyling}>
                         <p>Skickas till:</p>
                         <p>{this.state.firstName} {this.state.lastName}</p>
@@ -151,6 +154,7 @@ export default class CheckOut extends React.Component<Props, State>{
                         </Button>
 
                     </div>
+                    </Container>
                 )
         }
     }
