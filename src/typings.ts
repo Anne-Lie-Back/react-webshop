@@ -15,14 +15,18 @@ export interface CartItem{
 
 export interface customerInfo {
     firstName: string
-    error: boolean
+    isFirstNameError: boolean
     firstNameError: string
     lastName: string
+    isLastNameError: boolean,
+    lastNameError: string,
     address: string
     zipCode: any
     city: string
     email: string
     mobile: any
+    isMobileError: boolean,
+    mobileError: string,
 
     shippingMethod: string
     shippingCost:any

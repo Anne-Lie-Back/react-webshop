@@ -1,11 +1,11 @@
-import React, { CSSProperties } from 'react';
-import { createStyles, makeStyles, Theme, withStyles } from '@material-ui/core/styles';
+import React from 'react';
+//import { createStyles, makeStyles, Theme, withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormControl from '@material-ui/core/FormControl';
+//import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
 import { customerInfo } from './../../typings'
 //import Button from '@material-ui/core/Button';
@@ -36,21 +36,25 @@ interface Props {
 
 
 
-export class AddressForm extends React.Component<Props, customerInfo> {
+export default class AddressForm extends React.Component<Props, customerInfo> {
 
   constructor(props: Props) {
     super(props)
     this.state = {
       //errorColor: 'noErrorColor',
       firstName: '',
-      error: false,
+      isFirstNameError: false,
       firstNameError: '',
       lastName: '',
+      isLastNameError: false,
+      lastNameError: '',
       address: '',
       zipCode: 0,
       city: '',
       email: '',
       mobile: 0,
+      isMobileError: false,
+      mobileError: '',
 
       shippingMethod:'',
       deliveryDate:'',
@@ -61,14 +65,31 @@ export class AddressForm extends React.Component<Props, customerInfo> {
    validateInput = () =>{
     
     let isError = false
-    const errors = {firstNameError:'', error: false};
+    const errors = {firstNameError:'', isFirstNameError: false, lastNameError:'', isLastNameError:false, mobileError:'', isMobileError: false};
 
-    if(this.state.firstName.length < 5){
+    if(this.state.firstName.length < 1){
       isError = true
       //errors.errorColor = 'errorColor'
       errors.firstNameError = 'too short username'
-      errors.error = true
-      
+      errors.isFirstNameError = true   
+    }
+
+    if(this.state.lastName.length < 2){
+      isError = true
+      //errors.errorColor = 'errorColor'
+      errors.lastNameError = 'too short username'
+      errors.isLastNameError = true   
+    }
+
+    const phoneVal = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/
+
+    if( this.state.mobile.match(phoneVal)){
+        errors.isMobileError = false
+    }
+    else{
+      isError = true
+      errors.mobileError =  'Behöver vara 10 siffror'
+      errors.isMobileError = true
     }
 
     if(isError){
@@ -120,8 +141,8 @@ export class AddressForm extends React.Component<Props, customerInfo> {
     return (
       <>
           <form autoComplete="on" >
-            <TextField id="standard"  error = {this.state.error} label="Förnamn" value={this.state.firstName} helperText = {this.state.firstNameError} onChange={(event) => { this.setState({ firstName: event.target.value }) }} />
-            <TextField id="standard-basic" color="secondary" label="Efternamn" value={this.state.lastName} onChange={(event) => { this.setState({ lastName: event.target.value }) }}/>
+            <TextField id="standard"   label="Förnamn" value={this.state.firstName} error = {this.state.isFirstNameError} helperText = {this.state.firstNameError} onChange={(event) => { this.setState({ firstName: event.target.value }) }} />
+            <TextField id="standard-basic" color="secondary" label="Efternamn" value={this.state.lastName}  error = {this.state.isLastNameError} helperText = {this.state.lastNameError} onChange={(event) => { this.setState({ lastName: event.target.value }) }}/>
             <br/>
             <TextField id="standard-basic" color="secondary" label="Adress" style = {{width:'52ch'}} value={this.state.address} onChange={(event) => { this.setState({address: event.target.value}) }}/>
             <br/>
@@ -129,7 +150,7 @@ export class AddressForm extends React.Component<Props, customerInfo> {
             <TextField id="standard-basic" color="secondary" label="Ort" value={this.state.city} onChange ={(event) => { this.setState({ city: event.target.value }) }}/>
             <br/>
             <TextField id="standard-basic" color="secondary" label="E-Mail" value={this.state.email} onChange ={(event) => { this.setState({ email:event.target.value }) }} />
-            <TextField id="standard-basic" color="secondary" label="Mobile" value={this.state.mobile} onChange ={(event) => { this.setState({ mobile: event.target.value }) }}/>
+            <TextField id="standard-basic" color="secondary" label="Mobile" value={this.state.mobile} error = {this.state.isMobileError} helperText = {this.state.mobileError} onChange ={(event) => { this.setState({ mobile: event.target.value }) }}/>
           
           </form>
 
@@ -172,7 +193,7 @@ export class AddressForm extends React.Component<Props, customerInfo> {
 
 }
 
-export default withStyles(styles)(AddressForm);
+//export default withStyles(styles)(AddressForm);
 
 /* const RedColor:CSSProperties = {
   color: 'red'
