@@ -1,8 +1,9 @@
 import React from 'react'
 import { CartItem } from '../typings'
+import { items } from '../components/items/itemList'
 
 export const CartContext = React.createContext<State>({
-    cartList: [{id:1, nrItems:1}],
+    cartList: [{id:1, nrItems:1, product:{name:"placeholder", id:0 , price:0, description:"",imgURL:""}}],
     addProduct: () => {},
     removeItemFromCart: () => {}
 })
@@ -46,7 +47,12 @@ export class CartProvider extends React.Component<Props, State>{
             console.log(updatedCartList)
         } else {
             if(inNrItems > 0){
-                updatedCartList.push({id: inItemId, nrItems: inNrItems})
+                const product = items.find(({id}) => id === inItemId)
+                if(product){
+                    updatedCartList.push({id: inItemId, nrItems: inNrItems, product:product})
+                } else{
+                    console.log("product not found")
+                }
                 console.log("push new item to list " )
                 console.log(updatedCartList)
                 this.setState({
