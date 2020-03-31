@@ -21,20 +21,9 @@ import { customerInfo } from './../../typings'
   }),
 ); */
 
-/* const styles = {
-  errorColor: {
-    color: 'red'
-  },
-  noErrorColor:{
-    color: 'primary'
-  }
-}; */
-
 interface Props {
   onSubmit: (customerInfo: customerInfo) => void
 }
-
-
 
 export default class AddressForm extends React.Component<Props, customerInfo> {
 
@@ -59,7 +48,12 @@ export default class AddressForm extends React.Component<Props, customerInfo> {
       isZipCodeError: false,
 
       city: '',
+      cityError: '',
+      isCityError: false,
+
       email: '',
+      emailError: '',
+      isEmailError: false,
 
       mobile: '+46',
       isMobileError: false,
@@ -74,8 +68,8 @@ export default class AddressForm extends React.Component<Props, customerInfo> {
    validateInput = () =>{
     
     let isError = false
-    const errors = {firstNameError:'', isFirstNameError: false, lastNameError:'', isLastNameError:false, mobileError:'', isMobileError: false, isAddressError: false, 
-    addressError: '', isZipCodeError:false, zipCodeError:''};
+    const errors = {firstNameError:'', isFirstNameError: false, lastNameError:'', isLastNameError:false, isAddressError: false, 
+    addressError: '', isZipCodeError:false, zipCodeError:'', isCityError: false, cityError:'', emailError:'', isEmailError: false, mobileError:'', isMobileError: false, };
 
     if(this.state.firstName.length < 1){
       isError = true
@@ -98,6 +92,13 @@ export default class AddressForm extends React.Component<Props, customerInfo> {
       errors.isAddressError = true   
     }
 
+    if(this.state.city.length < 1){
+      isError = true
+      //errors.errorColor = 'errorColor'
+      errors.cityError = 'Där kan man inte bo'
+      errors.isCityError = true   
+    }
+
     const zipCodeVal = /^\d{5}$/
 
     if( this.state.zipCode.match(zipCodeVal)){
@@ -109,6 +110,18 @@ export default class AddressForm extends React.Component<Props, customerInfo> {
       errors.isZipCodeError = true
   }
 
+   const mailVal = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
+
+    if (mailVal.test(this.state.email)){
+        errors.isEmailError = false
+      }
+    else{
+      isError = true
+      errors.emailError =  'ogiltig e-mail'
+      errors.isEmailError = true
+    } 
+    
+
     const phoneVal = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/
 
     if( this.state.mobile.match(phoneVal)){
@@ -116,12 +129,9 @@ export default class AddressForm extends React.Component<Props, customerInfo> {
     }
     else{
       isError = true
-      errors.mobileError =  'inte giltigt mobilnummer-format'
+      errors.mobileError =  'ogiltigt mobilnummer-format'
       errors.isMobileError = true
     }
-
-
-
 
     if(isError){
       this.setState({
@@ -178,9 +188,9 @@ export default class AddressForm extends React.Component<Props, customerInfo> {
             <TextField id="standard-basic" color="secondary" label="Adress" style = {{width:'52ch'}} value={this.state.address} error = {this.state.isAddressError} helperText = {this.state.addressError} onChange={(event) => { this.setState({address: event.target.value}) }}/>
             <br/>
             <TextField id="standard-basic" color="secondary" label="Postnummer" value={this.state.zipCode} error = {this.state.isZipCodeError} helperText = {this.state.zipCodeError} onChange = {(event) => { this.setState({ zipCode: event.target.value }) }}/>
-            <TextField id="standard-basic" color="secondary" label="Ort" value={this.state.city} onChange ={(event) => { this.setState({ city: event.target.value }) }}/>
+            <TextField id="standard-basic" color="secondary" label="Ort" value={this.state.city} error = {this.state.isCityError} helperText = {this.state.cityError} onChange ={(event) => { this.setState({ city: event.target.value }) }}/>
             <br/>
-            <TextField id="standard-basic" color="secondary" label="E-Mail" value={this.state.email} onChange ={(event) => { this.setState({ email:event.target.value }) }} />
+            <TextField id="standard-basic" color="secondary" label="E-Mail" value={this.state.email} error = {this.state.isEmailError} helperText = {this.state.emailError} onChange ={(event) => { this.setState({ email:event.target.value }) }} />
             <TextField id="standard-basic" color="secondary" label="Mobile" value={this.state.mobile} error = {this.state.isMobileError} helperText = {this.state.mobileError} onChange ={(event) => { this.setState({ mobile: event.target.value }) }}/>
           
           </form>
