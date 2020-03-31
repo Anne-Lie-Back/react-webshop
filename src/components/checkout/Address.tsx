@@ -8,7 +8,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import FormLabel from '@material-ui/core/FormLabel';
-import { customerInfo } from './../../typings'
+import { CustomerInfo } from './../../typings'
 //import Button from '@material-ui/core/Button';
 
 /* const useStyles = makeStyles((theme: Theme) =>
@@ -23,10 +23,11 @@ import { customerInfo } from './../../typings'
 ); */
 
 interface Props {
-  onSubmit: (customerInfo: customerInfo) => void
+  onSubmit: (customerInfo: CustomerInfo) => void
+  customerInfo: any
 }
 
-export default class AddressForm extends React.Component<Props, customerInfo> {
+export default class AddressForm extends React.Component<Props, CustomerInfo> {
 
   constructor(props: Props) {
     super(props)
@@ -72,32 +73,29 @@ export default class AddressForm extends React.Component<Props, customerInfo> {
     
     let isError = false
     const errors = {firstNameError:'', isFirstNameError: false, lastNameError:'', isLastNameError:false, isAddressError: false, 
-    addressError: '', isZipCodeError:false, zipCodeError:'', isCityError: false, cityError:'', emailError:'', isEmailError: false, mobileError:'', isMobileError: false, isShippingError:false, shippingError:'Välj ett fraktsätt' };
+      addressError: '', isZipCodeError:false, zipCodeError:'', isCityError: false, cityError:'', emailError:'', isEmailError: false, 
+      mobileError:'', isMobileError: false, isShippingError:false, shippingError: 'Välj ett fraktsätt' };
 
     if(this.state.firstName.length < 1){
       isError = true
-      //errors.errorColor = 'errorColor'
       errors.firstNameError = 'Minst 2 bokstäver'
       errors.isFirstNameError = true   
     }
 
     if(this.state.lastName.length < 1){
       isError = true
-      //errors.errorColor = 'errorColor'
       errors.lastNameError = 'Minst 2 bokstäver'
       errors.isLastNameError = true   
     }
 
     if(this.state.address.length < 2){
       isError = true
-      //errors.errorColor = 'errorColor'
       errors.addressError = 'Minst 3 tecken'
       errors.isAddressError = true   
     }
 
     if(this.state.city.length < 1){
       isError = true
-      //errors.errorColor = 'errorColor'
       errors.cityError = 'Där kan man inte bo'
       errors.isCityError = true   
     }
@@ -106,14 +104,14 @@ export default class AddressForm extends React.Component<Props, customerInfo> {
 
     if( this.state.zipCode.match(zipCodeVal)){
       errors.isZipCodeError = false
-  }
-    else{
-      isError = true
-      errors.zipCodeError =  'inte giltigt postnummer-format'
-      errors.isZipCodeError = true
-  }
+    }
+      else{
+        isError = true
+        errors.zipCodeError =  'fem siffror'
+        errors.isZipCodeError = true
+    }
 
-   const mailVal = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
+    const mailVal = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
 
     if (mailVal.test(this.state.email)){
         errors.isEmailError = false
@@ -124,7 +122,6 @@ export default class AddressForm extends React.Component<Props, customerInfo> {
       errors.isEmailError = true
     } 
     
-
     const phoneVal = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/
 
     if( this.state.mobile.match(phoneVal)){
@@ -191,43 +188,98 @@ export default class AddressForm extends React.Component<Props, customerInfo> {
     return (
       <>
           <form autoComplete="on" >
-            <TextField id="standard"   label="Förnamn" value={this.state.firstName} error = {this.state.isFirstNameError} helperText = {this.state.firstNameError} onChange={(event) => { this.setState({ firstName: event.target.value }) }} />
-            <TextField id="standard-basic" color="secondary" label="Efternamn" value={this.state.lastName}  error = {this.state.isLastNameError} helperText = {this.state.lastNameError} onChange={(event) => { this.setState({ lastName: event.target.value }) }}/>
+            <TextField 
+              id="standard-basic" label="Förnamn" 
+              value={this.state.firstName} 
+              error = {this.state.isFirstNameError} 
+              helperText = {this.state.firstNameError} 
+              onChange={(event) => { this.setState({ firstName: event.target.value }) }} 
+            />
+            <TextField 
+              id="standard-basic" 
+              color="secondary" 
+              label="Efternamn" 
+              value={this.state.lastName}  
+              error = {this.state.isLastNameError} 
+              helperText = {this.state.lastNameError} 
+              onChange={(event) => { this.setState({ lastName: event.target.value }) }}/>
             <br/>
-            <TextField id="standard-basic" color="secondary" label="Adress" style = {{width:'52ch'}} value={this.state.address} error = {this.state.isAddressError} helperText = {this.state.addressError} onChange={(event) => { this.setState({address: event.target.value}) }}/>
+            <TextField 
+              id="standard-basic" 
+              color="secondary" 
+              label="Adress" 
+              style = {{width:'52ch'}} 
+              value={this.state.address} 
+              error = {this.state.isAddressError} 
+              helperText = {this.state.addressError} 
+              onChange={(event) => { this.setState({address: event.target.value}) }}
+            />
             <br/>
-            <TextField id="standard-basic" color="secondary" label="Postnummer" value={this.state.zipCode} error = {this.state.isZipCodeError} helperText = {this.state.zipCodeError} onChange = {(event) => { this.setState({ zipCode: event.target.value }) }}/>
-            <TextField id="standard-basic" color="secondary" label="Ort" value={this.state.city} error = {this.state.isCityError} helperText = {this.state.cityError} onChange ={(event) => { this.setState({ city: event.target.value }) }}/>
+            <TextField 
+              id="standard-basic" 
+              color="secondary" 
+              label="Postnummer" 
+              value={this.state.zipCode} 
+              error = {this.state.isZipCodeError} 
+              helperText = {this.state.zipCodeError} 
+              onChange = {(event) => { this.setState({ zipCode: event.target.value }) }}/>
+            <TextField 
+              id="standard-basic" 
+              color="secondary" 
+              label="Ort" 
+              value={this.state.city} 
+              error = {this.state.isCityError} 
+              helperText = {this.state.cityError} 
+              onChange ={(event) => { this.setState({ city: event.target.value }) }}/>
             <br/>
-            <TextField id="standard-basic" color="secondary" label="E-Mail" value={this.state.email} error = {this.state.isEmailError} helperText= {this.state.emailError} onChange ={(event) => { this.setState({ email:event.target.value }) }} />
-            <TextField id="standard-basic" color="secondary" label="Mobile" value={this.state.mobile} error = {this.state.isMobileError} helperText = {this.state.mobileError} onChange ={(event) => { this.setState({ mobile: event.target.value }) }}/>
+            <TextField 
+              id="standard-basic" 
+              color="secondary" 
+              label="E-Mail" 
+              value={this.state.email} 
+              error = {this.state.isEmailError} 
+              helperText= {this.state.emailError} 
+              onChange ={(event) => { this.setState({ email:event.target.value }) }} />
+            <TextField 
+              id="standard-basic" 
+              color="secondary" 
+              label="Mobile" 
+              value={this.state.mobile} 
+              error = {this.state.isMobileError} 
+              helperText = {this.state.mobileError} 
+              onChange ={(event) => { this.setState({ mobile: event.target.value }) }}
+            />
             <br/>
             <FormControl error = {this.state.isShippingError}>
               <br/>
             <FormLabel component="legend">Betalsätt</FormLabel>
             <FormHelperText>{this.state.shippingError}</FormHelperText>
-            <RadioGroup aria-label="gender" name="gender1" value = {this.state.shippingMethod} onChange = {this.handleShipmentInput}>
-              <h3>PostNord Express!</h3>
-              <p>Leverans 24h. Pris: 99kr </p>
-              <FormControlLabel
-                value="PostNord Express" 
-                control={<Radio />} 
-                label="PostNord Express"
+            <RadioGroup  
+              value = {this.state.shippingMethod} 
+              onChange = {this.handleShipmentInput}>
+                <h3>PostNord Express!</h3>
+                <p>Leverans 24h. Pris: 99kr </p>
+                <FormControlLabel
+                  value="PostNord Express" 
+                  control={<Radio />} 
+                  label="PostNord Express"
                 />
 
-              <h3>PostNord Basic!</h3>
-              <p>Leverans: 4 dagar. Pris: 39kr</p>
-              <FormControlLabel
+                <h3>PostNord Basic!</h3>
+                <p>Leverans: 4 dagar. Pris: 39kr</p>
+                <FormControlLabel
                   value="PostNord Basic" 
                   control={<Radio />} 
-                  label="PostNord Basic" />
+                  label="PostNord Basic" 
+                />
 
-              <h3>PostMord!</h3>
-              <p>Leverans: Aldrig. Pris: Fri frakt </p>
-              <FormControlLabel 
+                <h3>PostMord!</h3>
+                <p>Leverans: Aldrig. Pris: Fri frakt </p>
+                <FormControlLabel 
                   value="PostMord" 
                   control={<Radio />} 
-                  label="PostMord" />
+                  label="PostMord" 
+                />
             </RadioGroup>
           </FormControl>
           </form>
@@ -237,22 +289,10 @@ export default class AddressForm extends React.Component<Props, customerInfo> {
             variant="contained" 
             color="primary">
               Fortsätt 
-          </Button>
-          
+          </Button>         
       </>
     );
-    
   }
-
 }
 
-//export default withStyles(styles)(AddressForm);
-
-/* const RedColor:CSSProperties = {
-  color: 'red'
-}
-
-const noErrorColor:CSSProperties = {
-  color: 'blue'
-} */
 

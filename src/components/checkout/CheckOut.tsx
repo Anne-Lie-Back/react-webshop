@@ -2,7 +2,7 @@ import React, {CSSProperties} from 'react'
 import AddressForm from './Address'
 //import Shipping from './Shipping'
 import Button from '@material-ui/core/Button';
-import { customerInfo } from './../../typings'
+import { CustomerInfo } from './../../typings'
 
 interface Props{
 }
@@ -11,7 +11,7 @@ interface Props{
 interface State{
     step:number,
 
-    customerInfo?: customerInfo
+    customerInfo?: CustomerInfo
 
 
 }
@@ -21,7 +21,6 @@ export default class CheckOut extends React.Component<Props, State>{
         super(props)
         this.state = {
             step: 1,
-
             customerInfo: undefined,
         }   
     }
@@ -68,7 +67,7 @@ export default class CheckOut extends React.Component<Props, State>{
         }
     } */
 
-    private onSubmit = (customerInfoFromForm: customerInfo) => {
+    private onSubmit = (customerInfoFromForm: CustomerInfo) => {
         // Sätt stateeet i CheckOut
         this.setState({
             customerInfo: customerInfoFromForm,
@@ -88,7 +87,7 @@ export default class CheckOut extends React.Component<Props, State>{
                 return(
                     <>
                         <h2>Här är listan på allt du vill köpa! (eller kommer vara)</h2>
-                        <AddressForm onSubmit={this.onSubmit}/>
+                        <AddressForm customerInfo={this.state.customerInfo} onSubmit={this.onSubmit}/>
 {/*                         <Shipping
                             
                             shippingMethod = {this.state.shippingMethod}

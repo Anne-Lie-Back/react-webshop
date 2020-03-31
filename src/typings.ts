@@ -13,7 +13,7 @@ export interface CartItem{
     nrItems: number
 }
 
-export interface customerInfo {
+export interface CustomerInfo {
     firstName: string
     isFirstNameError: boolean
     firstNameError: string
