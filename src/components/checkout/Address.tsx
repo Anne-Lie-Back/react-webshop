@@ -8,7 +8,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import FormLabel from '@material-ui/core/FormLabel';
-import { CustomerInfo } from './../../typings'
+import { CustomerInfo} from './../../typings'
 
 /* const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -198,7 +198,7 @@ export default class AddressForm extends React.Component<Props, CustomerInfo> {
               onChange={(event) => { this.setState({ firstName: event.target.value }) }} 
             />
             <TextField 
-              id="standard-basic" 
+              id="standard" 
               color="secondary" 
               name="lname"
               autoComplete="family-name"

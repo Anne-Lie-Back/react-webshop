@@ -45,3 +45,16 @@ export interface CustomerInfo {
     shippingCost:any
     deliveryDate:any
 }
+
+export interface CustomerPaymentInfo {
+    paymentMethod: string
+    cardNr: any
+    isCardNrError: boolean,
+    cardErrorText: string
+    swishNr: any
+    isSwishNrError: boolean,
+    swishErrorText: string,
+    emailFaktura:any
+    isEmailFakturaError: boolean,
+    emailErrorText: string
+}

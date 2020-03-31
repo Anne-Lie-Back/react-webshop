@@ -3,7 +3,7 @@ import AddressForm from './Address'
 import Payment from './Payment'
 //import Shipping from './Shipping'
 import Button from '@material-ui/core/Button';
-import { CustomerInfo } from './../../typings'
+import { CustomerInfo, CustomerPaymentInfo } from './../../typings'
 import ShoppingCart from '../ShoppingCart';
 //import Container from '@material-ui/core/Container';
 // import Admin from '../admin/Admin'
@@ -15,6 +15,7 @@ interface Props{
 interface State{
     step:number,
     customerInfo?: CustomerInfo
+    customerPaymentInfo?: CustomerPaymentInfo
 }
 
 export default class CheckOut extends React.Component<Props, State>{
@@ -23,6 +24,7 @@ export default class CheckOut extends React.Component<Props, State>{
         this.state = {
             step: 1,
             customerInfo: undefined,
+            customerPaymentInfo: undefined
         }   
     }
 
@@ -68,10 +70,18 @@ export default class CheckOut extends React.Component<Props, State>{
         }
     } */
 
-    private onSubmit = (customerInfoFromForm: CustomerInfo) => {
+    private onAddressFormSubmit = (customerInfoFromForm: CustomerInfo) => {
         // Sätt stateeet i CheckOut
         this.setState({
             customerInfo: customerInfoFromForm,
+            step: this.state.step + 1
+        })
+    }
+
+    private onPaymentFormSubmit = (customerInfoFromForm: CustomerPaymentInfo) => {
+        // Sätt stateeet i CheckOut
+        this.setState({
+            customerPaymentInfo: customerInfoFromForm,
             step: this.state.step + 1
         })
     } 
@@ -88,9 +98,12 @@ export default class CheckOut extends React.Component<Props, State>{
                 return(
                     <>
                         <ShoppingCart/>
-                        <AddressForm customerInfo={this.state.customerInfo} onSubmit={this.onSubmit}/>
+                        <AddressForm 
+                            customerInfo={this.state.customerInfo} 
+                            onSubmit={this.onAddressFormSubmit}/>
                     </>
                 )
+                break
             case 2:
                 if(this.state.customerInfo) {
                     return(
@@ -122,22 +135,33 @@ export default class CheckOut extends React.Component<Props, State>{
                         </div>
                     )
                 }
+                break
                 case 3:
                 if(this.state.customerInfo) {
                     return(
                         <>
-                        <Payment customerInfo={this.state.customerInfo}/>
+                        <Payment
+                            onSubmit={this.onPaymentFormSubmit}
+                            customerInfo={this.state.customerInfo}/>
                             <Button variant="contained" 
                             color="primary"
                             onClick = {this.previousStep}> Tillbaka 
                             </Button>
-                            <Button variant="contained" 
-                                color="primary"
-                                onClick = {this.nextStep}> Betala!
-                            </Button>
                         </>
                     )
                 }
+                break
+
+                case 4:
+                    if(this.state.customerInfo && this.state.customerPaymentInfo) {
+                        return(
+                            <>
+                                <h1>Bravo!</h1>
+                                <p>Du beställde supergott te! <br/> Vi har skickat bekräftelse till din mail: {this.state.customerInfo.email}</p>
+                            </>
+                        )
+                    }
+                    break
         }
     }
 }
