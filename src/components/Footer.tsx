@@ -2,6 +2,7 @@ import React,{CSSProperties} from 'react'
 import Container from '@material-ui/core/Container'
 import { Typography } from '@material-ui/core';
 import { Grid } from '@material-ui/core';
+import { Link } from 'react-router-dom';
 
 export default function Footer() {
 
@@ -31,6 +32,11 @@ export default function Footer() {
                 <Grid item>
                     <Typography color="error" variant="body2">
                         +4699-0253 6456
+                    </Typography>
+                </Grid>
+                <Grid item>
+                    <Typography color="error" variant="body2">
+                        <Link to="/admin">Admin</Link>
                     </Typography>
                 </Grid>
             </Grid>
