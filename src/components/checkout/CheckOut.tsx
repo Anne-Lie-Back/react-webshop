@@ -5,6 +5,7 @@ import Payment from './Payment'
 import Button from '@material-ui/core/Button';
 import { CustomerInfo, CustomerPaymentInfo } from './../../typings'
 import ShoppingCart from '../ShoppingCart';
+import { CartContext } from '../../contexts/cartContext';
 //import Container from '@material-ui/core/Container';
 // import Admin from '../admin/Admin'
 
@@ -87,10 +88,10 @@ export default class CheckOut extends React.Component<Props, State>{
     } 
 
     render(){
-        let total
-        if(this.state.customerInfo){
-            total = 500 + this.state.customerInfo.shippingCost
-        }
+        let total:number
+        
+        total = 500 + this.state.customerInfo?.shippingCost
+        
         
         const { step } = this.state
         switch(step){
@@ -107,21 +108,25 @@ export default class CheckOut extends React.Component<Props, State>{
             case 2:
                 if(this.state.customerInfo) {
                     return(
+                    <CartContext.Consumer>
+                    {(cartState) => (
+                    
+                        
                         <div style = {temporaryStyling}>
                             <p>Skickas till:</p>
-                            <p>{this.state.customerInfo.firstName} {this.state.customerInfo.lastName}</p>
-                            <p>{this.state.customerInfo.address}</p>
-                            <p>{this.state.customerInfo.zipCode} {this.state.customerInfo.city}</p>
+                            <p>{this.state.customerInfo?.firstName} {this.state.customerInfo?.lastName}</p>
+                            <p>{this.state.customerInfo?.address}</p>
+                            <p>{this.state.customerInfo?.zipCode} {this.state.customerInfo?.city}</p>
                             <br/>
-                            <p>E-Mail: {this.state.customerInfo.email}</p>
-                            <p>Mobilnummer: {this.state.customerInfo.mobile}</p>
+                            <p>E-Mail: {this.state.customerInfo?.email}</p>
+                            <p>Mobilnummer: {this.state.customerInfo?.mobile}</p>
     
                             <br/>
     
-                            <p>Valt Fraktsätt: {this.state.customerInfo.shippingMethod} </p>
-                            <p>Förväntad fraktdag: {this.state.customerInfo.deliveryDate} </p>
-                            <p> Kostnad: 500kr plus frakt (+{this.state.customerInfo.shippingCost}kr)</p>
-                            <p>Totalkostnad: {total}</p>
+                            <p>Valt Fraktsätt: {this.state.customerInfo?.shippingMethod} </p>
+                            <p>Förväntad fraktdag: {this.state.customerInfo?.deliveryDate} </p>
+                            <p> Kostnad: 500kr plus frakt (+{this.state.customerInfo?.shippingCost}kr)</p>
+                            <p>Totalkostnad: {total} kr</p>
     
                             <b/>
                             <Button variant="contained" 
@@ -133,6 +138,9 @@ export default class CheckOut extends React.Component<Props, State>{
                                 onClick = {this.previousStep}> Stämmer inte?
                             </Button>
                         </div>
+                    
+                    )}
+                    </CartContext.Consumer>
                     )
                 }
                 break
@@ -157,8 +165,9 @@ export default class CheckOut extends React.Component<Props, State>{
                         return(
                             <>
                                 <h1>Bravo!</h1>
-                                <p>Du beställde supergott te! <br/> Vi har skickat bekräftelse till din mail: {this.state.customerInfo.email}</p>
+                            <p>Du har beställt supergott te för {total}kr! <br/> Vi har skickat bekräftelse till din mail: {this.state.customerInfo.email}</p>
                                 <p>Beräknad leveransdag: idag + {this.state.customerInfo.deliveryDate} till</p>
+                                <p>Ditt ordernummer är: INTE BESTÄMT ÄN</p>
                             </>
                         )
                     }
