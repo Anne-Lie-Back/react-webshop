@@ -2,7 +2,6 @@ import React from 'react'
 import { CartContext } from '../contexts/cartContext'
 import { IconButton } from '@material-ui/core'
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart'
-import ShoppingCart from './ShoppingCart'
 
 export class CartIcon extends React.Component {
     render(){
