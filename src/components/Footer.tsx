@@ -16,28 +16,28 @@ export default function Footer() {
                 alignItems="center"
             >
                 <Grid item>
-                    <Typography color="error" variant="body2">
+                    <Typography color="secondary" variant="body2">
                         Tekulan AB
                     </Typography>
                 </Grid>
                 <Grid item>
-                    <Typography color="error" variant="body2">
+                    <Typography color="secondary" variant="body2">
                         VägGatan 34
                     </Typography>
                 </Grid>
                 <Grid item>
-                    <Typography color="error" variant="body2">
+                    <Typography color="secondary" variant="body2">
                         123 45 Stadeborg
                     </Typography>
                 </Grid>
                 <Grid item>
-                    <Typography color="error" variant="body2">
+                    <Typography color="secondary" variant="body2">
                         +4699-0253 6456
                     </Typography>
                 </Grid>
                 <Grid item>
                     <Link to="/admin" style={buttonStyle}>
-                        <Button color="primary" variant="outlined">
+                        <Button color="secondary" variant="outlined">
                             Admin
                         </Button>
                     </Link>
