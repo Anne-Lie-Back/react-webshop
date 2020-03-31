@@ -15,9 +15,9 @@ export default createMuiTheme({
       "dark":"#346933",
       "contrastText":"#fff"
     },"secondary":{
-      "light":"#98ee99",
-      "main":"#66bb6a",
-      "dark":"#338a3e",
+      "light":"#be9c91",
+      "main":"#9cba98",
+      "dark":"#5f4339",
       "contrastText":"#fff"
     },"error":{
       "light":"#98ee99",

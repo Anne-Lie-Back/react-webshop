@@ -83,7 +83,7 @@ export default function TextMobileStepper() {
           transition: 'background-image 1s ease-in-out',
         }}
       >
-        <Typography style={sliderTextStyle} variant="h5" color="error">
+        <Typography style={sliderTextStyle} variant="h5" color="secondary">
           {tutorialSteps[activeStep].sliderText}
         </Typography>
         <div style={sliderSphere}>

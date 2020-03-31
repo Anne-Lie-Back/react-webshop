@@ -6,6 +6,7 @@ import Button from '@material-ui/core/Button';
 import { CustomerInfo, CustomerPaymentInfo } from './../../typings'
 import ShoppingCart from '../ShoppingCart';
 import { CartContext } from '../../contexts/cartContext';
+import { Container } from '@material-ui/core';
 //import Container from '@material-ui/core/Container';
 // import Admin from '../admin/Admin'
 
@@ -97,49 +98,49 @@ export default class CheckOut extends React.Component<Props, State>{
         switch(step){
             case 1:
                 return(
-                    <>
+                    <Container>
                         <ShoppingCart/>
                         <AddressForm 
                             customerInfo={this.state.customerInfo} 
                             onSubmit={this.onAddressFormSubmit}/>
-                    </>
+                    </Container>
+
                 )
                 break
             case 2:
                 if(this.state.customerInfo) {
                     return(
                     <CartContext.Consumer>
-                    {(cartState) => (
-                    
-                        
-                        <div style = {temporaryStyling}>
-                            <p>Skickas till:</p>
-                            <p>{this.state.customerInfo?.firstName} {this.state.customerInfo?.lastName}</p>
-                            <p>{this.state.customerInfo?.address}</p>
-                            <p>{this.state.customerInfo?.zipCode} {this.state.customerInfo?.city}</p>
-                            <br/>
-                            <p>E-Mail: {this.state.customerInfo?.email}</p>
-                            <p>Mobilnummer: {this.state.customerInfo?.mobile}</p>
-    
-                            <br/>
-    
-                            <p>Valt Fraktsätt: {this.state.customerInfo?.shippingMethod} </p>
-                            <p>Förväntad fraktdag: {this.state.customerInfo?.deliveryDate} </p>
-                            <p> Kostnad: 500kr plus frakt (+{this.state.customerInfo?.shippingCost}kr)</p>
-                            <p>Totalkostnad: {total} kr</p>
-    
-                            <b/>
-                            <Button variant="contained" 
-                                color="primary"
-                                onClick = {this.nextStep}> Stämmer?
-                            </Button>
-                            <Button variant="contained" 
-                                color="primary"
-                                onClick = {this.previousStep}> Stämmer inte?
-                            </Button>
-                        </div>
-                    
-                    )}
+                    {(cartState) => (                   
+                        <Container>
+                            <div style = {temporaryStyling}>
+                                <p>Skickas till:</p>
+                                <p>{this.state.customerInfo?.firstName} {this.state.customerInfo?.lastName}</p>
+                                <p>{this.state.customerInfo?.address}</p>
+                                <p>{this.state.customerInfo?.zipCode} {this.state.customerInfo?.city}</p>
+                                <br/>
+                                <p>E-Mail: {this.state.customerInfo?.email}</p>
+                                <p>Mobilnummer: {this.state.customerInfo?.mobile}</p>
+        
+                                <br/>
+        
+                                <p>Valt Fraktsätt: {this.state.customerInfo?.shippingMethod} </p>
+                                <p>Förväntad fraktdag: {this.state.customerInfo?.deliveryDate} </p>
+                                <p> Kostnad: 500kr plus frakt (+{this.state.customerInfo?.shippingCost}kr)</p>
+                                <p>Totalkostnad: {total} kr</p>
+        
+                                <b/>
+                                <Button variant="contained" 
+                                    color="primary"
+                                    onClick = {this.nextStep}> Stämmer?
+                                </Button>
+                                <Button variant="contained" 
+                                    color="primary"
+                                    onClick = {this.previousStep}> Stämmer inte?
+                                </Button>
+                            </div>
+                        </Container>
+                    )}                   
                     </CartContext.Consumer>
                     )
                 }
@@ -147,15 +148,16 @@ export default class CheckOut extends React.Component<Props, State>{
                 case 3:
                 if(this.state.customerInfo) {
                     return(
-                        <>
+                        <Container>
                         <Payment
                             onSubmit={this.onPaymentFormSubmit}
-                            customerInfo={this.state.customerInfo}/>
-                            <Button variant="contained" 
-                            color="primary"
-                            onClick = {this.previousStep}> Tillbaka 
-                            </Button>
-                        </>
+                            customerInfo={this.state.customerInfo}
+                        />
+                        <Button variant="contained" 
+                        color="primary"
+                        onClick = {this.previousStep}> Tillbaka 
+                        </Button>
+                        </Container>
                     )
                 }
                 break

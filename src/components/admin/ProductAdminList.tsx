@@ -9,6 +9,7 @@ import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 
 interface Props{
     itemData: Product
+    arrayIndex: number
 }
 
 export default function ProductAdminList(props:Props){
@@ -26,7 +27,7 @@ export default function ProductAdminList(props:Props){
                 </IconButton>
                 {'Prod# ' + props.itemData.id + " - " + props.itemData.name} 
             </Typography>
-            {selectItem?<EditItem itemData={props.itemData}/> : null}
+            {selectItem?<EditItem itemData={props.itemData} arrayIndex={props.arrayIndex}/> : null}
         </Card>
     )
 }
