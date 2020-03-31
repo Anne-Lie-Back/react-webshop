@@ -43,7 +43,7 @@ const useStyles = makeStyles({
             </CardContent>
           </CardActionArea>
         </Link>
-        <PurchaseButtons itemPrice={props.itemData.price}/>
+        <PurchaseButtons itemPrice={props.itemData.price} itemId={props.itemData.id}/>
         </Card>
       </div>
     );
