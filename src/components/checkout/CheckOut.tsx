@@ -1,5 +1,6 @@
 import React, {CSSProperties} from 'react'
 import AddressForm from './Address'
+import Payment from './Payment'
 //import Shipping from './Shipping'
 import Button from '@material-ui/core/Button';
 import { CustomerInfo } from './../../typings'
@@ -110,13 +111,31 @@ export default class CheckOut extends React.Component<Props, State>{
                             <p>Totalkostnad: {total}</p>
     
                             <b/>
-                            <h5>Funktionen att det stämmer finns inte än</h5>
+                            <Button variant="contained" 
+                                color="primary"
+                                onClick = {this.nextStep}> Stämmer?
+                            </Button>
                             <Button variant="contained" 
                                 color="primary"
                                 onClick = {this.previousStep}> Stämmer inte?
                             </Button>
-    
                         </div>
+                    )
+                }
+                case 3:
+                if(this.state.customerInfo) {
+                    return(
+                        <>
+                        <Payment customerInfo={this.state.customerInfo}/>
+                            <Button variant="contained" 
+                            color="primary"
+                            onClick = {this.previousStep}> Tillbaka 
+                            </Button>
+                            <Button variant="contained" 
+                                color="primary"
+                                onClick = {this.nextStep}> Betala!
+                            </Button>
+                        </>
                     )
                 }
         }

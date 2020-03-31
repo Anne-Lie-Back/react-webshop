@@ -9,7 +9,6 @@ import FormControl from '@material-ui/core/FormControl';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import FormLabel from '@material-ui/core/FormLabel';
 import { CustomerInfo } from './../../typings'
-//import Button from '@material-ui/core/Button';
 
 /* const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -163,7 +162,6 @@ export default class AddressForm extends React.Component<Props, CustomerInfo> {
     }
 
   private setShipmentDetails = (shipping:string) =>{
-    console.log(this.state.shippingMethod)
         
     if(shipping === 'PostNord Express'){
         this.setState({deliveryDate:'24h från nu'})
@@ -259,7 +257,7 @@ export default class AddressForm extends React.Component<Props, CustomerInfo> {
               color="secondary"
               name="phone"
               autoComplete="tel"
-              label="Mobile" 
+              label="Mobil-nummer" 
               value={this.state.mobile} 
               error = {this.state.isMobileError} 
               helperText = {this.state.mobileError} 
