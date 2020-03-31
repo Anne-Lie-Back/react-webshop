@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+import React, { CSSProperties } from 'react';
+import { createStyles, makeStyles, Theme, withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Radio from '@material-ui/core/Radio';
@@ -21,16 +21,30 @@ import { customerInfo } from './../../typings'
   }),
 ); */
 
+const styles = {
+  errorColor: {
+    color: 'red'
+  },
+  noErrorColor:{
+    color: 'primary'
+  }
+};
+
 interface Props {
   onSubmit: (customerInfo: customerInfo) => void
 }
 
-export default class AddressForm extends React.Component<Props, customerInfo> {
+
+
+export class AddressForm extends React.Component<Props, customerInfo> {
 
   constructor(props: Props) {
     super(props)
     this.state = {
+      //errorColor: 'noErrorColor',
       firstName: '',
+      error: false,
+      firstNameError: '',
       lastName: '',
       address: '',
       zipCode: 0,
@@ -44,10 +58,35 @@ export default class AddressForm extends React.Component<Props, customerInfo> {
     }
   }
 
+   validateInput = () =>{
+    
+    let isError = false
+    const errors = {firstNameError:'', error: false};
+
+    if(this.state.firstName.length < 5){
+      isError = true
+      //errors.errorColor = 'errorColor'
+      errors.firstNameError = 'too short username'
+      errors.error = true
+      
+    }
+
+    if(isError){
+      this.setState({
+        ...this.state,
+        ...errors,
+      })
+    }
+    return isError
+  }
 
   private onSubmit = () => {
-    // VALIDERING
-    this.props.onSubmit(this.state)
+    const err = this.validateInput()
+    //VALIDATE HERE
+    if(!err){
+      this.props.onSubmit(this.state)
+    }
+    
   }
 
   private handleShipmentInput = (event: { target: { value: any } }) => { 
@@ -76,10 +115,12 @@ export default class AddressForm extends React.Component<Props, customerInfo> {
 }
 
   render(){ 
+    
+    
     return (
       <>
-          <form noValidate autoComplete="on" >
-            <TextField id="standard-basic" color="secondary" label="Förnamn" value={this.state.firstName} onChange={(event) => { this.setState({ firstName: event.target.value }) }} />
+          <form autoComplete="on" >
+            <TextField id="standard"  error = {this.state.error} label="Förnamn" value={this.state.firstName} helperText = {this.state.firstNameError} onChange={(event) => { this.setState({ firstName: event.target.value }) }} />
             <TextField id="standard-basic" color="secondary" label="Efternamn" value={this.state.lastName} onChange={(event) => { this.setState({ lastName: event.target.value }) }}/>
             <br/>
             <TextField id="standard-basic" color="secondary" label="Adress" style = {{width:'52ch'}} value={this.state.address} onChange={(event) => { this.setState({address: event.target.value}) }}/>
@@ -89,6 +130,7 @@ export default class AddressForm extends React.Component<Props, customerInfo> {
             <br/>
             <TextField id="standard-basic" color="secondary" label="E-Mail" value={this.state.email} onChange ={(event) => { this.setState({ email:event.target.value }) }} />
             <TextField id="standard-basic" color="secondary" label="Mobile" value={this.state.mobile} onChange ={(event) => { this.setState({ mobile: event.target.value }) }}/>
+          
           </form>
 
           <FormLabel component="legend">Betalsätt</FormLabel>
@@ -117,6 +159,7 @@ export default class AddressForm extends React.Component<Props, customerInfo> {
           </RadioGroup>
   
           <Button
+            type = 'submit'
             onClick={() => this.onSubmit()}
             variant="contained" 
             color="primary">
@@ -128,4 +171,14 @@ export default class AddressForm extends React.Component<Props, customerInfo> {
   }
 
 }
+
+export default withStyles(styles)(AddressForm);
+
+/* const RedColor:CSSProperties = {
+  color: 'red'
+}
+
+const noErrorColor:CSSProperties = {
+  color: 'blue'
+} */
 

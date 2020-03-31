@@ -15,6 +15,8 @@ export interface CartItem{
 
 export interface customerInfo {
     firstName: string
+    error: boolean
+    firstNameError: string
     lastName: string
     address: string
     zipCode: any
