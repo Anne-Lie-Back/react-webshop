@@ -20,11 +20,12 @@ export default createMuiTheme({
       "dark":"#338a3e",
       "contrastText":"#fff"
     },"error":{
-      "light":"#be9c91",
-      "main":"#9cba98",
-      "dark":"#5f4339",
+      "light":"#98ee99",
+      "main":"red",
+      "dark":"#338a3e",
       "contrastText":"#fff"
-    },"text":{
+    }
+    ,"text":{
       "primary":"rgba(0, 0, 0, 0.87)",
       "secondary":"rgba(0, 0, 0, 0.54)",
       "disabled":"rgba(0, 0, 0, 0.38)",
