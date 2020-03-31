@@ -43,7 +43,7 @@ export default function Header() {
                     <Grid item>
                         <Typography 
                             variant={screenSize? "h3" : "h5"}
-                            color="error" 
+                            color="secondary" 
                             style={textLogoStyle}
                         >
                             Tekulan
@@ -56,7 +56,7 @@ export default function Header() {
                         {/* <IconButton color="secondary" 
                             style={{border:'solid #9cba98 0.2em'
                             }}>
-                            <ShoppingCartIcon fontSize="large" color="error"/>
+                            <ShoppingCartIcon fontSize="large" color="secondary"/>
                         </IconButton> */}
                         <CartIcon/>
                     </Link>

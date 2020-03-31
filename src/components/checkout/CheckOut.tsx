@@ -4,6 +4,7 @@ import AddressForm from './Address'
 import Button from '@material-ui/core/Button';
 import { CustomerInfo } from './../../typings'
 import ShoppingCart from '../ShoppingCart';
+import { Container } from '@material-ui/core';
 //import Container from '@material-ui/core/Container';
 // import Admin from '../admin/Admin'
 
@@ -85,38 +86,41 @@ export default class CheckOut extends React.Component<Props, State>{
         switch(step){
             case 1:
                 return(
-                    <>
+                    <Container>
                         <ShoppingCart/>
                         <AddressForm customerInfo={this.state.customerInfo} onSubmit={this.onSubmit}/>
-                    </>
+                    </Container>
                 )
             case 2:
                 if(this.state.customerInfo) {
                     return(
-                        <div style = {temporaryStyling}>
-                            <p>Skickas till:</p>
-                            <p>{this.state.customerInfo.firstName} {this.state.customerInfo.lastName}</p>
-                            <p>{this.state.customerInfo.address}</p>
-                            <p>{this.state.customerInfo.zipCode} {this.state.customerInfo.city}</p>
-                            <br/>
-                            <p>E-Mail: {this.state.customerInfo.email}</p>
-                            <p>Mobilnummer: {this.state.customerInfo.mobile}</p>
-    
-                            <br/>
-    
-                            <p>Valt Fraktsätt: {this.state.customerInfo.shippingMethod} </p>
-                            <p>Förväntad fraktdag: {this.state.customerInfo.deliveryDate} </p>
-                            <p> Kostnad: 500kr plus frakt (+{this.state.customerInfo.shippingCost}kr)</p>
-                            <p>Totalkostnad: {total}</p>
-    
-                            <b/>
-                            <h5>Funktionen att det stämmer finns inte än</h5>
-                            <Button variant="contained" 
-                                color="primary"
-                                onClick = {this.previousStep}> Stämmer inte?
-                            </Button>
-    
-                        </div>
+                        <Container>
+
+                            <div style = {temporaryStyling}>
+                                <p>Skickas till:</p>
+                                <p>{this.state.customerInfo.firstName} {this.state.customerInfo.lastName}</p>
+                                <p>{this.state.customerInfo.address}</p>
+                                <p>{this.state.customerInfo.zipCode} {this.state.customerInfo.city}</p>
+                                <br/>
+                                <p>E-Mail: {this.state.customerInfo.email}</p>
+                                <p>Mobilnummer: {this.state.customerInfo.mobile}</p>
+        
+                                <br/>
+        
+                                <p>Valt Fraktsätt: {this.state.customerInfo.shippingMethod} </p>
+                                <p>Förväntad fraktdag: {this.state.customerInfo.deliveryDate} </p>
+                                <p> Kostnad: 500kr plus frakt (+{this.state.customerInfo.shippingCost}kr)</p>
+                                <p>Totalkostnad: {total}</p>
+        
+                                <b/>
+                                <h5>Funktionen att det stämmer finns inte än</h5>
+                                <Button variant="contained" 
+                                    color="primary"
+                                    onClick = {this.previousStep}> Stämmer inte?
+                                </Button>
+        
+                            </div>
+                        </Container>
                     )
                 }
         }
