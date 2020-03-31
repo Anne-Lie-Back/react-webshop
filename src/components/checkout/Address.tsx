@@ -57,7 +57,7 @@ export default class AddressForm extends React.Component<Props, CustomerInfo> {
       emailError: '',
       isEmailError: false,
 
-      mobile: '+46',
+      mobile: '',
       isMobileError: false,
       mobileError: '',
 
@@ -189,7 +189,11 @@ export default class AddressForm extends React.Component<Props, CustomerInfo> {
       <>
           <form autoComplete="on" >
             <TextField 
-              id="standard-basic" label="Förnamn" 
+              id="standard-basic"
+              color="secondary"
+              name= "fname"
+              autoComplete = 'given-name'
+              label="Förnamn" 
               value={this.state.firstName} 
               error = {this.state.isFirstNameError} 
               helperText = {this.state.firstNameError} 
@@ -198,6 +202,8 @@ export default class AddressForm extends React.Component<Props, CustomerInfo> {
             <TextField 
               id="standard-basic" 
               color="secondary" 
+              name="lname"
+              autoComplete="family-name"
               label="Efternamn" 
               value={this.state.lastName}  
               error = {this.state.isLastNameError} 
@@ -206,7 +212,9 @@ export default class AddressForm extends React.Component<Props, CustomerInfo> {
             <br/>
             <TextField 
               id="standard-basic" 
-              color="secondary" 
+              color="secondary"
+              name="ship-address"
+              autoComplete="shipping street-address"
               label="Adress" 
               style = {{width:'52ch'}} 
               value={this.state.address} 
@@ -217,7 +225,9 @@ export default class AddressForm extends React.Component<Props, CustomerInfo> {
             <br/>
             <TextField 
               id="standard-basic" 
-              color="secondary" 
+              color="secondary"
+              name="ship-zip"
+              autoComplete="shipping postal-code"
               label="Postnummer" 
               value={this.state.zipCode} 
               error = {this.state.isZipCodeError} 
@@ -225,8 +235,10 @@ export default class AddressForm extends React.Component<Props, CustomerInfo> {
               onChange = {(event) => { this.setState({ zipCode: event.target.value }) }}/>
             <TextField 
               id="standard-basic" 
-              color="secondary" 
-              label="Ort" 
+              color="secondary"
+              name="ship-city"
+              autoComplete="shipping locality"
+              label="Ort"
               value={this.state.city} 
               error = {this.state.isCityError} 
               helperText = {this.state.cityError} 
@@ -234,7 +246,9 @@ export default class AddressForm extends React.Component<Props, CustomerInfo> {
             <br/>
             <TextField 
               id="standard-basic" 
-              color="secondary" 
+              color="secondary"
+              name="email"
+              autoComplete="email"
               label="E-Mail" 
               value={this.state.email} 
               error = {this.state.isEmailError} 
@@ -242,7 +256,9 @@ export default class AddressForm extends React.Component<Props, CustomerInfo> {
               onChange ={(event) => { this.setState({ email:event.target.value }) }} />
             <TextField 
               id="standard-basic" 
-              color="secondary" 
+              color="secondary"
+              name="phone"
+              autoComplete="tel"
               label="Mobile" 
               value={this.state.mobile} 
               error = {this.state.isMobileError} 
