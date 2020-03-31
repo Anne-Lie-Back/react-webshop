@@ -21,7 +21,12 @@ export interface customerInfo {
     isLastNameError: boolean,
     lastNameError: string,
     address: string
+    isAddressError: boolean,
+    addressError: string,
     zipCode: any
+    zipCodeError: string,
+    isZipCodeError: boolean,
+    
     city: string
     email: string
     mobile: any

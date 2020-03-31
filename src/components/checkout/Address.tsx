@@ -21,14 +21,14 @@ import { customerInfo } from './../../typings'
   }),
 ); */
 
-const styles = {
+/* const styles = {
   errorColor: {
     color: 'red'
   },
   noErrorColor:{
     color: 'primary'
   }
-};
+}; */
 
 interface Props {
   onSubmit: (customerInfo: customerInfo) => void
@@ -45,14 +45,23 @@ export default class AddressForm extends React.Component<Props, customerInfo> {
       firstName: '',
       isFirstNameError: false,
       firstNameError: '',
+
       lastName: '',
       isLastNameError: false,
       lastNameError: '',
+
       address: '',
-      zipCode: 0,
+      isAddressError: false,
+      addressError: '',
+
+      zipCode: '',
+      zipCodeError: '',
+      isZipCodeError: false,
+
       city: '',
       email: '',
-      mobile: 0,
+
+      mobile: '+46',
       isMobileError: false,
       mobileError: '',
 
@@ -65,21 +74,40 @@ export default class AddressForm extends React.Component<Props, customerInfo> {
    validateInput = () =>{
     
     let isError = false
-    const errors = {firstNameError:'', isFirstNameError: false, lastNameError:'', isLastNameError:false, mobileError:'', isMobileError: false};
+    const errors = {firstNameError:'', isFirstNameError: false, lastNameError:'', isLastNameError:false, mobileError:'', isMobileError: false, isAddressError: false, 
+    addressError: '', isZipCodeError:false, zipCodeError:''};
 
     if(this.state.firstName.length < 1){
       isError = true
       //errors.errorColor = 'errorColor'
-      errors.firstNameError = 'too short username'
+      errors.firstNameError = 'Minst 2 bokstäver'
       errors.isFirstNameError = true   
     }
 
-    if(this.state.lastName.length < 2){
+    if(this.state.lastName.length < 1){
       isError = true
       //errors.errorColor = 'errorColor'
-      errors.lastNameError = 'too short username'
+      errors.lastNameError = 'Minst 2 bokstäver'
       errors.isLastNameError = true   
     }
+
+    if(this.state.address.length < 2){
+      isError = true
+      //errors.errorColor = 'errorColor'
+      errors.addressError = 'Minst 3 tecken'
+      errors.isAddressError = true   
+    }
+
+    const zipCodeVal = /^\d{5}$/
+
+    if( this.state.zipCode.match(zipCodeVal)){
+      errors.isZipCodeError = false
+  }
+    else{
+      isError = true
+      errors.zipCodeError =  'inte giltigt postnummer-format'
+      errors.isZipCodeError = true
+  }
 
     const phoneVal = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/
 
@@ -88,9 +116,12 @@ export default class AddressForm extends React.Component<Props, customerInfo> {
     }
     else{
       isError = true
-      errors.mobileError =  'Behöver vara 10 siffror'
+      errors.mobileError =  'inte giltigt mobilnummer-format'
       errors.isMobileError = true
     }
+
+
+
 
     if(isError){
       this.setState({
@@ -144,9 +175,9 @@ export default class AddressForm extends React.Component<Props, customerInfo> {
             <TextField id="standard"   label="Förnamn" value={this.state.firstName} error = {this.state.isFirstNameError} helperText = {this.state.firstNameError} onChange={(event) => { this.setState({ firstName: event.target.value }) }} />
             <TextField id="standard-basic" color="secondary" label="Efternamn" value={this.state.lastName}  error = {this.state.isLastNameError} helperText = {this.state.lastNameError} onChange={(event) => { this.setState({ lastName: event.target.value }) }}/>
             <br/>
-            <TextField id="standard-basic" color="secondary" label="Adress" style = {{width:'52ch'}} value={this.state.address} onChange={(event) => { this.setState({address: event.target.value}) }}/>
+            <TextField id="standard-basic" color="secondary" label="Adress" style = {{width:'52ch'}} value={this.state.address} error = {this.state.isAddressError} helperText = {this.state.addressError} onChange={(event) => { this.setState({address: event.target.value}) }}/>
             <br/>
-            <TextField id="standard-basic" color="secondary" label="Postnummer" value={this.state.zipCode} onChange = {(event) => { this.setState({ zipCode: event.target.value }) }}/>
+            <TextField id="standard-basic" color="secondary" label="Postnummer" value={this.state.zipCode} error = {this.state.isZipCodeError} helperText = {this.state.zipCodeError} onChange = {(event) => { this.setState({ zipCode: event.target.value }) }}/>
             <TextField id="standard-basic" color="secondary" label="Ort" value={this.state.city} onChange ={(event) => { this.setState({ city: event.target.value }) }}/>
             <br/>
             <TextField id="standard-basic" color="secondary" label="E-Mail" value={this.state.email} onChange ={(event) => { this.setState({ email:event.target.value }) }} />
