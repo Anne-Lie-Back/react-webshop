@@ -40,6 +40,8 @@ export interface customerInfo {
     mobileError: string
 
     shippingMethod: string
+    isShippingError: boolean,
+    shippingError: string,
     shippingCost:any
     deliveryDate:any
 }

@@ -5,7 +5,8 @@ import Button from '@material-ui/core/Button';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-//import FormControl from '@material-ui/core/FormControl';
+import FormControl from '@material-ui/core/FormControl';
+import FormHelperText from '@material-ui/core/FormHelperText';
 import FormLabel from '@material-ui/core/FormLabel';
 import { customerInfo } from './../../typings'
 //import Button from '@material-ui/core/Button';
@@ -60,6 +61,8 @@ export default class AddressForm extends React.Component<Props, customerInfo> {
       mobileError: '',
 
       shippingMethod:'',
+      isShippingError: false,
+      shippingError: 'Välj ett fraktsätt',
       deliveryDate:'',
       shippingCost: ''
     }
@@ -69,7 +72,7 @@ export default class AddressForm extends React.Component<Props, customerInfo> {
     
     let isError = false
     const errors = {firstNameError:'', isFirstNameError: false, lastNameError:'', isLastNameError:false, isAddressError: false, 
-    addressError: '', isZipCodeError:false, zipCodeError:'', isCityError: false, cityError:'', emailError:'', isEmailError: false, mobileError:'', isMobileError: false, };
+    addressError: '', isZipCodeError:false, zipCodeError:'', isCityError: false, cityError:'', emailError:'', isEmailError: false, mobileError:'', isMobileError: false, isShippingError:false, shippingError:'Välj ett fraktsätt' };
 
     if(this.state.firstName.length < 1){
       isError = true
@@ -133,6 +136,12 @@ export default class AddressForm extends React.Component<Props, customerInfo> {
       errors.isMobileError = true
     }
 
+    if(this.state.shippingMethod === ''){
+      isError = true
+      errors.shippingError =  'Du måste välja fraktsätt'
+      errors.isShippingError = true
+    }
+
     if(isError){
       this.setState({
         ...this.state,
@@ -190,36 +199,38 @@ export default class AddressForm extends React.Component<Props, customerInfo> {
             <TextField id="standard-basic" color="secondary" label="Postnummer" value={this.state.zipCode} error = {this.state.isZipCodeError} helperText = {this.state.zipCodeError} onChange = {(event) => { this.setState({ zipCode: event.target.value }) }}/>
             <TextField id="standard-basic" color="secondary" label="Ort" value={this.state.city} error = {this.state.isCityError} helperText = {this.state.cityError} onChange ={(event) => { this.setState({ city: event.target.value }) }}/>
             <br/>
-            <TextField id="standard-basic" color="secondary" label="E-Mail" value={this.state.email} error = {this.state.isEmailError} helperText = {this.state.emailError} onChange ={(event) => { this.setState({ email:event.target.value }) }} />
+            <TextField id="standard-basic" color="secondary" label="E-Mail" value={this.state.email} error = {this.state.isEmailError} helperText= {this.state.emailError} onChange ={(event) => { this.setState({ email:event.target.value }) }} />
             <TextField id="standard-basic" color="secondary" label="Mobile" value={this.state.mobile} error = {this.state.isMobileError} helperText = {this.state.mobileError} onChange ={(event) => { this.setState({ mobile: event.target.value }) }}/>
-          
+            <br/>
+            <FormControl error = {this.state.isShippingError}>
+              <br/>
+            <FormLabel component="legend">Betalsätt</FormLabel>
+            <FormHelperText>{this.state.shippingError}</FormHelperText>
+            <RadioGroup aria-label="gender" name="gender1" value = {this.state.shippingMethod} onChange = {this.handleShipmentInput}>
+              <h3>PostNord Express!</h3>
+              <p>Leverans 24h. Pris: 99kr </p>
+              <FormControlLabel
+                value="PostNord Express" 
+                control={<Radio />} 
+                label="PostNord Express"
+                />
+
+              <h3>PostNord Basic!</h3>
+              <p>Leverans: 4 dagar. Pris: 39kr</p>
+              <FormControlLabel
+                  value="PostNord Basic" 
+                  control={<Radio />} 
+                  label="PostNord Basic" />
+
+              <h3>PostMord!</h3>
+              <p>Leverans: Aldrig. Pris: Fri frakt </p>
+              <FormControlLabel 
+                  value="PostMord" 
+                  control={<Radio />} 
+                  label="PostMord" />
+            </RadioGroup>
+          </FormControl>
           </form>
-
-          <FormLabel component="legend">Betalsätt</FormLabel>
-          <RadioGroup aria-label="gender" name="gender1" value = {this.state.shippingMethod} onChange = {this.handleShipmentInput}>
-            <h3>PostNord Express!</h3>
-            <p>Leverans 24h. Pris: 99kr </p>
-            <FormControlLabel
-              value="PostNord Express" 
-              control={<Radio />} 
-              label="PostNord Express"
-               />
-
-            <h3>PostNord Basic!</h3>
-            <p>Leverans: 4 dagar. Pris: 39kr</p>
-            <FormControlLabel
-                value="PostNord Basic" 
-                control={<Radio />} 
-                label="PostNord Basic" />
-
-            <h3>PostMord!</h3>
-            <p>Leverans: Aldrig. Pris: Fri frakt </p>
-            <FormControlLabel 
-                value="PostMord" 
-                control={<Radio />} 
-                label="PostMord" />
-          </RadioGroup>
-  
           <Button
             type = 'submit'
             onClick={() => this.onSubmit()}
@@ -227,6 +238,7 @@ export default class AddressForm extends React.Component<Props, customerInfo> {
             color="primary">
               Fortsätt 
           </Button>
+          
       </>
     );
     
