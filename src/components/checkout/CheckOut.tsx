@@ -167,7 +167,7 @@ export default class CheckOut extends React.Component<Props, State>{
                         return(
                             <Container>
                                 <h1>Bravo!</h1>
-                            <p>Du har beställt supergott te för {total}kr! <br/> Vi har skickat bekräftelse till din mail: {this.state.customerInfo.email}</p>
+                                <p>Du har beställt supergott te för {total}kr! <br/> Vi har skickat bekräftelse till din mail: {this.state.customerInfo.email}</p>
                                 <p>Beräknad leveransdag: idag + {this.state.customerInfo.deliveryDate} till</p>
                                 <p>Ditt ordernummer är: INTE BESTÄMT ÄN</p>
                             </Container>
