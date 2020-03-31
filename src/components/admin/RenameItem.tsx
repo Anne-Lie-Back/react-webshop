@@ -2,6 +2,7 @@ import React,{CSSProperties, useState} from 'react'
 import Container from '@material-ui/core/Container'
 import Button from '@material-ui/core/Button'
 import FormControl from '@material-ui/core/FormControl'
+import IconButton from '@material-ui/core/IconButton'
 import TextField from '@material-ui/core/TextField'
 import Typography from '@material-ui/core/Typography'
 import AddCircleOutlineOutlinedIcon from '@material-ui/icons/AddCircleOutlineOutlined';
@@ -17,7 +18,10 @@ export default function RenameItem() {
         <Container >
             <div style={space}/>
                 <Typography variant="h5" onClick={selected} style={toggleEditPage}>
-                    <AddCircleOutlineOutlinedIcon fontSize="small"/>Ny produkt
+                    <IconButton>
+                        <AddCircleOutlineOutlinedIcon/>
+                    </IconButton>
+                    Ny produkt
                 </Typography>  
                 {toggle? <div>
                     <div style={space}/>
