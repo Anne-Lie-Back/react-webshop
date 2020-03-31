@@ -4,20 +4,8 @@ import { List, ListItem, ListItemText, IconButton, ListItemAvatar, Avatar, Divid
 import DeleteRoundedIcon from '@material-ui/icons/DeleteForeverRounded'
 import AddIcon from '@material-ui/icons/Add'
 import RemoveIcon from '@material-ui/icons/Remove'
-import { Product, items } from './items/itemList';
 
 export default function ShoppingCart() {
-
-    function getProductById(inItemId: number){
-        const errorProduct: Product = {name:"error", id:0 , price:0, description:"error",imgURL:""}
-        const product = items.find(({ id }) => id === inItemId)
-        if(product){
-            return product
-        } else {
-            console.log("cant find product")
-            return errorProduct
-        }
-    }
 
     return (
         <CartContext.Consumer>
@@ -25,27 +13,27 @@ export default function ShoppingCart() {
                 <div >
                     <List>
                     {cartState.cartList?.length > 0 ? 
-                        cartState.cartList.map(contextItem =>
-                            <Container key={contextItem.id}>
+                        cartState.cartList.map(cartItem =>
+                            <Container key={cartItem.id}>
                                 <ListItem>
                                     <ListItemAvatar>
-                                        <Avatar src={getProductById(contextItem.id).imgURL}/>
+                                        <Avatar src={cartItem.product.imgURL}/>
                                     </ListItemAvatar>
-                                    <ListItemText primary={(getProductById(contextItem.id).name)} />
+                                    <ListItemText primary={cartItem.product.name} />
                                     <ListItemSecondaryAction style={widthStyle}>
-                                    <IconButton onClick={() => cartState.addProduct(contextItem.id, -1)}>
+                                    <IconButton onClick={() => cartState.addProduct(cartItem.id, -1)}>
                                         <RemoveIcon/>
                                     </IconButton>
-                                    <ListItemText primary={contextItem.nrItems + " st"} />
-                                    <IconButton onClick={() => cartState.addProduct(contextItem.id, 1)}>
+                                    <ListItemText primary={cartItem.nrItems + " st"} />
+                                    <IconButton onClick={() => cartState.addProduct(cartItem.id, 1)}>
                                         <AddIcon/>
                                     </IconButton>
                                     <ListItemText primary={
                                         <Typography align="center">
-                                            {getProductById(contextItem.id).price + " kr"}
+                                            {cartItem.product.price + " kr"}
                                         </Typography> 
                                         } />
-                                    <IconButton edge="end" aria-label="delete" onClick={() => cartState.removeItemFromCart(contextItem.id)}>
+                                    <IconButton edge="end" aria-label="delete" onClick={() => cartState.removeItemFromCart(cartItem.id)}>
                                         <DeleteRoundedIcon />
                                     </IconButton>
                                     </ListItemSecondaryAction>
