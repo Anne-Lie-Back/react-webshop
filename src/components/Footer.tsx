@@ -1,6 +1,7 @@
 import React,{CSSProperties} from 'react'
 import Container from '@material-ui/core/Container'
 import { Typography } from '@material-ui/core';
+import { Button } from '@material-ui/core';
 import { Grid } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 
@@ -35,9 +36,11 @@ export default function Footer() {
                     </Typography>
                 </Grid>
                 <Grid item>
-                    <Typography color="error" variant="body2">
-                        <Link to="/admin">Admin</Link>
-                    </Typography>
+                    <Link to="/admin" style={buttonStyle}>
+                        <Button color="primary" variant="outlined">
+                            Admin
+                        </Button>
+                    </Link>
                 </Grid>
             </Grid>
         </Container>
@@ -48,9 +51,14 @@ const footerStyle:CSSProperties = {
     backgroundColor: '#346933',
     width: '100vw',
     position: 'relative',
-    height: '7em',
+    height: '9em',
     padding: '1em',
     margin: '1em 0 0 0',
-    marginTop:'calc(15% + 2em)',
+    marginTop:'calc(15% + 3em)',
     bottom: 0
+}
+
+const buttonStyle:CSSProperties = {
+    margin: '0.5em',
+    textDecoration: 'none'
 }

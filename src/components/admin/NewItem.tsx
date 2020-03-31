@@ -1,15 +1,13 @@
 import React, { CSSProperties } from 'react'
-import { Product } from '../items/itemList'
+import AddCircleOutlineOutlinedIcon from '@material-ui/icons/AddCircleOutlineOutlined';
+/*import { Product } from '../items/itemList'*/
 import TextField from '@material-ui/core/TextField'
 import FormControl from '@material-ui/core/FormControl'
-import Container from '@material-ui/core/Container'
 import Button from '@material-ui/core/Button'
-import RemoveCircleOutlineIcon from '@material-ui/icons/RemoveCircleOutline';
-import EditIcon from '@material-ui/icons/Edit';
+
+
 
 interface Props{
-    itemData: Product
-    arrayIndex: number
 }
 
 interface State{
@@ -20,53 +18,47 @@ interface State{
     description: string
 }
 
-export default class EditItem extends React.Component<Props, State> {
+export default class NewItem extends React.Component<Props, State> {
     constructor(props:Props){
         super(props)
         this.state = {
-            id: props.itemData.id,
-            name: props.itemData.name, 
-            price: props.itemData.price,
-            imgURL: props.itemData.imgURL,
-            description: props.itemData.description
+            id: 0 ,
+            name: "" , 
+            price: 0 ,
+            imgURL: "" ,
+            description: ""
         }   
     }
-
-    handleIdInput = (event: { target: { value: any } }) => this.setState({id:event.target.value})
     handleNameInput = (event: { target: { value: any } }) => this.setState({name:event.target.value})
     handlePriceInput = (event: { target: { value: any } }) => this.setState({price:event.target.value})
     handleimgURLChange = (event: { target: { value: any } }) => this.setState({imgURL:event.target.value})
     handleDescriptionInput = (event: { target: { value: any } }) => this.setState({description:event.target.value})
+    
     handleSubmit = (event: any) => {
         const productList = JSON.parse(localStorage.getItem('productList') || '{}')
-        productList[this.props.arrayIndex] = {
-            id: this.state.id,
+        let allIDs = []
+        let highestID
+        for (let i = 0; i < productList.length; i++) {
+            allIDs.push(productList[i].id)
+        }
+        highestID = Math.max(...allIDs) + 1
+        productList.push({
+            id: highestID,
             name: this.state.name, 
             price: this.state.price,
             imgURL: this.state.imgURL,
             description: this.state.description
-        }
+        })
         localStorage.setItem('productList', JSON.stringify(productList))
     }
-
-    delete = () => {
-        const items = JSON.parse(localStorage.getItem('productList') || '{}')
-        const i = this.props.arrayIndex
-        const productList = items.slice(0, i).concat(items.slice(i + 1, items.length))
-        localStorage.setItem('productList', JSON.stringify(productList))
-    }
-    
 
     render(){
         return(
-            <Container>
-                <Button variant="contained" color="primary" fullWidth onClick={this.delete}>
-                    <RemoveCircleOutlineIcon/>Ta bort #{this.props.itemData.id}
-                </Button>
+            <div>
                 <div style={divSpace}/>
                 <FormControl fullWidth>
                     <form autoComplete="off">
-                        <TextField required fullWidth name="name" label="Namn" variant="outlined" value={this.state.name} onChange={this.handleNameInput}/>
+                    <TextField required fullWidth name="name" label="Namn" variant="outlined" value={this.state.name} onChange={this.handleNameInput}/>
                         <div style={divSpace}/>
                         <TextField required fullWidth name="price" label="Pris" variant="outlined" value={this.state.price} onChange={this.handlePriceInput}/>
                         <div style={divSpace}/>
@@ -77,12 +69,13 @@ export default class EditItem extends React.Component<Props, State> {
                     </form>
                 </FormControl>
                 <Button variant="outlined" color="primary" fullWidth onClick={this.handleSubmit}>
-                    <EditIcon/> Ändra #{this.props.itemData.id}
+                    <AddCircleOutlineOutlinedIcon/> Lägg till
                 </Button>
-            </Container>
+            </div>
         )
     }
 }
+
 
 const divSpace:CSSProperties = {
     margin:"0 0 1em 0"
