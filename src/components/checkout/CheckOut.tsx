@@ -149,14 +149,14 @@ export default class CheckOut extends React.Component<Props, State>{
                 if(this.state.customerInfo) {
                     return(
                         <Container>
-                        <Payment
-                            onSubmit={this.onPaymentFormSubmit}
-                            customerInfo={this.state.customerInfo}
-                        />
-                        <Button variant="contained" 
-                        color="primary"
-                        onClick = {this.previousStep}> Tillbaka 
-                        </Button>
+                            <Payment
+                                onSubmit={this.onPaymentFormSubmit}
+                                customerInfo={this.state.customerInfo}
+                            />
+                            <Button variant="contained" 
+                            color="primary"
+                            onClick = {this.previousStep}> Tillbaka 
+                            </Button>
                         </Container>
                     )
                 }
@@ -165,12 +165,12 @@ export default class CheckOut extends React.Component<Props, State>{
                 case 4:
                     if(this.state.customerInfo && this.state.customerPaymentInfo) {
                         return(
-                            <>
+                            <Container>
                                 <h1>Bravo!</h1>
                             <p>Du har beställt supergott te för {total}kr! <br/> Vi har skickat bekräftelse till din mail: {this.state.customerInfo.email}</p>
                                 <p>Beräknad leveransdag: idag + {this.state.customerInfo.deliveryDate} till</p>
                                 <p>Ditt ordernummer är: INTE BESTÄMT ÄN</p>
-                            </>
+                            </Container>
                         )
                     }
                     break
