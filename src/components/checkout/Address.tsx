@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {CSSProperties}from 'react';
 //import { createStyles, makeStyles, Theme, withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
@@ -250,38 +250,44 @@ export default class AddressForm extends React.Component<Props, CustomerInfo> {
               onChange ={(event) => { this.setState({ mobile: event.target.value }) }}
             />
             <br/>
-            <FormControl error = {this.state.isShippingError}>
-              <br/>
-            <FormLabel component="legend">Betalsätt</FormLabel>
-            <FormHelperText>{this.state.shippingError}</FormHelperText>
-            <RadioGroup  
-              value = {this.state.shippingMethod} 
-              onChange = {this.handleShipmentInput}>
-                <h3>PostNord Express!</h3>
-                <p>Leverans 24h. Pris: 99kr </p>
-                <FormControlLabel
-                  value="PostNord Express" 
-                  control={<Radio />} 
-                  label="PostNord Express"
-                />
-
-                <h3>PostNord Basic!</h3>
-                <p>Leverans: 4 dagar. Pris: 39kr</p>
-                <FormControlLabel
-                  value="PostNord Basic" 
-                  control={<Radio />} 
-                  label="PostNord Basic" 
-                />
-
-                <h3>PostMord!</h3>
-                <p>Leverans: Aldrig. Pris: Fri frakt </p>
-                <FormControlLabel 
-                  value="PostMord" 
-                  control={<Radio />} 
-                  label="PostMord" 
-                />
-            </RadioGroup>
-          </FormControl>
+            
+              <FormControl error = {this.state.isShippingError}>
+                <br/>
+              <FormLabel component="legend">Fraktsätt</FormLabel>
+              <FormHelperText>{this.state.shippingError}</FormHelperText>
+              <RadioGroup  
+                value = {this.state.shippingMethod} 
+                onChange = {this.handleShipmentInput}
+                style={flex}>
+                  <div style  = {temporaryStyling}>
+                    <h3>PostNord Express!</h3>
+                    <p>Leverans 24h. Pris: 99kr </p>
+                    <FormControlLabel
+                      value="PostNord Express" 
+                      control={<Radio />} 
+                      label="PostNord Express"
+                    />
+                  </div>
+                  <div style  = {temporaryStyling}>
+                    <h3>PostNord Basic!</h3>
+                    <p>Leverans: 4 dagar. Pris: 39kr</p>
+                    <FormControlLabel
+                      value="PostNord Basic" 
+                      control={<Radio />} 
+                      label="PostNord Basic" 
+                    />
+                  </div>
+                  <div style  = {temporaryStyling}>
+                    <h3>PostMord!</h3>
+                    <p>Leverans: Aldrig. Pris: Fri frakt </p>
+                    <FormControlLabel 
+                      value="PostMord" 
+                      control={<Radio />} 
+                      label="PostMord" 
+                    />
+                  </div>
+              </RadioGroup>
+            </FormControl>
           </form>
           <Button
             type = 'submit'
@@ -295,4 +301,14 @@ export default class AddressForm extends React.Component<Props, CustomerInfo> {
   }
 }
 
+const temporaryStyling:CSSProperties = {
+    border: '2px solid blue',
+    margin: '2rem',
+    padding: '1rem'
 
+}
+const flex:CSSProperties = {
+  display:'flex',
+  flexDirection:'row',
+  flexWrap: 'wrap'
+}

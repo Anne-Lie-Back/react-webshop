@@ -3,14 +3,15 @@ import { CartItem } from '../typings'
 
 export const CartContext = React.createContext<State>({
     cartList: [{id:1, nrItems:1}],
-    addProduct: () => {}
-
+    addProduct: () => {},
+    removeItemFromCart: () => {}
 })
 
 interface Props{}
 interface State{
     cartList: Array<CartItem>
-    addProduct:() => void
+    addProduct:(inItemId: number, inNrItems: number) => void
+    removeItemFromCart:(inItemId: number) => void
 }
 
 export class CartProvider extends React.Component<Props, State>{
@@ -18,18 +19,83 @@ export class CartProvider extends React.Component<Props, State>{
         super(props)
         this.state = {
             cartList: [],
-            addProduct: this.addProduct
+            addProduct: this.addProduct,
+            removeItemFromCart: this.removeItemFromCart
         }
     }
 
-    // Push to array does not work in setState.
-    addProduct = () => {
-        this.setState({
-            cartList: [...this.state.cartList, {id:1, nrItems:2}]
-        })
+    // Add a product to cartList array, Id and Number of items to add.
+    // Number of items can be negative -1 to remove a product or positive to add.
+    addProduct = (inItemId: number, inNrItems: number) => {
+        const cartListPosition = this.findItemInCart(inItemId)
+        const updatedCartList = [...this.state.cartList]
+        console.log("start cart list")
+        console.log(this.state.cartList)
+        
+        if(cartListPosition !== false){
+            updatedCartList[cartListPosition].nrItems = updatedCartList[cartListPosition].nrItems + inNrItems
+            if(updatedCartList[cartListPosition].nrItems < 1){
+                console.log("negative item count, remove from list")
+                this.removeItemFromCart(inItemId)
+            } else {
+                this.setState({
+                    cartList: [...updatedCartList]
+                })
+            }
+            console.log("update cart item " )
+            console.log(updatedCartList)
+        } else {
+            if(inNrItems > 0){
+                updatedCartList.push({id: inItemId, nrItems: inNrItems})
+                console.log("push new item to list " )
+                console.log(updatedCartList)
+                this.setState({
+                    // cartList: [...this.state.cartList, {id: inItemId, nrItems: inNrItems}]
+                    cartList: [...updatedCartList]
+                })
+            } else {
+                console.log("Cannot add zero or negative nr of items.")
+            }
+        }
     }
 
-    //TODO add functions: removeProduct(id), addToProduct(id, nrToAdd), subtractFromProduct(id,nrToAdd)
+    //Because itemId and cartList array position are different this function 
+    //returns the item cartList array position given an itemId.
+    findItemInCart = (InItemId: number) => {
+        let itemFound = false
+        let cartListPosition = 0
+        for (let i = 0; i < this.state.cartList.length; i++) {
+            const item = this.state.cartList[i];
+            // console.log(item.id + " id and inId: " + InItemId)
+            if(item.id === InItemId){
+                itemFound = true
+                cartListPosition = i
+            }
+        }
+
+        if(itemFound){
+            // console.log("item array position " + cartListPosition)
+            return cartListPosition
+        } else {
+            // console.log("item not found.")
+            return false
+        }
+
+    }
+
+    removeItemFromCart = (InItemId:number) => {
+        const cartListPosition = this.findItemInCart(InItemId)
+        let updatedCartList = [...this.state.cartList]
+        if(cartListPosition !== false){
+            updatedCartList.splice(cartListPosition,1)
+            console.log("item removed")
+            this.setState({
+                cartList: [...updatedCartList]
+            })
+        } else {
+            console.log("item to remove not found.")
+        }
+    }
 
     render(){
         return(

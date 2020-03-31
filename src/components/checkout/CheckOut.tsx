@@ -3,6 +3,9 @@ import AddressForm from './Address'
 //import Shipping from './Shipping'
 import Button from '@material-ui/core/Button';
 import { CustomerInfo } from './../../typings'
+import ShoppingCart from '../ShoppingCart';
+//import Container from '@material-ui/core/Container';
+// import Admin from '../admin/Admin'
 
 interface Props{
 }
@@ -10,10 +13,7 @@ interface Props{
 
 interface State{
     step:number,
-
     customerInfo?: CustomerInfo
-
-
 }
 
 export default class CheckOut extends React.Component<Props, State>{
@@ -86,22 +86,8 @@ export default class CheckOut extends React.Component<Props, State>{
             case 1:
                 return(
                     <>
-                        <h2>Här är listan på allt du vill köpa! (eller kommer vara)</h2>
+                        <ShoppingCart/>
                         <AddressForm customerInfo={this.state.customerInfo} onSubmit={this.onSubmit}/>
-{/*                         <Shipping
-                            
-                            shippingMethod = {this.state.shippingMethod}
-                            onShipmentChange = {event =>this.handleShippingRadio(event)}
-                            
-/                             shippingCost = {this.state.shippingCost}
-                            deliveryDate = {this.state.deliveryDate}  
-                            />
-                                <br/>
-                        <Button 
-                            variant="contained" 
-                            color="primary"
-                            onClick = {this.nextStep}> Fortsätt 
-                        </Button> */}
                     </>
                 )
             case 2:

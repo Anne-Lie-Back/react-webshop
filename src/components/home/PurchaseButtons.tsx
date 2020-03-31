@@ -16,6 +16,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 interface Props {
   itemPrice: number
+  itemId: number
 }
 
 export default function PurchaseButtons(props : Props) {
@@ -25,7 +26,7 @@ export default function PurchaseButtons(props : Props) {
     <CartContext.Consumer>
       { (cartState) => (
         <div className={classes.root} style={{padding:'0 1em 1em'}}>
-          <Button onClick={cartState.addProduct}
+          <Button onClick={() => cartState.addProduct(props.itemId, 1)}
             variant="contained"
             color="primary"
             fullWidth={true}
