@@ -1,9 +1,11 @@
 import React, {CSSProperties} from 'react'
 import AddressForm from './Address'
+import Payment from './Payment'
 //import Shipping from './Shipping'
 import Button from '@material-ui/core/Button';
-import { CustomerInfo } from './../../typings'
+import { CustomerInfo, CustomerPaymentInfo } from './../../typings'
 import ShoppingCart from '../ShoppingCart';
+import { CartContext } from '../../contexts/cartContext';
 import { Container } from '@material-ui/core';
 //import Container from '@material-ui/core/Container';
 // import Admin from '../admin/Admin'
@@ -15,6 +17,7 @@ interface Props{
 interface State{
     step:number,
     customerInfo?: CustomerInfo
+    customerPaymentInfo?: CustomerPaymentInfo
 }
 
 export default class CheckOut extends React.Component<Props, State>{
@@ -23,6 +26,7 @@ export default class CheckOut extends React.Component<Props, State>{
         this.state = {
             step: 1,
             customerInfo: undefined,
+            customerPaymentInfo: undefined
         }   
     }
 
@@ -68,19 +72,27 @@ export default class CheckOut extends React.Component<Props, State>{
         }
     } */
 
-    private onSubmit = (customerInfoFromForm: CustomerInfo) => {
+    private onAddressFormSubmit = (customerInfoFromForm: CustomerInfo) => {
         // Sätt stateeet i CheckOut
         this.setState({
             customerInfo: customerInfoFromForm,
             step: this.state.step + 1
         })
+    }
+
+    private onPaymentFormSubmit = (customerInfoFromForm: CustomerPaymentInfo) => {
+        // Sätt stateeet i CheckOut
+        this.setState({
+            customerPaymentInfo: customerInfoFromForm,
+            step: this.state.step + 1
+        })
     } 
 
     render(){
-        let total
-        if(this.state.customerInfo){
-            total = 500 + this.state.customerInfo.shippingCost
-        }
+        let total:number
+        
+        total = 500 + this.state.customerInfo?.shippingCost
+        
         
         const { step } = this.state
         switch(step){
@@ -88,41 +100,80 @@ export default class CheckOut extends React.Component<Props, State>{
                 return(
                     <Container>
                         <ShoppingCart/>
-                        <AddressForm customerInfo={this.state.customerInfo} onSubmit={this.onSubmit}/>
+                        <AddressForm 
+                            customerInfo={this.state.customerInfo} 
+                            onSubmit={this.onAddressFormSubmit}/>
                     </Container>
+
                 )
+                break
             case 2:
                 if(this.state.customerInfo) {
                     return(
+                    <CartContext.Consumer>
+                    {(cartState) => (                   
                         <Container>
-
                             <div style = {temporaryStyling}>
                                 <p>Skickas till:</p>
-                                <p>{this.state.customerInfo.firstName} {this.state.customerInfo.lastName}</p>
-                                <p>{this.state.customerInfo.address}</p>
-                                <p>{this.state.customerInfo.zipCode} {this.state.customerInfo.city}</p>
+                                <p>{this.state.customerInfo?.firstName} {this.state.customerInfo?.lastName}</p>
+                                <p>{this.state.customerInfo?.address}</p>
+                                <p>{this.state.customerInfo?.zipCode} {this.state.customerInfo?.city}</p>
                                 <br/>
-                                <p>E-Mail: {this.state.customerInfo.email}</p>
-                                <p>Mobilnummer: {this.state.customerInfo.mobile}</p>
+                                <p>E-Mail: {this.state.customerInfo?.email}</p>
+                                <p>Mobilnummer: {this.state.customerInfo?.mobile}</p>
         
                                 <br/>
         
-                                <p>Valt Fraktsätt: {this.state.customerInfo.shippingMethod} </p>
-                                <p>Förväntad fraktdag: {this.state.customerInfo.deliveryDate} </p>
-                                <p> Kostnad: 500kr plus frakt (+{this.state.customerInfo.shippingCost}kr)</p>
-                                <p>Totalkostnad: {total}</p>
+                                <p>Valt Fraktsätt: {this.state.customerInfo?.shippingMethod} </p>
+                                <p>Förväntad fraktdag: {this.state.customerInfo?.deliveryDate} </p>
+                                <p> Kostnad: 500kr plus frakt (+{this.state.customerInfo?.shippingCost}kr)</p>
+                                <p>Totalkostnad: {total} kr</p>
         
                                 <b/>
-                                <h5>Funktionen att det stämmer finns inte än</h5>
+                                <Button variant="contained" 
+                                    color="primary"
+                                    onClick = {this.nextStep}> Stämmer?
+                                </Button>
                                 <Button variant="contained" 
                                     color="primary"
                                     onClick = {this.previousStep}> Stämmer inte?
                                 </Button>
-        
                             </div>
+                        </Container>
+                    )}                   
+                    </CartContext.Consumer>
+                    )
+                }
+                break
+                case 3:
+                if(this.state.customerInfo) {
+                    return(
+                        <Container>
+                            <Payment
+                                onSubmit={this.onPaymentFormSubmit}
+                                customerInfo={this.state.customerInfo}
+                            />
+                            <Button variant="contained" 
+                            color="primary"
+                            onClick = {this.previousStep}> Tillbaka 
+                            </Button>
                         </Container>
                     )
                 }
+                break
+
+                case 4:
+                    if(this.state.customerInfo && this.state.customerPaymentInfo) {
+                        return(
+                            <Container>
+                                <h1>Bravo!</h1>
+                                <p>Du har beställt supergott te för {total}kr! <br/> Vi har skickat bekräftelse till din mail: {this.state.customerInfo.email}</p>
+                                <p>Beräknad leveransdag: idag + {this.state.customerInfo.deliveryDate} till</p>
+                                <p>Ditt ordernummer är: INTE BESTÄMT ÄN</p>
+                            </Container>
+                        )
+                    }
+                    break
         }
     }
 }
