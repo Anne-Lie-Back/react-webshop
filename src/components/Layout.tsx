@@ -34,7 +34,7 @@ export default class Layout extends React.Component<Props, State> {
                             <Home/>
                         </Route>
                     </Switch>
-               / <Footer/>
+                <Footer/>
             </BrowserRouter>
         );   
     }

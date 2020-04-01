@@ -32,35 +32,35 @@ export default class AddressForm extends React.Component<Props, CustomerInfo> {
     super(props)
     this.state = {
       //errorColor: 'noErrorColor',
-      firstName: this.props.customerInfo?.firstName,
+      firstName: '',
       isFirstNameError: false,
       firstNameError: '',
 
-      lastName: this.props.customerInfo?.lastName,
+      lastName: '',
       isLastNameError: false,
       lastNameError: '',
 
-      address: this.props.customerInfo?.address,
+      address: '',
       isAddressError: false,
       addressError: '',
 
-      zipCode: this.props.customerInfo?.zipCode,
+      zipCode: '',
       zipCodeError: '',
       isZipCodeError: false,
 
-      city: this.props.customerInfo?.city,
+      city: '',
       cityError: '',
       isCityError: false,
 
-      email: this.props.customerInfo?.email,
+      email: '',
       emailError: '',
       isEmailError: false,
 
-      mobile: this.props.customerInfo?.mobile,
+      mobile: '',
       isMobileError: false,
       mobileError: '',
 
-      shippingMethod:this.props.customerInfo?.shippingMethod,
+      shippingMethod:'',
       isShippingError: false,
       shippingError: 'Välj ett fraktsätt',
       deliveryDate:'',
