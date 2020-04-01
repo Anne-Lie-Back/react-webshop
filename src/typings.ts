@@ -1,3 +1,5 @@
+import { Product } from "./components/items/itemList";
+
 //For Url path props in React Router in Product component.
 export interface RouteMatch {
     path: string
@@ -11,6 +13,7 @@ export interface RouteMatch {
 export interface CartItem{
     id: number
     nrItems: number
+    product: Product
 }
 
 export interface CustomerInfo {

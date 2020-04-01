@@ -1,10 +1,12 @@
 import React from 'react'
 import { CartItem } from '../typings'
+import { items } from '../components/items/itemList'
 
 export const CartContext = React.createContext<State>({
-    cartList: [{id:1, nrItems:1}],
+    cartList: [{id:1, nrItems:1, product:{name:"placeholder", id:0 , price:0, description:"",imgURL:""}}],
     addProduct: () => {},
-    removeItemFromCart: () => {}
+    removeItemFromCart: () => {},
+    cartTotalPrice: 0,
 })
 
 interface Props{}
@@ -12,6 +14,7 @@ interface State{
     cartList: Array<CartItem>
     addProduct:(inItemId: number, inNrItems: number) => void
     removeItemFromCart:(inItemId: number) => void
+    cartTotalPrice: number
 }
 
 export class CartProvider extends React.Component<Props, State>{
@@ -20,7 +23,8 @@ export class CartProvider extends React.Component<Props, State>{
         this.state = {
             cartList: [],
             addProduct: this.addProduct,
-            removeItemFromCart: this.removeItemFromCart
+            removeItemFromCart: this.removeItemFromCart,
+            cartTotalPrice: 0,
         }
     }
 
@@ -39,24 +43,40 @@ export class CartProvider extends React.Component<Props, State>{
                 this.removeItemFromCart(inItemId)
             } else {
                 this.setState({
-                    cartList: [...updatedCartList]
+                    cartList: [...updatedCartList],
+                    cartTotalPrice: this.calcTotalCartPrice(updatedCartList)
                 })
             }
             console.log("update cart item " )
             console.log(updatedCartList)
         } else {
             if(inNrItems > 0){
-                updatedCartList.push({id: inItemId, nrItems: inNrItems})
+                const product = items.find(({id}) => id === inItemId)
+                if(product){
+                    updatedCartList.push({id: inItemId, nrItems: inNrItems, product:product})
+                } else{
+                    console.log("product not found")
+                }
                 console.log("push new item to list " )
                 console.log(updatedCartList)
                 this.setState({
                     // cartList: [...this.state.cartList, {id: inItemId, nrItems: inNrItems}]
-                    cartList: [...updatedCartList]
+                    cartList: [...updatedCartList],
+                    cartTotalPrice: this.calcTotalCartPrice(updatedCartList)
                 })
             } else {
                 console.log("Cannot add zero or negative nr of items.")
             }
         }
+    }
+
+    calcTotalCartPrice(cartList: Array<CartItem>){
+        let TotalPrice = 0
+        for (const item of cartList) {
+            TotalPrice += item.nrItems * item.product.price
+        }
+
+        return TotalPrice
     }
 
     //Because itemId and cartList array position are different this function 
@@ -90,7 +110,8 @@ export class CartProvider extends React.Component<Props, State>{
             updatedCartList.splice(cartListPosition,1)
             console.log("item removed")
             this.setState({
-                cartList: [...updatedCartList]
+                cartList: [...updatedCartList],
+                cartTotalPrice: this.calcTotalCartPrice(updatedCartList)
             })
         } else {
             console.log("item to remove not found.")
