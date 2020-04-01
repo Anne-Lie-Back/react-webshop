@@ -11,7 +11,7 @@ export class CartIcon extends React.Component {
         return(
             <CartContext.Consumer>
                 { (cartState) =>(
-                    <div>
+                    <div style = {{marginRight: '1rem'}}>
                         <IconButton color="secondary" 
                             style={{border:'solid #9cba98 0.1em'}}>
                             <ShoppingCartIcon fontSize="large" color="secondary"/>

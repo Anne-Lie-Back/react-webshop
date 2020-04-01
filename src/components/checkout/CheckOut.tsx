@@ -1,5 +1,5 @@
 import React, {CSSProperties} from 'react'
-import AddressForm from './Address'
+import AddressForm from './AddressForm'
 import Payment from './Payment'
 //import Shipping from './Shipping'
 import Button from '@material-ui/core/Button';
@@ -18,6 +18,7 @@ interface State{
     step:number,
     customerInfo?: CustomerInfo
     customerPaymentInfo?: CustomerPaymentInfo
+    orderNumber:number
 }
 
 export default class CheckOut extends React.Component<Props, State>{
@@ -26,7 +27,8 @@ export default class CheckOut extends React.Component<Props, State>{
         this.state = {
             step: 1,
             customerInfo: undefined,
-            customerPaymentInfo: undefined
+            customerPaymentInfo: undefined,
+            orderNumber: 0
         }   
     }
 
@@ -81,10 +83,11 @@ export default class CheckOut extends React.Component<Props, State>{
     }
 
     private onPaymentFormSubmit = (customerInfoFromForm: CustomerPaymentInfo) => {
-        // Sätt stateeet i CheckOut
+        const ts = Math.round((new Date()).getTime() / 1000);
         this.setState({
             customerPaymentInfo: customerInfoFromForm,
-            step: this.state.step + 1
+            step: this.state.step + 1,
+            orderNumber: ts
         })
     } 
 
@@ -159,14 +162,14 @@ export default class CheckOut extends React.Component<Props, State>{
                 }
                 break */
 
-                case 4:
+                case 3:
                     if(this.state.customerInfo && this.state.customerPaymentInfo) {
                         return(
                             <Container>
                                 <h1>Bravo!</h1>
                                 <p>Du har beställt supergott te för {total}kr! <br/> Vi har skickat bekräftelse till din mail: {this.state.customerInfo.email}</p>
                                 <p>Beräknad leveransdag: idag + {this.state.customerInfo.deliveryDate} till</p>
-                                <p>Ditt ordernummer är: INTE BESTÄMT ÄN</p>
+                                <p>Ditt ordernummer är: {this.state.orderNumber}</p>
                             </Container>
                         )
                     }
