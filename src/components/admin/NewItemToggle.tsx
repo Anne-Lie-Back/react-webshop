@@ -1,31 +1,42 @@
-import React,{CSSProperties, useState} from 'react'
+import React,{ CSSProperties } from 'react'
 import IconButton from '@material-ui/core/IconButton'
 import Container from '@material-ui/core/Container'
 import Typography from '@material-ui/core/Typography'
 import AddCircleOutlineOutlinedIcon from '@material-ui/icons/AddCircleOutlineOutlined';
 import NewItem from './NewItem'
 
+interface Props{
+}
 
-export default function RenameItem() {
-    let [toggle, setToggle] = useState<boolean>(false)
+interface State {
+    toggleItem: boolean
+}
 
-    function selected(){
-        setToggle(toggleItem => !toggleItem)
+export default class NewItemToggle extends React.Component<Props, State> {
+    constructor(props:Props){
+        super(props)
+        this.state = {
+            toggleItem: false
+        }   
     }
 
-    return(
-        <Container>
-            <div style={space}/>
-            <Typography onClick={selected} style={toggleEditPage}>
-                <IconButton>
-                    <AddCircleOutlineOutlinedIcon/>
-                </IconButton>
-                Ny produkt
-            </Typography>  
-            {toggle? <NewItem/> : null}
-            <div style={space}/>
-        </Container>
-    )
+    toggle = () => { this.setState({toggleItem: !this.state.toggleItem})}
+
+    render(){
+        return(
+            <Container>
+                <div style={space}/>
+                <Typography onClick={this.toggle} style={toggleEditPage}>
+                    <IconButton>
+                        <AddCircleOutlineOutlinedIcon/>
+                    </IconButton>
+                    Ny produkt
+                </Typography>  
+                {this.state.toggleItem? <NewItem/> : null}
+                <div style={space}/>
+            </Container>
+        )
+    }
 }
 
 

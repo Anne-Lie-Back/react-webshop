@@ -1,4 +1,4 @@
-import React,{useState,CSSProperties} from 'react'
+import React,{CSSProperties} from 'react'
 import { Product } from '../items/itemList'
 import Card from '@material-ui/core/Card';
 import Typography from '@material-ui/core/Typography';
@@ -12,24 +12,33 @@ interface Props{
     arrayIndex: number
 }
 
-export default function ProductAdminList(props:Props){
-    let [selectItem, setSelectItem] = useState<boolean>(false)
+interface State {
+    toggleItem: boolean
+}
 
-    function selected(){
-        setSelectItem(toggleItem => !toggleItem)
+export default class ProductAdminList extends React.Component<Props, State> {
+    constructor(props:Props){
+        super(props)
+        this.state = {
+            toggleItem: false
+        }   
     }
+    
+    toggle = () => { this.setState({toggleItem: !this.state.toggleItem})}
 
-    return(
-        <Card style={adminListStyle} variant="outlined">
-            <Typography onClick={selected}>
-                <IconButton>
-                    {selectItem?  <ExpandLessIcon/> : <ExpandMoreIcon/>}
-                </IconButton>
-                {'Prod# ' + props.itemData.id + " - " + props.itemData.name} 
-            </Typography>
-            {selectItem?<EditItem itemData={props.itemData} arrayIndex={props.arrayIndex}/> : null}
-        </Card>
-    )
+    render(){
+        return(
+            <Card style={adminListStyle} variant="outlined">
+                <Typography onClick={this.toggle}>
+                    <IconButton>
+                        {this.state.toggleItem?  <ExpandLessIcon/> : <ExpandMoreIcon/>}
+                    </IconButton>
+                    {'Prod# ' + this.props.itemData.id + " - " + this.props.itemData.name} 
+                </Typography>
+                {this.state.toggleItem?<EditItem itemData={this.props.itemData} arrayIndex={this.props.arrayIndex}/> : null}
+            </Card>
+        )
+    }
 }
 
 const adminListStyle:CSSProperties = {

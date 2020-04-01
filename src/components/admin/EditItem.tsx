@@ -43,7 +43,7 @@ export default class EditItem extends React.Component<Props, State> {
     
     handleSubmit = (event: any) => {
         const productList = JSON.parse(localStorage.getItem('productList') || '{}')
-        productList[this.props.arrayIndex] = {
+        productList[this.props.arrayIndex] = { //Solve by var
             id: this.state.id,
             name: this.state.name, 
             price: this.state.price,
