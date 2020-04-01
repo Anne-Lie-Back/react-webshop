@@ -61,8 +61,6 @@ export default class CheckOut extends React.Component<Props, State>{
     } 
 
     render(){
-        let total:number     
-        total = 500 + this.state.customerInfo?.shippingCost
         const { step } = this.state
 
         switch(step){
@@ -90,24 +88,21 @@ export default class CheckOut extends React.Component<Props, State>{
                                     <p>{this.state.customerInfo?.zipCode} {this.state.customerInfo?.city}</p>
                                     <br/>
                                     <p>E-Mail: {this.state.customerInfo?.email}</p>
-                                    <p>Mobilnummer: {this.state.customerInfo?.mobile}</p>
-            
-                                    <br/>
-            
+                                    <p>Mobilnummer: {this.state.customerInfo?.mobile}</p>          
+                                    <br/>           
                                     <p>Valt Fraktsätt: {this.state.customerInfo?.shippingMethod} </p>
                                     <p>Förväntad leveransdag: {this.state.customerInfo?.deliveryDate} </p>
-                                    <p> Kostnad: 500kr plus frakt (+{this.state.customerInfo?.shippingCost}kr)</p>
-                                    <p>Totalkostnad: {total} kr</p>
+                                    <p> Kostnad: {cartState.cartTotalPrice} kr plus frakt (+{this.state.customerInfo?.shippingCost} kr)</p>
+                                    <br/>
+                                    <p>Totalkostnad: {cartState.cartTotalPrice + this.state.customerInfo?.shippingCost} kr 
+                                        <span style = {{fontSize: '0.6rem'}}>(varav {cartState.cartTotalPrice * 0.25} kr moms).</span>
+                                    </p>
             
                                     <b/>
                                     <Payment
                                     onSubmit={this.onPaymentFormSubmit}
                                     customerInfo={this.state.customerInfo}
                                     />
-    {/*                                 <Button variant="contained" 
-                                        color="primary"
-                                        onClick = {this.nextStep}> Stämmer?
-                                    </Button> */}
                                     <Button variant="contained" 
                                         color="primary"
                                         onClick = {this.previousStep}> Stämmer inte?
@@ -123,12 +118,16 @@ export default class CheckOut extends React.Component<Props, State>{
             case 3:
                 if(this.state.customerInfo && this.state.customerPaymentInfo) {
                     return(
-                        <Container>
-                            <h1>Bravo!</h1>
-                            <p>Du har beställt supergott te för {total}kr! <br/> Vi har skickat bekräftelse till din mail: {this.state.customerInfo.email}</p>
-                            <p>Beräknad leveransdag: {this.state.customerInfo.deliveryDate}</p>
-                            <p>Ditt ordernummer är: {this.state.orderNumber}</p>
-                        </Container>
+                        <CartContext.Consumer>
+                        {(cartState) => (  
+                            <Container>
+                                <h1>Bravo!</h1>
+                                <p>Du har beställt supergott te för kostnaden av {cartState.cartTotalPrice + this.state.customerInfo?.shippingCost}kr! <br/> Vi har skickat bekräftelse till din mail: {this.state.customerInfo?.email}</p>
+                                <p>Beräknad leveransdag: {this.state.customerInfo?.deliveryDate}</p>
+                                <p>Ditt ordernummer är: {this.state.orderNumber}</p>
+                            </Container>
+                        )}                   
+                        </CartContext.Consumer>
                     )
                 }
                 break

@@ -298,7 +298,7 @@ render(){
             onClick={() => this.onSubmit()}
             variant="contained" 
             color="primary">
-              BETALA
+              Slutför ditt köp
           </Button>  
       </>
     );
