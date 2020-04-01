@@ -11,6 +11,7 @@ import EditIcon from '@material-ui/icons/Edit';
 interface Props {
     itemData: Product
     arrayIndex: number
+    handleSubmit: any
 }
 
 interface State {
@@ -40,27 +41,8 @@ export default class EditItem extends React.Component<Props, State> {
     handlePriceInput = (event: { target: { value: any } }) => this.setState({price:event.target.value})
     handleimgURLChange = (event: { target: { value: any } }) => this.setState({imgURL:event.target.value})
     handleDescriptionInput = (event: { target: { value: any } }) => this.setState({description:event.target.value})
-    
-    handleSubmit = (event: any) => {
-        const productList = JSON.parse(localStorage.getItem('productList') || '{}')
-        productList[this.props.arrayIndex] = { //Solve by var
-            id: this.state.id,
-            name: this.state.name, 
-            price: this.state.price,
-            imgURL: this.state.imgURL,
-            description: this.state.description
-        }
-        if( this.state.name === "" ||
-            isNaN(this.state.price) ||
-            this.state.imgURL === "" ||
-            this.state.description === ""){
-                this.setState({userMassage: "Något blev fel"})
-            } else {
-                this.setState({userMassage: "Ändrat"})
-                localStorage.setItem('productList', JSON.stringify(productList))
-            }
-    }
 
+    
     delete = () => {
         const items = JSON.parse(localStorage.getItem('productList') || '{}')
         const i = this.props.arrayIndex
@@ -68,8 +50,15 @@ export default class EditItem extends React.Component<Props, State> {
         localStorage.setItem('productList', JSON.stringify(productList))
     }
     
-
+    
     render(){
+        let itemData = {
+            id: this.state.id,
+            name: this.state.name, 
+            price: this.state.price,
+            imgURL: this.state.imgURL,
+            description: this.state.description
+        }
         return(
             <Container>
                 <Button variant="contained" color="primary" fullWidth onClick={this.delete}>
@@ -125,7 +114,11 @@ export default class EditItem extends React.Component<Props, State> {
                 <Typography>
                     {this.state.userMassage}
                 </Typography>
-                <Button variant="outlined" color="primary" fullWidth onClick={this.handleSubmit}>
+                <Button 
+                    variant="outlined"
+                    color="primary" 
+                    fullWidth
+                    onClick={() => this.props.handleSubmit(this.props.arrayIndex, itemData)}>
                     <EditIcon/> Ändra #{this.props.itemData.id}
                 </Button>
             </Container>

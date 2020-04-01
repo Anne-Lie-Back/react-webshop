@@ -10,31 +10,40 @@ interface Props {
 }
 
 interface State {
-    userMassage: string,
-    id: number,
-    name: string, 
-    price: number,
-    imgURL: string,
-    description: string
 }
 
 export default class Admin extends React.Component<Props, State> {
     constructor(props:Props){
         super(props)
         this.state = {
-            userMassage: "",
-            id: itemsLS[0].id,
-            name: itemsLS[0].name, 
-            price: itemsLS[0].price,
-            imgURL: itemsLS[0].imgURL,
-            description: itemsLS[0].description
         }   
     }
+
+    handleSubmit = (arrayIndex:number, itemData:Product) => {
+        itemsLS[arrayIndex] = {
+            id: itemData.id,
+            name: itemData.name, 
+            price: itemData.price,
+            imgURL: itemData.imgURL,
+            description: itemData.description
+        }
+        if( itemData.name === "" ||
+            isNaN(itemData.price) ||
+            itemData.imgURL === "" ||
+            itemData.description === ""){
+                this.setState({userMassage: "Något blev fel"})
+            } else {
+                this.setState({userMassage: "Ändrat"})
+            }
+        localStorage.setItem('productList', JSON.stringify(itemsLS))
+    }
+
+
     render(){
         return(
             <Container>
                 {itemsLS.map((itemData:Product, index:number) =>
-                    <ProductAdminList itemData={itemData} key={index} arrayIndex={index}/>
+                    <ProductAdminList itemData={itemData} key={index} arrayIndex={index} handleSubmit={this.handleSubmit}/>
                 )}
                 <Card variant="outlined">
                     <RenameItem/>
