@@ -15,26 +15,26 @@ export default function ShoppingCart() {
                     {cartState.cartList?.length > 0 ? 
                         cartState.cartList.map(cartItem =>
                             <Container key={cartItem.id}>
-                                <ListItem>
+                                <ListItem style={widthStyle}>
                                     <ListItemAvatar>
                                         <Avatar src={cartItem.product.imgURL}/>
                                     </ListItemAvatar>
-                                    <ListItemText primary={cartItem.product.name} />
-                                    <ListItemSecondaryAction style={widthStyle}>
-                                    <IconButton onClick={() => cartState.addProduct(cartItem.id, -1)}>
-                                        <RemoveIcon/>
+                                    <ListItemText primary={<Typography noWrap>{cartItem.product.name}</Typography> } />
+                                    <ListItemSecondaryAction >
+                                    <IconButton size="small" onClick={() => cartState.addProduct(cartItem.id, -1)}>
+                                        <RemoveIcon fontSize="small"/>
                                     </IconButton>
-                                    <ListItemText primary={cartItem.nrItems + " st"} />
-                                    <IconButton onClick={() => cartState.addProduct(cartItem.id, 1)}>
-                                        <AddIcon/>
+                                    <ListItemText primary={<Typography align="right">{cartItem.nrItems}</Typography> } />
+                                    <IconButton size="small" onClick={() => cartState.addProduct(cartItem.id, 1)}>
+                                        <AddIcon fontSize="small"/>
                                     </IconButton>
                                     <ListItemText primary={
                                         <Typography align="center">
                                             {cartItem.product.price + " kr"}
                                         </Typography> 
                                         } />
-                                    <IconButton edge="end" aria-label="delete" onClick={() => cartState.removeItemFromCart(cartItem.id)}>
-                                        <DeleteRoundedIcon />
+                                    <IconButton size="small" edge="end" aria-label="delete" onClick={() => cartState.removeItemFromCart(cartItem.id)}>
+                                        <DeleteRoundedIcon fontSize="small"/>
                                     </IconButton>
                                     </ListItemSecondaryAction>
                                 </ListItem>
@@ -55,5 +55,5 @@ const widthStyle: React.CSSProperties = {
     // textAlign: "right"
     display: "flex",
     flexDirection: "row",
-    alignItems: "center"
+
 }
