@@ -128,7 +128,7 @@ export default class CheckOut extends React.Component<Props, State>{
 }
 
 const temporaryStyling:CSSProperties ={
-    border: '2px solid blue',
+    border: '2px solid #346933',
     margin: '3rem',
     padding: '2rem'
 }
