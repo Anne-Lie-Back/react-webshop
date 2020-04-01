@@ -6,6 +6,7 @@ import { CustomerInfo, CustomerPaymentInfo } from './../../typings'
 import ShoppingCart from '../ShoppingCart';
 import { CartContext } from '../../contexts/cartContext';
 import { Container } from '@material-ui/core';
+import ShoppigCartCheckout from './../ShoppingCartCheckout'
 // import Admin from '../admin/Admin'
 
 interface Props{
@@ -82,6 +83,7 @@ export default class CheckOut extends React.Component<Props, State>{
                         {(cartState) => (                   
                             <Container>
                                 <div style = {temporaryStyling}>
+                                    <ShoppigCartCheckout/>
                                     <p>Skickas till:</p>
                                     <p>{this.state.customerInfo?.firstName} {this.state.customerInfo?.lastName}</p>
                                     <p>{this.state.customerInfo?.address}</p>
@@ -90,10 +92,10 @@ export default class CheckOut extends React.Component<Props, State>{
                                     <p>E-Mail: {this.state.customerInfo?.email}</p>
                                     <p>Mobilnummer: {this.state.customerInfo?.mobile}</p>          
                                     <br/>           
-                                    <p>Valt Fraktsätt: {this.state.customerInfo?.shippingMethod} </p>
+                                    <p>Valt Fraktsätt: {this.state.customerInfo?.shippingMethod} ({this.state.customerInfo?.shippingCost} kr)</p>
                                     <p>Förväntad leveransdag: {this.state.customerInfo?.deliveryDate} </p>
-                                    <p> Kostnad: {cartState.cartTotalPrice} kr plus frakt (+{this.state.customerInfo?.shippingCost} kr)</p>
-                                    <br/>
+{/*                                     <p> Kostnad: {cartState.cartTotalPrice} kr plus frakt (+{this.state.customerInfo?.shippingCost} kr)</p>
+                                    <br/> */}
                                     <p>Totalkostnad: {cartState.cartTotalPrice + this.state.customerInfo?.shippingCost} kr 
                                         <span style = {{fontSize: '0.6rem'}}>(varav {cartState.cartTotalPrice * 0.25} kr moms).</span>
                                     </p>
@@ -122,9 +124,10 @@ export default class CheckOut extends React.Component<Props, State>{
                         {(cartState) => (  
                             <Container>
                                 <h1>Bravo!</h1>
-                                <p>Du har beställt supergott te för kostnaden av {cartState.cartTotalPrice + this.state.customerInfo?.shippingCost}kr! <br/> Vi har skickat bekräftelse till din mail: {this.state.customerInfo?.email}</p>
+                                <p>Du har beställt supergott te för den totala kostnaden av {cartState.cartTotalPrice + this.state.customerInfo?.shippingCost}kr! <br/> Vi har skickat bekräftelse till din mail: {this.state.customerInfo?.email}</p>
                                 <p>Beräknad leveransdag: {this.state.customerInfo?.deliveryDate}</p>
                                 <p>Ditt ordernummer är: {this.state.orderNumber}</p>
+                                <ShoppigCartCheckout/>
                             </Container>
                         )}                   
                         </CartContext.Consumer>
