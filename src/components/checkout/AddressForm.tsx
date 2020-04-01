@@ -1,5 +1,4 @@
 import React, {CSSProperties}from 'react';
-//import { createStyles, makeStyles, Theme, withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Radio from '@material-ui/core/Radio';
@@ -9,17 +8,6 @@ import FormControl from '@material-ui/core/FormControl';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import FormLabel from '@material-ui/core/FormLabel';
 import { CustomerInfo} from '../../typings'
-
-/* const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    root: {
-      '& > *': {
-        margin: theme.spacing(1),
-        width: '25ch',
-      },
-    },
-  }),
-); */
 
 interface Props {
   onSubmit: (customerInfo: CustomerInfo) => void
@@ -31,7 +19,6 @@ export default class AddressForm extends React.Component<Props, CustomerInfo> {
   constructor(props: Props) {
     super(props)
     this.state = {
-      //errorColor: 'noErrorColor',
       firstName: '',
       isFirstNameError: false,
       firstNameError: '',
@@ -68,7 +55,7 @@ export default class AddressForm extends React.Component<Props, CustomerInfo> {
     }
   }
 
-   validateInput = () =>{
+  validateInput = () =>{
     
     let isError = false
     const errors = {firstNameError:'', isFirstNameError: false, lastNameError:'', isLastNameError:false, isAddressError: false, 
@@ -152,52 +139,49 @@ export default class AddressForm extends React.Component<Props, CustomerInfo> {
     //VALIDATE HERE
     if(!err){
       this.props.onSubmit(this.state)
-    }
-    
+    }   
   }
 
   private handleShipmentInput = (event: { target: { value: any } }) => { 
     this.setState({shippingMethod: event.target.value})
     this.setShipmentDetails(event.target.value)
-    }
+  }
 
   private setShipmentDetails = (shipping:string) =>{
     
     if(shipping === 'PostNord Express'){
-        this.calculateDeliveryDate(1)
-        this.setState({deliveryDate:this.calculateDeliveryDate(1)})
-        this.setState({shippingCost: 99})
+      this.calculateDeliveryDate(1)
+      this.setState({deliveryDate:this.calculateDeliveryDate(1)})
+      this.setState({shippingCost: 99})
         
-        }
+    }
     else if(shipping === 'PostNord Basic'){
-        this.setState({deliveryDate:this.calculateDeliveryDate(3)})
-        this.setState({shippingCost: 39})
+      this.setState({deliveryDate:this.calculateDeliveryDate(3)})
+      this.setState({shippingCost: 39})
         
     }
     else{
-        this.setState({deliveryDate:this.calculateDeliveryDate(5)})
-        this.setState({shippingCost: 0})
-       
+      this.setState({deliveryDate:this.calculateDeliveryDate(5)})
+      this.setState({shippingCost: 0})
     }
-}
+  }
 
   private calculateDeliveryDate(daysToDeliver:any){
-    let today = new Date(); //5th jan 2014
+    let today = new Date();
     let business_days = daysToDeliver;
     
-    let deliveryDate = today; //will be incremented by the for loop
-    let total_days = business_days; //will be used by the for loop
-    for(var days=1; days <= total_days; days++) {
+    let deliveryDate = today; 
+    let total_days = business_days;
+
+    for(let days=1; days <= total_days; days++) {
        deliveryDate = new Date(today.getTime() + (days *24*60*60*1000));
        if(deliveryDate.getDay() == 0 || deliveryDate.getDay() == 6) {
-         //it's a weekend day so we increase the total_days of 1
          total_days++
        }
     }
-
     let deliveryNumberDate:any = deliveryDate.getDate()
+
     let deliveryWeekday:any = deliveryDate.getDay()
-    //Convert weekday number to it's weekname
     let fixWeekday = [6, 0, 1, 2, 3, 4, 5];
     deliveryWeekday = fixWeekday[deliveryWeekday];
     let weekdayName = ["Måndag", "Tisdag", "Onsdag", "Torsdag", "Fredag", "Lördag", "Söndag"];
@@ -206,17 +190,12 @@ export default class AddressForm extends React.Component<Props, CustomerInfo> {
     let deliveryMonth:any = deliveryDate.getMonth()
     const monthName = ["Januari", "Februari", "Mars", "April", "Maj", "Juni", "Juli", "Augusti", "September", "Oktober", "November", "December"];
     deliveryMonth = monthName[deliveryMonth]
-    console.log(today);
-    console.log(deliveryDate);
-    console.log(deliveryWeekday)
 
     let calculatedDeliveryDate = deliveryWeekday + ' ' + deliveryNumberDate + ' ' + deliveryMonth
     return calculatedDeliveryDate
   }
 
   render(){ 
-    
-    
     return (
       <>
           <form autoComplete="on" >
@@ -299,10 +278,11 @@ export default class AddressForm extends React.Component<Props, CustomerInfo> {
             />
             <br/>
             
-              <FormControl error = {this.state.isShippingError}>
-                <br/>
+            <FormControl error = {this.state.isShippingError}>
+              <br/>
               <FormLabel component="legend">Fraktsätt</FormLabel>
               <FormHelperText>{this.state.shippingError}</FormHelperText>
+
               <RadioGroup  
                 value = {this.state.shippingMethod} 
                 onChange = {this.handleShipmentInput}
