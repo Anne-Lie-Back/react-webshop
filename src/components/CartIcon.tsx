@@ -14,7 +14,7 @@ export class CartIcon extends React.Component {
                     <div>
                         <IconButton color="secondary" 
                             style={{border:'solid #9cba98 0.1em'}}>
-                            <ShoppingCartIcon fontSize="large" color="error"/>
+                            <ShoppingCartIcon fontSize="large" color="secondary"/>
                         </IconButton>
                         <Typography style={numberOfOrders}>
                             {cartState.cartList.length > 99? "..." : cartState.cartList.length}

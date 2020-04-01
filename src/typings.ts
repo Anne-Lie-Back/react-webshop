@@ -28,8 +28,7 @@ export interface CustomerInfo {
     addressError: string
     zipCode: any
     zipCodeError: string
-    isZipCodeError: boolean
-    
+    isZipCodeError: boolean  
     city: string
     cityError: string
     isCityError: boolean
@@ -47,4 +46,29 @@ export interface CustomerInfo {
     shippingError: string,
     shippingCost:any
     deliveryDate:any
+}
+
+export interface CustomerPaymentInfo {
+    paymentMethod: string
+
+    cardOwner:string
+    isCardOwnerError: boolean,
+    cardOwnerErrorText: string,
+    cardNr: any
+    isCardNrError: boolean,
+    cardNrErrorText: string
+    cardExp: any,
+    isCardExpError: boolean,
+    cardCVC: any,
+    isCardCVCError: boolean,
+    cardCVCErrorText: string
+    cardExpErrorText: string,
+
+    swishNr: any
+    isSwishNrError: boolean,
+    swishErrorText: string,
+    
+    emailFaktura:any
+    isEmailFakturaError: boolean,
+    emailErrorText: string
 }
