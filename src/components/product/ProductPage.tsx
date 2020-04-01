@@ -11,7 +11,7 @@ interface Props extends RouteComponentProps{
     match: RouteMatch
 }
 interface State{
-    itemFound: boolean
+    // itemFound: boolean
     selectedItem: Product | undefined
 }
 
@@ -19,7 +19,7 @@ class ProductPage extends React.Component<Props, State>  {
     constructor(props: Props){
         super(props)
         this.state = {
-            itemFound: false,
+            // itemFound: false,
             selectedItem: undefined
         }
     }
@@ -29,8 +29,8 @@ class ProductPage extends React.Component<Props, State>  {
         for(let item of items){
             if(item.id === parseInt(inUrlId)){
                 // console.log("found it! " + inUrlId)
-                foundIt = true
-                this.setState({itemFound: true, selectedItem: item})
+                // foundIt = true itemFound: true,
+                this.setState({selectedItem: item})
             }
         }
         if(!foundIt){
@@ -41,7 +41,7 @@ class ProductPage extends React.Component<Props, State>  {
         this.findProduct(this.props.match.params.id)
     }
     render(){
-        if(this.state.itemFound){
+        if(this.state.selectedItem){
             return (
                 <div>
                     <Link to="/" style={backButtonLink}>
