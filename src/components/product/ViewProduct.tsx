@@ -10,7 +10,7 @@ import PurchasingArea from './PurchasingArea'
 
 
 interface Props{
-    itemData: Product | undefined
+    itemData: Product
 }
 
 const useStyles = makeStyles({
