@@ -164,18 +164,18 @@ export default class AddressForm extends React.Component<Props, CustomerInfo> {
   private setShipmentDetails = (shipping:string) =>{
     
     if(shipping === 'PostNord Express'){
-        const calculated = this.calculateDeliveryDate(1)
-        this.setState({deliveryDate:calculated})
+        this.calculateDeliveryDate(1)
+        this.setState({deliveryDate:this.calculateDeliveryDate(1)})
         this.setState({shippingCost: 99})
         
         }
     else if(shipping === 'PostNord Basic'){
-        this.setState({deliveryDate:'4dagar'})
+        this.setState({deliveryDate:this.calculateDeliveryDate(3)})
         this.setState({shippingCost: 39})
         
     }
     else{
-        this.setState({deliveryDate:'ha ha ha...'})
+        this.setState({deliveryDate:this.calculateDeliveryDate(5)})
         this.setState({shippingCost: 0})
        
     }
@@ -309,7 +309,7 @@ export default class AddressForm extends React.Component<Props, CustomerInfo> {
                 style={flex}>
                   <div style  = {temporaryStyling}>
                     <h3>PostNord Express!</h3>
-                    <p>Leverans 24h. Pris: 99kr </p>
+                    <p>Leverans: 1 arbetsdag. Pris: 99kr </p>
                     <FormControlLabel
                       value="PostNord Express" 
                       control={<Radio />} 
@@ -318,7 +318,7 @@ export default class AddressForm extends React.Component<Props, CustomerInfo> {
                   </div>
                   <div style  = {temporaryStyling}>
                     <h3>PostNord Basic!</h3>
-                    <p>Leverans: 4 dagar. Pris: 39kr</p>
+                    <p>Leverans: 3 arbetsdagar. Pris: 39kr</p>
                     <FormControlLabel
                       value="PostNord Basic" 
                       control={<Radio />} 
@@ -327,7 +327,7 @@ export default class AddressForm extends React.Component<Props, CustomerInfo> {
                   </div>
                   <div style  = {temporaryStyling}>
                     <h3>PostMord!</h3>
-                    <p>Leverans: Aldrig. Pris: Fri frakt </p>
+                    <p>Leverans: 5 arbetsdagar. Pris: Fri frakt </p>
                     <FormControlLabel 
                       value="PostMord" 
                       control={<Radio />} 
