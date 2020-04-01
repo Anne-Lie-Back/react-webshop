@@ -16,7 +16,7 @@ export default function RenameItem() {
     return(
         <Container>
             <div style={space}/>
-            <Typography variant="h5" onClick={selected} style={toggleEditPage}>
+            <Typography onClick={selected} style={toggleEditPage}>
                 <IconButton>
                     <AddCircleOutlineOutlinedIcon/>
                 </IconButton>

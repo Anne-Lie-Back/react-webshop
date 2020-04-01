@@ -130,10 +130,14 @@ export default class CheckOut extends React.Component<Props, State>{
                                 <p>Totalkostnad: {total} kr</p>
         
                                 <b/>
-                                <Button variant="contained" 
+                                <Payment
+                                onSubmit={this.onPaymentFormSubmit}
+                                customerInfo={this.state.customerInfo}
+                                />
+{/*                                 <Button variant="contained" 
                                     color="primary"
                                     onClick = {this.nextStep}> Stämmer?
-                                </Button>
+                                </Button> */}
                                 <Button variant="contained" 
                                     color="primary"
                                     onClick = {this.previousStep}> Stämmer inte?
@@ -145,22 +149,15 @@ export default class CheckOut extends React.Component<Props, State>{
                     )
                 }
                 break
-                case 3:
+/*                 case 3:
                 if(this.state.customerInfo) {
                     return(
                         <Container>
-                            <Payment
-                                onSubmit={this.onPaymentFormSubmit}
-                                customerInfo={this.state.customerInfo}
-                            />
-                            <Button variant="contained" 
-                            color="primary"
-                            onClick = {this.previousStep}> Tillbaka 
-                            </Button>
+
                         </Container>
                     )
                 }
-                break
+                break */
 
                 case 4:
                     if(this.state.customerInfo && this.state.customerPaymentInfo) {
@@ -179,7 +176,7 @@ export default class CheckOut extends React.Component<Props, State>{
 }
 
 const temporaryStyling:CSSProperties ={
-    border: '2px solid blue',
+    border: '2px solid #346933',
     margin: '3rem',
     padding: '2rem'
 }

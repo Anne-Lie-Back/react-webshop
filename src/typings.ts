@@ -50,6 +50,8 @@ export interface CustomerInfo {
 
 export interface CustomerPaymentInfo {
     paymentMethod: string
+    isPaymentError: boolean,
+    paymentErrorText:string,
 
     cardOwner:string
     isCardOwnerError: boolean,
