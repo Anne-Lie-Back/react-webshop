@@ -1,8 +1,11 @@
-import React from 'react'
+import React,{CSSProperties} from 'react'
 import {RouteComponentProps , withRouter } from 'react-router-dom';
 import { RouteMatch } from '../../typings';
 import { items, Product} from '../items/itemList';
 import ViewProduct from './ViewProduct'
+import { Link } from 'react-router-dom';
+import IconButton from '@material-ui/core/IconButton'
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
 interface Props extends RouteComponentProps{
     match: RouteMatch
@@ -41,12 +44,24 @@ class ProductPage extends React.Component<Props, State>  {
         if(this.state.itemFound){
             return (
                 <div>
+                    <Link to="/" style={backButtonLink}>
+                        <IconButton color="primary">
+                            <ArrowBackIcon/>
+                        </IconButton>
+                    </Link>
                     <ViewProduct itemData={this.state.selectedItem} />
                 </div>
             );
         } else{
             return(
-                <h3>Product not found.</h3>
+                <div>
+                    <Link to="/" style={backButtonLink}>
+                        <IconButton color="primary">
+                            <ArrowBackIcon/>
+                        </IconButton>
+                    </Link>
+                    <h3>Product not found.</h3>
+                </div>
             )
         }
     } 
@@ -54,3 +69,11 @@ class ProductPage extends React.Component<Props, State>  {
 }
 
 export default withRouter(ProductPage)
+
+const backButtonLink:CSSProperties ={
+    border: 'solid 0.15em #558b2f',
+    position:'absolute',
+    left: '1em', 
+    borderRadius:'3em',
+    textDecoration:'none',
+}
