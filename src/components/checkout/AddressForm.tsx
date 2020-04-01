@@ -8,7 +8,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import FormLabel from '@material-ui/core/FormLabel';
-import { CustomerInfo} from './../../typings'
+import { CustomerInfo} from '../../typings'
 
 /* const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -32,35 +32,35 @@ export default class AddressForm extends React.Component<Props, CustomerInfo> {
     super(props)
     this.state = {
       //errorColor: 'noErrorColor',
-      firstName: '',
+      firstName: this.props.customerInfo?.firstName,
       isFirstNameError: false,
       firstNameError: '',
 
-      lastName: '',
+      lastName: this.props.customerInfo?.lastName,
       isLastNameError: false,
       lastNameError: '',
 
-      address: '',
+      address: this.props.customerInfo?.address,
       isAddressError: false,
       addressError: '',
 
-      zipCode: '',
+      zipCode: this.props.customerInfo?.zipCode,
       zipCodeError: '',
       isZipCodeError: false,
 
-      city: '',
+      city: this.props.customerInfo?.city,
       cityError: '',
       isCityError: false,
 
-      email: '',
+      email: this.props.customerInfo?.email,
       emailError: '',
       isEmailError: false,
 
-      mobile: '',
+      mobile: this.props.customerInfo?.mobile,
       isMobileError: false,
       mobileError: '',
 
-      shippingMethod:'',
+      shippingMethod:this.props.customerInfo?.shippingMethod,
       isShippingError: false,
       shippingError: 'Välj ett fraktsätt',
       deliveryDate:'',

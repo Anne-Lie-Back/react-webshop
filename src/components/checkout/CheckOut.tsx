@@ -1,5 +1,5 @@
 import React, {CSSProperties} from 'react'
-import AddressForm from './Address'
+import AddressForm from './AddressForm'
 import Payment from './Payment'
 //import Shipping from './Shipping'
 import Button from '@material-ui/core/Button';
