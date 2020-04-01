@@ -267,6 +267,7 @@ render(){
   const mc = require("./../../assets/images/mastercard.png")
   const visa = require("./../../assets/images/visa.png")
   const swish = require("./../../assets/images/swish.png")
+  const klarna = require("./../../assets/images/klarna.png")
 
     return (
       <>
@@ -288,7 +289,10 @@ render(){
               <img src={swish} alt="" style={imgSize}/>
             </div>
             {this.handleMoreInformationSwish()}
-            <FormControlLabel value="Faktura" control={<Radio />} label="Faktura" />
+            <div style = {radiobuttonContainer}>
+              <FormControlLabel value="Faktura" control={<Radio />} label="Klarna Faktura" />
+              <img src={klarna} alt="" style={imgSize}/>
+              </div>
             {this.handleMoreInformationFaktura()}
           </RadioGroup>
         </FormControl>
