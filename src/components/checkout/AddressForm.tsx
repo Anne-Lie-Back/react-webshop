@@ -149,13 +149,13 @@ export default class AddressForm extends React.Component<Props, CustomerInfo> {
 
   private setShipmentDetails = (shipping:string) =>{
     
-    if(shipping === 'PostNord Express'){
+    if(shipping === 'PostNord Hemleverans'){
       this.calculateDeliveryDate(1)
       this.setState({deliveryDate:this.calculateDeliveryDate(1)})
       this.setState({shippingCost: 99})
         
     }
-    else if(shipping === 'PostNord Basic'){
+    else if(shipping === 'PostNord Ombud'){
       this.setState({deliveryDate:this.calculateDeliveryDate(3)})
       this.setState({shippingCost: 39})
         
@@ -288,30 +288,30 @@ export default class AddressForm extends React.Component<Props, CustomerInfo> {
                 onChange = {this.handleShipmentInput}
                 style={flex}>
                   <div style  = {temporaryStyling}>
-                    <h3>PostNord Express!</h3>
+                    <h3>PostNord Hemleverans</h3>
                     <p>Leverans: 1 arbetsdag. Pris: 99kr </p>
                     <FormControlLabel
-                      value="PostNord Express" 
+                      value="PostNord Hemleverans" 
                       control={<Radio />} 
-                      label="PostNord Express"
+                      label="PostNord Hemleverans"
                     />
                   </div>
                   <div style  = {temporaryStyling}>
-                    <h3>PostNord Basic!</h3>
+                    <h3>PostNord Ombud</h3>
                     <p>Leverans: 3 arbetsdagar. Pris: 39kr</p>
                     <FormControlLabel
-                      value="PostNord Basic" 
+                      value="PostNord Ombud" 
                       control={<Radio />} 
-                      label="PostNord Basic" 
+                      label="PostNord Ombud" 
                     />
                   </div>
                   <div style  = {temporaryStyling}>
-                    <h3>PostMord!</h3>
+                    <h3>DB Schenker</h3>
                     <p>Leverans: 5 arbetsdagar. Pris: Fri frakt </p>
                     <FormControlLabel 
-                      value="PostMord" 
+                      value="DB Schenker" 
                       control={<Radio />} 
-                      label="PostMord" 
+                      label="DB Schenker" 
                     />
                   </div>
               </RadioGroup>
