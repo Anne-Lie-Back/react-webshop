@@ -3,7 +3,7 @@ import Container from '@material-ui/core/Container'
 import { items, Product } from '../items/itemList'
 import Card from '@material-ui/core/Card'
 import ProductAdminList from './ProductAdminList'
-import RenameItem from './NewItemToggle'
+import NewItemToggle from './NewItemToggle'
 
 export default function Admin() {
     
@@ -15,12 +15,12 @@ export default function Admin() {
 
     return(
         <Container>
+            <Card variant="outlined">
+                <NewItemToggle/>
+            </Card>
             {productList.map((itemData:Product, index:number) =>
                 <ProductAdminList itemData={itemData} key={index} arrayIndex={index}/>
             )}
-            <Card variant="outlined">
-                <RenameItem/>
-            </Card>
         </Container>
     )
 }

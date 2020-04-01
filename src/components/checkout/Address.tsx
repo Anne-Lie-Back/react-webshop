@@ -316,7 +316,7 @@ export default class AddressForm extends React.Component<Props, CustomerInfo> {
 }
 
 const temporaryStyling:CSSProperties = {
-    border: '2px solid blue',
+    border: '2px solid #346933',
     margin: '2rem',
     padding: '1rem'
 
