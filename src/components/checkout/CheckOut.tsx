@@ -128,7 +128,7 @@ export default class CheckOut extends React.Component<Props, State>{
                                 <br/>
         
                                 <p>Valt Fraktsätt: {this.state.customerInfo?.shippingMethod} </p>
-                                <p>Förväntad fraktdag: {this.state.customerInfo?.deliveryDate} </p>
+                                <p>Förväntad leveransdag: {this.state.customerInfo?.deliveryDate} </p>
                                 <p> Kostnad: 500kr plus frakt (+{this.state.customerInfo?.shippingCost}kr)</p>
                                 <p>Totalkostnad: {total} kr</p>
         
@@ -168,7 +168,7 @@ export default class CheckOut extends React.Component<Props, State>{
                             <Container>
                                 <h1>Bravo!</h1>
                                 <p>Du har beställt supergott te för {total}kr! <br/> Vi har skickat bekräftelse till din mail: {this.state.customerInfo.email}</p>
-                                <p>Beräknad leveransdag: idag + {this.state.customerInfo.deliveryDate} till</p>
+                                <p>Beräknad leveransdag: {this.state.customerInfo.deliveryDate}</p>
                                 <p>Ditt ordernummer är: {this.state.orderNumber}</p>
                             </Container>
                         )

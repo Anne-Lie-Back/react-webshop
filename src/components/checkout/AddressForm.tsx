@@ -162,9 +162,10 @@ export default class AddressForm extends React.Component<Props, CustomerInfo> {
     }
 
   private setShipmentDetails = (shipping:string) =>{
-        
+    
     if(shipping === 'PostNord Express'){
-        this.setState({deliveryDate:'24h från nu'})
+        const calculated = this.calculateDeliveryDate(1)
+        this.setState({deliveryDate:calculated})
         this.setState({shippingCost: 99})
         
         }
@@ -179,6 +180,39 @@ export default class AddressForm extends React.Component<Props, CustomerInfo> {
        
     }
 }
+
+  private calculateDeliveryDate(daysToDeliver:any){
+    let today = new Date(); //5th jan 2014
+    let business_days = daysToDeliver;
+    
+    let deliveryDate = today; //will be incremented by the for loop
+    let total_days = business_days; //will be used by the for loop
+    for(var days=1; days <= total_days; days++) {
+       deliveryDate = new Date(today.getTime() + (days *24*60*60*1000));
+       if(deliveryDate.getDay() == 0 || deliveryDate.getDay() == 6) {
+         //it's a weekend day so we increase the total_days of 1
+         total_days++
+       }
+    }
+
+    let deliveryNumberDate:any = deliveryDate.getDate()
+    let deliveryWeekday:any = deliveryDate.getDay()
+    //Convert weekday number to it's weekname
+    let fixWeekday = [6, 0, 1, 2, 3, 4, 5];
+    deliveryWeekday = fixWeekday[deliveryWeekday];
+    let weekdayName = ["Måndag", "Tisdag", "Onsdag", "Torsdag", "Fredag", "Lördag", "Söndag"];
+    deliveryWeekday = weekdayName[deliveryWeekday];
+
+    let deliveryMonth:any = deliveryDate.getMonth()
+    const monthName = ["Januari", "Februari", "Mars", "April", "Maj", "Juni", "Juli", "Augusti", "September", "Oktober", "November", "December"];
+    deliveryMonth = monthName[deliveryMonth]
+    console.log(today);
+    console.log(deliveryDate);
+    console.log(deliveryWeekday)
+
+    let calculatedDeliveryDate = deliveryWeekday + ' ' + deliveryNumberDate + ' ' + deliveryMonth
+    return calculatedDeliveryDate
+  }
 
   render(){ 
     
