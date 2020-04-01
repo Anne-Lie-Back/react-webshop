@@ -54,7 +54,7 @@ const footerStyle:CSSProperties = {
     height: '9em',
     padding: '1em',
     margin: '1em 0 0 0',
-    marginTop:'calc(15% + 3em)',
+    marginTop:'calc(10% + 3em)',
     bottom: 0
 }
 

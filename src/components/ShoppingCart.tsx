@@ -4,13 +4,14 @@ import { List, ListItem, ListItemText, IconButton, ListItemAvatar, Avatar, Divid
 import DeleteRoundedIcon from '@material-ui/icons/DeleteForeverRounded'
 import AddIcon from '@material-ui/icons/Add'
 import RemoveIcon from '@material-ui/icons/Remove'
-import { Product, items } from './items/itemList';
+import { Product } from './items/itemList'
+import { itemsLS } from './ItemListLS'
 
 export default function ShoppingCart() {
 
     function getProductById(inItemId: number){
         const errorProduct: Product = {name:"error", id:0 , price:0, description:"error",imgURL:""}
-        const product = items.find(({ id }) => id === inItemId)
+        const product = itemsLS.find(({ id }) => id === inItemId)
         if(product){
             return product
         } else {
