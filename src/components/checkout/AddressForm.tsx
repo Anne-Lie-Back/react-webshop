@@ -1,5 +1,4 @@
 import React, {CSSProperties}from 'react';
-//import { createStyles, makeStyles, Theme, withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Radio from '@material-ui/core/Radio';
@@ -9,17 +8,6 @@ import FormControl from '@material-ui/core/FormControl';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import FormLabel from '@material-ui/core/FormLabel';
 import { CustomerInfo} from '../../typings'
-
-/* const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    root: {
-      '& > *': {
-        margin: theme.spacing(1),
-        width: '25ch',
-      },
-    },
-  }),
-); */
 
 interface Props {
   onSubmit: (customerInfo: CustomerInfo) => void
@@ -31,7 +19,6 @@ export default class AddressForm extends React.Component<Props, CustomerInfo> {
   constructor(props: Props) {
     super(props)
     this.state = {
-      //errorColor: 'noErrorColor',
       firstName: '',
       isFirstNameError: false,
       firstNameError: '',
@@ -68,7 +55,7 @@ export default class AddressForm extends React.Component<Props, CustomerInfo> {
     }
   }
 
-   validateInput = () =>{
+  validateInput = () =>{
     
     let isError = false
     const errors = {firstNameError:'', isFirstNameError: false, lastNameError:'', isLastNameError:false, isAddressError: false, 
@@ -152,37 +139,63 @@ export default class AddressForm extends React.Component<Props, CustomerInfo> {
     //VALIDATE HERE
     if(!err){
       this.props.onSubmit(this.state)
-    }
-    
+    }   
   }
 
   private handleShipmentInput = (event: { target: { value: any } }) => { 
     this.setState({shippingMethod: event.target.value})
     this.setShipmentDetails(event.target.value)
-    }
+  }
 
   private setShipmentDetails = (shipping:string) =>{
+    
+    if(shipping === 'PostNord Hemleverans'){
+      this.calculateDeliveryDate(1)
+      this.setState({deliveryDate:this.calculateDeliveryDate(1)})
+      this.setState({shippingCost: 99})
         
-    if(shipping === 'PostNord Express'){
-        this.setState({deliveryDate:'24h från nu'})
-        this.setState({shippingCost: 99})
-        
-        }
-    else if(shipping === 'PostNord Basic'){
-        this.setState({deliveryDate:'4dagar'})
-        this.setState({shippingCost: 39})
+    }
+    else if(shipping === 'PostNord Ombud'){
+      this.setState({deliveryDate:this.calculateDeliveryDate(3)})
+      this.setState({shippingCost: 39})
         
     }
     else{
-        this.setState({deliveryDate:'ha ha ha...'})
-        this.setState({shippingCost: 0})
-       
+      this.setState({deliveryDate:this.calculateDeliveryDate(5)})
+      this.setState({shippingCost: 0})
     }
-}
+  }
+
+  private calculateDeliveryDate(daysToDeliver:any){
+    let today = new Date();
+    let business_days = daysToDeliver;
+    
+    let deliveryDate = today; 
+    let total_days = business_days;
+
+    for(let days=1; days <= total_days; days++) {
+       deliveryDate = new Date(today.getTime() + (days *24*60*60*1000));
+       if(deliveryDate.getDay() == 0 || deliveryDate.getDay() == 6) {
+         total_days++
+       }
+    }
+    let deliveryNumberDate:any = deliveryDate.getDate()
+
+    let deliveryWeekday:any = deliveryDate.getDay()
+    let fixWeekday = [6, 0, 1, 2, 3, 4, 5];
+    deliveryWeekday = fixWeekday[deliveryWeekday];
+    let weekdayName = ["Måndag", "Tisdag", "Onsdag", "Torsdag", "Fredag", "Lördag", "Söndag"];
+    deliveryWeekday = weekdayName[deliveryWeekday];
+
+    let deliveryMonth:any = deliveryDate.getMonth()
+    const monthName = ["Januari", "Februari", "Mars", "April", "Maj", "Juni", "Juli", "Augusti", "September", "Oktober", "November", "December"];
+    deliveryMonth = monthName[deliveryMonth]
+
+    let calculatedDeliveryDate = deliveryWeekday + ' ' + deliveryNumberDate + ' ' + deliveryMonth
+    return calculatedDeliveryDate
+  }
 
   render(){ 
-    
-    
     return (
       <>
           <form autoComplete="on" >
@@ -265,39 +278,40 @@ export default class AddressForm extends React.Component<Props, CustomerInfo> {
             />
             <br/>
             
-              <FormControl error = {this.state.isShippingError}>
-                <br/>
+            <FormControl error = {this.state.isShippingError}>
+              <br/>
               <FormLabel component="legend">Fraktsätt</FormLabel>
               <FormHelperText>{this.state.shippingError}</FormHelperText>
+
               <RadioGroup  
                 value = {this.state.shippingMethod} 
                 onChange = {this.handleShipmentInput}
                 style={flex}>
                   <div style  = {temporaryStyling}>
-                    <h3>PostNord Express!</h3>
-                    <p>Leverans 24h. Pris: 99kr </p>
+                    <h3>PostNord Hemleverans</h3>
+                    <p>Leverans: 1 arbetsdag. Pris: 99kr </p>
                     <FormControlLabel
-                      value="PostNord Express" 
+                      value="PostNord Hemleverans" 
                       control={<Radio />} 
-                      label="PostNord Express"
+                      label="PostNord Hemleverans"
                     />
                   </div>
                   <div style  = {temporaryStyling}>
-                    <h3>PostNord Basic!</h3>
-                    <p>Leverans: 4 dagar. Pris: 39kr</p>
+                    <h3>PostNord Ombud</h3>
+                    <p>Leverans: 3 arbetsdagar. Pris: 39kr</p>
                     <FormControlLabel
-                      value="PostNord Basic" 
+                      value="PostNord Ombud" 
                       control={<Radio />} 
-                      label="PostNord Basic" 
+                      label="PostNord Ombud" 
                     />
                   </div>
                   <div style  = {temporaryStyling}>
-                    <h3>PostMord!</h3>
-                    <p>Leverans: Aldrig. Pris: Fri frakt </p>
+                    <h3>DB Schenker</h3>
+                    <p>Leverans: 5 arbetsdagar. Pris: Fri frakt </p>
                     <FormControlLabel 
-                      value="PostMord" 
+                      value="DB Schenker" 
                       control={<Radio />} 
-                      label="PostMord" 
+                      label="DB Schenker" 
                     />
                   </div>
               </RadioGroup>
