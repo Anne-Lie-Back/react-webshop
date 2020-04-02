@@ -1,4 +1,14 @@
-import { Product } from './items/itemList'
+import { items, Product } from './items/itemList'
 
+export const itemsLS: Array<Product> = getList()
 
-export const itemsLS: Array<Product> = JSON.parse(localStorage.getItem('productList') || '{}')
+function getList(){
+
+    let itemList=[]
+    if(localStorage.getItem('productList') === null){
+        localStorage.setItem('productList', JSON.stringify(items));
+    }
+    itemList = JSON.parse(localStorage.getItem('productList') || '{}')
+    return itemList
+}
+

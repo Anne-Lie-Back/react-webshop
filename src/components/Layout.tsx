@@ -6,16 +6,12 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import CheckOut from './checkout/CheckOut';
 import ProductPage from './product/ProductPage';
 import Admin from './admin/Admin';
-import { items } from './items/itemList'
 
 interface Props{}
 interface State{}
 export default class Layout extends React.Component<Props, State> {
 
     render(){
-        if(localStorage.getItem('productList') === null){
-            localStorage.setItem('productList', JSON.stringify(items));
-        }
          return (
             <BrowserRouter>
                 <div >
