@@ -11,13 +11,19 @@ interface Props{
 export default function AddedToCart(props:Props){
     let screenSize = useMediaQuery('(min-width:430px)')
     let divSize = {width: '18.5rem'}
+    let positionTop = {top: '0.7rem'}
+    let positionRight = {right: '6%'}
+  
 
     if(screenSize === true){
         divSize = {width: '25rem'}
+        positionTop = {top: '0.7rem'}
+        positionRight = {right: '0.7rem'}
     }
+
     return(
         <div style = {clickAwayDiv} onClick = {props.handleClosing}>
-            <div style = {{...shoppingCartContainer, ...divSize}}>
+            <div style = {{...shoppingCartContainer, ...divSize, ...positionTop, ...positionRight}}>
                 <ShoppingCart/>
                 <Button
                     component={RouterLink} to ='/checkout'
@@ -39,10 +45,9 @@ const relativeContainer:CSSProperties = {
 }
 
 const shoppingCartContainer:CSSProperties = {
-    width: '18.5rem',
-/*     position:'absolute',
-    right: '0',
-    top: '6rem', */
+   // width: '18.5rem',
+    position:'absolute',
+    //right: '0.7rem',
     zIndex: 3,
     backgroundColor:'white',
     display:'flex',
@@ -50,17 +55,22 @@ const shoppingCartContainer:CSSProperties = {
     alignItems:'center',
     //border:'1px solid black'
     boxShadow: '0 0 0.3rem black',
+    maxHeight:'70%',
+    overflowX:'auto',
+/*     WebkitTextStrokeWidth: '1px',
+    WebkitTextStrokeColor: 'black' */
 
 }
 
 const clickAwayDiv:CSSProperties = {
-   width: '100vw',
-   height: '100vh',
+   width: '110vw',
+   height: '110vh',
    position: 'fixed',
    zIndex: 1,
-   top:0,
-   right:0,
+   top:'-1rem',
+   right:'-1rem',
    display:'flex',
    alignItems:'center',
-   justifyContent:'center'
+   justifyContent:'center',
+   backgroundColor: '#00000090'
 }
