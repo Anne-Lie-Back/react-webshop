@@ -1,4 +1,4 @@
-import React,{ CSSProperties } from 'react'
+import React,{ useState, CSSProperties } from 'react'
 import { CartContext } from '../contexts/cartContext'
 import { IconButton, Button } from '@material-ui/core'
 import { Typography } from '@material-ui/core'
@@ -6,20 +6,19 @@ import ShoppingCartIcon from '@material-ui/icons/ShoppingCart'
 import { CartItem } from '../typings'
 import ShoppingCart from './ShoppingCart'
 import { Link as RouterLink} from 'react-router-dom';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 
-interface Props{}
-interface State{
-    isCartShown:boolean
-}
-export class CartIcon extends React.Component<Props,State>{
-    constructor(props:Props){
+export function CartIcon(){
+/*     constructor(props:Props){
         super(props)
         this.state ={
             isCartShown: false
         }
-    }
+    } */
+    const [isCartShown, setToggled] = useState(false);
+    const handleOnClick = () => setToggled(!isCartShown);
 
-    TotalProductCount(cartList: Array<CartItem>){
+    function TotalProductCount(cartList: Array<CartItem>){
         let totalCount = 0
         for (const item of cartList) {
             totalCount += item.nrItems
@@ -28,20 +27,26 @@ export class CartIcon extends React.Component<Props,State>{
         return totalCount
     }
 
-    handleOnClick = () =>{
-        this.setState({isCartShown:!this.state.isCartShown})
+    let screenSize = useMediaQuery('(min-width:430px)')
+    let divSize = {width: '18.5rem'}
+
+    if(screenSize === true){
+        divSize = {width: '25rem'}
     }
 
-     displayCart(){
-        if(this.state.isCartShown){
+
+     function displayCart(){
+
+
+        if(isCartShown){
             return (
-                <div style = {clickAwayDiv} onClick={this.handleOnClick}>
-                    <div style={shoppingCartContainer}>
+                <div style = {clickAwayDiv} onClick={handleOnClick}>
+                    <div style={{...shoppingCartContainer, ...divSize}}>
                         <ShoppingCart/>
                         
                             <Button
                                 component={RouterLink} to ='/checkout'
-                                onClick = {this.handleOnClick}
+                                onClick = {handleOnClick}
                                 variant="contained" 
                                 color="primary"
                                 //disabled = {this.props.isDisabled}
@@ -54,7 +59,7 @@ export class CartIcon extends React.Component<Props,State>{
         }
     } 
 
-    render(){
+
         return(
             <CartContext.Consumer>
                 { (cartState) =>(
@@ -63,19 +68,19 @@ export class CartIcon extends React.Component<Props,State>{
                             <IconButton 
                                 color="secondary" 
                                 style={{border:'solid #9cba98 0.1em'}}
-                                onClick = {this.handleOnClick}>
+                                onClick = {handleOnClick}>
                                 <ShoppingCartIcon fontSize="large" color="secondary"/>
                             </IconButton>
                             <Typography style={numberOfOrders}>
-                                {cartState.cartList.length > 99? "..." : this.TotalProductCount(cartState.cartList)}
+                                {cartState.cartList.length > 99? "..." : TotalProductCount(cartState.cartList)}
                             </Typography>
                         </div>
-                        {this.displayCart()}
+                        {displayCart()}
                     </div>
                 )}
             </CartContext.Consumer>
         )
-    }
+    
 }
 
 const numberOfOrders:CSSProperties = {
@@ -96,7 +101,7 @@ const relativeContainer:CSSProperties = {
 }
 
 const shoppingCartContainer:CSSProperties = {
-    width: '25rem',
+    //width: '25rem',
     position:'absolute',
     right: '0',
     top: '6rem',
