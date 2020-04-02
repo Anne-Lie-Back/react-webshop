@@ -14,7 +14,7 @@ export default class Layout extends React.Component<Props, State> {
 
     render(){
          return (
-            <BrowserRouter>
+            <BrowserRouter basename="/react-webshop">
                 <Header/>
                     <div style={{minHeight: 'calc(100vh - 15em)'}}>
                         <Switch>
