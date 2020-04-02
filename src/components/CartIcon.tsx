@@ -36,25 +36,28 @@ export function CartIcon(){
 
 
      function displayCart(){
-
-        //IF CART BUTTON IS CLICKED THIS HAPPENS! NEED TO MAKE CLICK AWAYDIV STRETCH OVER THE WHOLE SCREEN
+        const emptyCart = <Typography variant="h6" color="primary" style = {{margin:'1rem'}}>Vagnen är tom</Typography>
+        const filledCart = <><ShoppingCart/>               
+                                <Button
+                                    component={RouterLink} to ='/checkout'
+                                    onClick = {handleOnClick}
+                                    variant="contained" 
+                                    color="primary"
+                                    style={{margin:'1rem'}}                                
+                                    >
+                                    Ta mig till Kassan
+                                </Button>
+                            </>
         if(isCartShown){
             return (
+                <CartContext.Consumer>
+                {(cartState) => 
                 <div style = {clickAwayDiv} onClick={handleOnClick}>
                     <div style={{...shoppingCartContainer, ...divSize}}>
-                        <ShoppingCart/>                
-                            <Button
-                                component={RouterLink} to ='/checkout'
-                                onClick = {handleOnClick}
-                                variant="contained" 
-                                color="primary"
-                                style={{margin:'1rem'}}
-                                >
-                                Ta mig till Kassan
-                            </Button>
-                        
+                    {cartState.cartList.length===0? emptyCart : filledCart}
                     </div>
-                </div>)
+                </div>
+        }</CartContext.Consumer>)
         }
     } 
 
@@ -107,7 +110,8 @@ const shoppingCartContainer:CSSProperties = {
     backgroundColor:'white',
     display:'flex',
     flexDirection: 'column',
-    alignItems:'center'
+    alignItems:'center',
+    border:'1px solid black'
 }
 
 const clickAwayDiv:CSSProperties = {
