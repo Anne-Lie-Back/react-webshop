@@ -9,12 +9,6 @@ import { Link as RouterLink} from 'react-router-dom';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 export function CartIcon(){
-/*     constructor(props:Props){
-        super(props)
-        this.state ={
-            isCartShown: false
-        }
-    } */
     const [isCartShown, setToggled] = useState(false);
     const handleOnClick = () => setToggled(!isCartShown);
 
@@ -36,25 +30,28 @@ export function CartIcon(){
 
 
      function displayCart(){
-
-        //IF CART BUTTON IS CLICKED THIS HAPPENS! NEED TO MAKE CLICK AWAYDIV STRETCH OVER THE WHOLE SCREEN
+        const emptyCart = <Typography variant="h6" color="primary" style = {{margin:'1rem'}}>Vagnen är tom</Typography>
+        const filledCart = <><ShoppingCart/>               
+                                <Button
+                                    component={RouterLink} to ='/checkout'
+                                    onClick = {handleOnClick}
+                                    variant="contained" 
+                                    color="primary"
+                                    style={{margin:'1rem'}}                                
+                                    >
+                                    Ta mig till Kassan
+                                </Button>
+                            </>
         if(isCartShown){
             return (
+                <CartContext.Consumer>
+                {(cartState) => 
                 <div style = {clickAwayDiv} onClick={handleOnClick}>
                     <div style={{...shoppingCartContainer, ...divSize}}>
-                        <ShoppingCart/>                
-                            <Button
-                                component={RouterLink} to ='/checkout'
-                                onClick = {handleOnClick}
-                                variant="contained" 
-                                color="primary"
-                                style={{margin:'1rem'}}
-                                >
-                                Ta mig till Kassan
-                            </Button>
-                        
+                    {cartState.cartList.length===0? emptyCart : filledCart}
                     </div>
-                </div>)
+                </div>
+        }</CartContext.Consumer>)
         }
     } 
 
@@ -108,9 +105,7 @@ const shoppingCartContainer:CSSProperties = {
     display:'flex',
     flexDirection: 'column',
     alignItems:'center',
-    borderStyle:"solid",
-    borderColor:"#346933 ",
-    borderWidth: "0 0.1em 0.1em 0.1em"
+    boxShadow: '0 0 0.3rem black'
 }
 
 const clickAwayDiv:CSSProperties = {
@@ -120,4 +115,5 @@ const clickAwayDiv:CSSProperties = {
    zIndex: 1,
    top:0,
    right:0,
+
 }

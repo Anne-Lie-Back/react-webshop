@@ -1,9 +1,10 @@
-import React,{ CSSProperties } from 'react'
+import React,{ CSSProperties, useState } from 'react'
 import { Product } from '../items/itemList'
 import CardActions from '@material-ui/core/CardActions'
 import Button from '@material-ui/core/Button'
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart'
 import { CartContext } from '../../contexts/cartContext'
+import AddedToCart from './../AddedToCart'
 
 
 interface Props{
@@ -11,18 +12,28 @@ interface Props{
 }
 
 export default function PurchasingArea( props: Props ){
+    const [isCartShown, setToggled] = useState(false);
+    const handleOnClick = () => setToggled(!isCartShown);
+
+    function displayCart(){
+        if(isCartShown){
+            return <AddedToCart handleClosing = {handleOnClick}/>
+        }
+    }
+
 
     return(
         <CartContext.Consumer>
             {(cartState => (
             <div>
+                {displayCart()}
                 <CardActions>
                     <Button 
                         size="large"
                         variant="contained"
                         color="primary"
                         fullWidth
-                        onClick={() => cartState.addProduct(props.itemData?.id, 1)}
+                        onClick={() => {handleOnClick();cartState.addProduct(props.itemData?.id, 1)}}
                     >
                     Köp
                     <ShoppingCartIcon
