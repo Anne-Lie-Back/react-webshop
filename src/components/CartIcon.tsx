@@ -105,7 +105,6 @@ const shoppingCartContainer:CSSProperties = {
     display:'flex',
     flexDirection: 'column',
     alignItems:'center',
-    //border:'1px solid black'
     boxShadow: '0 0 0.3rem black'
 }
 
@@ -115,5 +114,6 @@ const clickAwayDiv:CSSProperties = {
    position: 'absolute',
    zIndex: 1,
    top:0,
-   right:0
+   right:0,
+
 }

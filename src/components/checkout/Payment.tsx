@@ -293,7 +293,7 @@ render(){
               variant="contained" 
               color="primary"
               disabled = {this.props.isDisabled}
-              style={{marginRight:'1em'}}>
+              style={{margin:'0 0 1em 1em'}}>
                 Slutför ditt köp
             </Button>
             {waitingForPaymentText} 
