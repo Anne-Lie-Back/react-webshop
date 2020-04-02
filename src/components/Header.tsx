@@ -21,6 +21,7 @@ export default function Header() {
         shoppingLogoY = {top:'1em'}
     }
 
+
     return (
         <Container style={{...headerStyle, ...headerSize, ...wave}} maxWidth={false}>
             <Grid
@@ -52,14 +53,12 @@ export default function Header() {
                 </Grid>
             </Link>
                 <Grid item>
-                    <Link to="/checkout" style={{textDecoration: 'none',...shoppingLogoPos,...shoppingLogoY}}>
-                        {/* <IconButton color="secondary" 
-                            style={{border:'solid #9cba98 0.2em'
-                            }}>
-                            <ShoppingCartIcon fontSize="large" color="secondary"/>
-                        </IconButton> */}
+{/*                     <Link to="/checkout" style={{textDecoration: 'none',...shoppingLogoPos,...shoppingLogoY}}>
                         <CartIcon/>
-                    </Link>
+                    </Link> */}
+                    <div style={{textDecoration: 'none',...shoppingLogoPos,...shoppingLogoY}}>
+                        <CartIcon/>
+                    </div>
                 </Grid>
             </Grid>
         </Container>

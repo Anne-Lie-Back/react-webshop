@@ -11,7 +11,7 @@ import { CustomerInfo} from '../../typings'
 
 interface Props {
   onSubmit: (customerInfo: CustomerInfo) => void
-  customerInfo: any
+  customerInfo:CustomerInfo
 }
 
 export default class AddressForm extends React.Component<Props, CustomerInfo> {
@@ -65,7 +65,7 @@ export default class AddressForm extends React.Component<Props, CustomerInfo> {
     if(this.state.firstName.length < 1){
       isError = true
       errors.firstNameError = 'Minst 2 bokstäver'
-      errors.isFirstNameError = true   
+      errors.isFirstNameError = true   //Behövs eventuellt inte
     }
 
     if(this.state.lastName.length < 1){

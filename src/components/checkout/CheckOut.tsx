@@ -12,7 +12,6 @@ import { CartContext , State as CartState} from '../../contexts/cartContext';
 import { Container } from '@material-ui/core';
 import ShoppigCartCheckout from './../ShoppingCartCheckout'
 import mockAPI from '../../mockAPI';
-// import Admin from '../admin/Admin'
 
 interface Props{
     cartState: CartState
@@ -20,8 +19,8 @@ interface Props{
 
 interface State{
     step:number,
-    customerInfo?: CustomerInfo
-    customerPaymentInfo?: CustomerPaymentInfo
+    customerInfo?:any
+    customerPaymentInfo?:any
     orderNumber:number
     disableOrderButton: boolean
 }
@@ -91,6 +90,15 @@ export default class CheckOut extends React.Component<Props, State>{
 
     render(){
         const { step } = this.state
+        let continueButton:any
+        if(!this.state.disableOrderButton){
+            continueButton = <Button 
+                                variant="contained" 
+                                color="primary"
+                                onClick = {this.previousStep}> 
+                                Stämmer inte?                                   
+                            </Button>
+        }
 
         switch(step){
             case 1:
@@ -155,16 +163,15 @@ export default class CheckOut extends React.Component<Props, State>{
                                                 <Payment
                                                 onSubmit={this.onPaymentFormSubmit}
                                                 customerInfo={this.state.customerInfo}
+                                                isDisabled = {this.state.disableOrderButton}
                                                 />
-                                                <Button variant="contained" 
-                                                    color="primary"
-                                                    onClick = {this.previousStep}> Stämmer inte?
-                                                </Button>
+                                                {continueButton}
                                             </div>
                                         </Card>
                                     </Grid>
                                 </Grid>
                              </div>               
+
                         )}                   
                         </CartContext.Consumer>
                     )
