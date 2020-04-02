@@ -8,7 +8,7 @@ function App() {
   return (
     <CartProvider>
       <ThemeProvider theme={Theme}>
-        <div className="App">
+        <div style={{minHeight: 'calc(100vh - 11em)'}}>
           <Layout/>
         </div>
       </ThemeProvider>
