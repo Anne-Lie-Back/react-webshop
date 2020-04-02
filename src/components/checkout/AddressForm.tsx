@@ -1,13 +1,15 @@
-import React, {CSSProperties}from 'react';
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
-import Radio from '@material-ui/core/Radio';
+import React, {CSSProperties}from 'react'
+import TextField from '@material-ui/core/TextField'
+import Button from '@material-ui/core/Button'
+import Radio from '@material-ui/core/Radio'
 import RadioGroup from '@material-ui/core/RadioGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormControl from '@material-ui/core/FormControl';
-import FormHelperText from '@material-ui/core/FormHelperText';
-import FormLabel from '@material-ui/core/FormLabel';
+import FormControlLabel from '@material-ui/core/FormControlLabel'
+import FormControl from '@material-ui/core/FormControl'
+import FormHelperText from '@material-ui/core/FormHelperText'
+import FormLabel from '@material-ui/core/FormLabel'
 import { CustomerInfo} from '../../typings'
+import { Typography } from '@material-ui/core/'
+import { Grid } from '@material-ui/core/'
 
 interface Props {
   onSubmit: (customerInfo: CustomerInfo) => void
@@ -49,7 +51,7 @@ export default class AddressForm extends React.Component<Props, CustomerInfo> {
 
       shippingMethod:'',
       isShippingError: false,
-      shippingError: 'Välj ett fraktsätt',
+      shippingError: '',
       deliveryDate:'',
       shippingCost: ''
     }
@@ -199,81 +201,114 @@ export default class AddressForm extends React.Component<Props, CustomerInfo> {
     return (
       <div>
           <form autoComplete="on" >
-            <TextField 
-              color="secondary"
-              name= "fname"
-              autoComplete = 'given-name'
-              label="Förnamn" 
-              value={this.state.firstName} 
-              error = {this.state.isFirstNameError}
-              helperText = {this.state.firstNameError} 
-              onChange={(event) => { this.setState({ firstName: event.target.value }) }} 
-            />
-            <TextField 
-              color="secondary" 
-              name="lname"
-              autoComplete="family-name"
-              label="Efternamn" 
-              value={this.state.lastName}  
-              error = {this.state.isLastNameError} 
-              helperText = {this.state.lastNameError} 
-              onChange={(event) => { this.setState({ lastName: event.target.value }) }}/>
-            <br/>
-            <TextField 
-              color="secondary"
-              name="ship-address"
-              autoComplete="shipping street-address"
-              label="Adress" 
-              value={this.state.address} 
-              error = {this.state.isAddressError} 
-              helperText = {this.state.addressError} 
-              onChange={(event) => { this.setState({address: event.target.value}) }}
-            />
-            <br/>
-            <TextField 
-              color="secondary"
-              name="ship-zip"
-              autoComplete="shipping postal-code"
-              label="Postnummer" 
-              value={this.state.zipCode} 
-              error = {this.state.isZipCodeError} 
-              helperText = {this.state.zipCodeError} 
-              onChange = {(event) => { this.setState({ zipCode: event.target.value }) }}/>
-            <TextField 
-              color="secondary"
-              name="ship-city"
-              autoComplete="shipping locality"
-              label="Ort"
-              value={this.state.city} 
-              error = {this.state.isCityError} 
-              helperText = {this.state.cityError} 
-              onChange ={(event) => { this.setState({ city: event.target.value }) }}/>
-            <br/>
-            <TextField 
-              color="secondary"
-              name="email"
-              autoComplete="email"
-              label="E-Mail" 
-              value={this.state.email} 
-              error = {this.state.isEmailError} 
-              helperText= {this.state.emailError} 
-              onChange ={(event) => { this.setState({ email:event.target.value }) }} />
-            <TextField 
-              color="secondary"
-              name="phone"
-              autoComplete="tel"
-              label="Mobil-nummer" 
-              value={this.state.mobile} 
-              error = {this.state.isMobileError} 
-              helperText = {this.state.mobileError} 
-              onChange ={(event) => { this.setState({ mobile: event.target.value }) }}
-            />
+              <Grid 
+                container
+                direction="row"
+                justify="flex-start"
+                alignItems="stretch"
+              >
+              <Grid item xs={12} sm={6}>
+                <TextField 
+                  color="secondary"
+                  name= "fname"
+                  autoComplete = 'given-name'
+                  label="Förnamn" 
+                  value={this.state.firstName}
+                  error = {this.state.isFirstNameError}
+                  fullWidth
+                  helperText = {this.state.firstNameError} 
+                  onChange={(event) => { this.setState({ firstName: event.target.value }) }} 
+                  />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField 
+                  color="secondary" 
+                  name="lname"
+                  autoComplete="family-name"
+                  label="Efternamn" 
+                  value={this.state.lastName}  
+                  error = {this.state.isLastNameError}
+                  fullWidth
+                  helperText = {this.state.lastNameError} 
+                  onChange={(event) => { this.setState({ lastName: event.target.value }) }}
+                />
+              </Grid>
+              <Grid item xs={12}>
+              <TextField 
+                color="secondary"
+                name="ship-address"
+                autoComplete="shipping street-address"
+                label="Adress" 
+                value={this.state.address} 
+                error = {this.state.isAddressError} 
+                fullWidth
+                helperText = {this.state.addressError} 
+                onChange={(event) => { this.setState({address: event.target.value}) }}
+              />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField 
+                  color="secondary"
+                  name="ship-zip"
+                  autoComplete="shipping postal-code"
+                  label="Postnummer" 
+                  value={this.state.zipCode} 
+                  error = {this.state.isZipCodeError} 
+                  fullWidth
+                  helperText = {this.state.zipCodeError} 
+                  onChange = {(event) => { this.setState({ zipCode: event.target.value }) }}
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField 
+                  color="secondary"
+                  name="ship-city"
+                  autoComplete="shipping locality"
+                  label="Ort"
+                  value={this.state.city} 
+                  error = {this.state.isCityError} 
+                  fullWidth
+                  helperText = {this.state.cityError} 
+                  onChange ={(event) => { this.setState({ city: event.target.value }) }}
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField 
+                  color="secondary"
+                  name="email"
+                  autoComplete="email"
+                  label="E-Mail" 
+                  value={this.state.email} 
+                  error = {this.state.isEmailError} 
+                  fullWidth
+                  helperText= {this.state.emailError} 
+                  onChange ={(event) => { this.setState({ email:event.target.value }) }}
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField 
+                  color="secondary"
+                  name="phone"
+                  autoComplete="tel"
+                  label="Mobil-nummer" 
+                  value={this.state.mobile} 
+                  error = {this.state.isMobileError} 
+                  fullWidth
+                  helperText = {this.state.mobileError} 
+                  onChange ={(event) => { this.setState({ mobile: event.target.value }) }}
+                />
+              </Grid>
+            </Grid>
             <br/>
             
             <FormControl error = {this.state.isShippingError}>
               <br/>
-              <FormLabel component="legend">Fraktsätt</FormLabel>
-              <FormHelperText>{this.state.shippingError}</FormHelperText>
+              <br/>
+              <FormLabel component="legend">
+                <Typography variant="h5" color="primary">
+                  Välj fraktsätt
+                </Typography>
+              </FormLabel>
 
               <RadioGroup  
                 value = {this.state.shippingMethod} 
@@ -286,7 +321,7 @@ export default class AddressForm extends React.Component<Props, CustomerInfo> {
                       value="PostNord Hemleverans" 
                       control={<Radio />} 
                       label="PostNord Hemleverans"
-                    />
+                      />
                   </div>
                   <div style  = {deliverensBox}>
                     <h3>PostNord Ombud</h3>
@@ -295,7 +330,7 @@ export default class AddressForm extends React.Component<Props, CustomerInfo> {
                       value="PostNord Ombud" 
                       control={<Radio />} 
                       label="PostNord Ombud" 
-                    />
+                      />
                   </div>
                   <div style  = {deliverensBox}>
                     <h3>DB Schenker</h3>
@@ -304,9 +339,11 @@ export default class AddressForm extends React.Component<Props, CustomerInfo> {
                       value="DB Schenker" 
                       control={<Radio />} 
                       label="DB Schenker" 
-                    />
+                      />
                   </div>
               </RadioGroup>
+              <FormHelperText>{this.state.shippingError}</FormHelperText>
+              <br/>
             </FormControl>
           </form>
           <Button

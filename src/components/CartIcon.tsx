@@ -107,7 +107,10 @@ const shoppingCartContainer:CSSProperties = {
     backgroundColor:'white',
     display:'flex',
     flexDirection: 'column',
-    alignItems:'center'
+    alignItems:'center',
+    borderStyle:"solid",
+    borderColor:"#346933 ",
+    borderWidth: "0 0.1em 0.1em 0.1em"
 }
 
 const clickAwayDiv:CSSProperties = {
@@ -116,7 +119,5 @@ const clickAwayDiv:CSSProperties = {
    position: 'absolute',
    zIndex: 1,
    top:0,
-   right:0
-
-
+   right:0,
 }

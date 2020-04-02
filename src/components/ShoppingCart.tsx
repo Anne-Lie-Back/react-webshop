@@ -11,7 +11,7 @@ export default function ShoppingCart() {
     return (
         <CartContext.Consumer>
             {(cartState) => (
-                <div >
+                <div>
                     <List>
                     {cartState.cartList?.length > 0 ? 
                         cartState.cartList.map(cartItem =>
