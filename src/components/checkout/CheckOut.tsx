@@ -140,8 +140,9 @@ export default class CheckOut extends React.Component<Props, State>{
                         <CartContext.Consumer>
                         {(cartState) => (  
                             <Container>
+                                {/* {cartState.emptyCart} */}
                                 <h1>Bravo!</h1>
-                                <p>Du har beställt supergott te för den totala kostnaden av {cartState.cartTotalPrice + this.state.customerInfo?.shippingCost}kr! <br/> Vi har skickat bekräftelse till din mail: {this.state.customerInfo?.email}</p>
+                                <p>Du har beställt supergott te för den totala kostnaden av {cartState.savedCartTotalPrice + this.state.customerInfo?.shippingCost}kr! <br/> Vi har skickat bekräftelse till din mail: {this.state.customerInfo?.email}</p>
                                 <p>Beräknad leveransdag: {this.state.customerInfo?.deliveryDate}</p>
                                 <p>Ditt ordernummer är: {this.state.orderNumber}</p>
                                 <ShoppigCartCheckout/>

@@ -7,6 +7,9 @@ export const CartContext = React.createContext<State>({
     addProduct: () => {},
     removeItemFromCart: () => {},
     cartTotalPrice: 0,
+    savedCheckoutCartList: [{id:1, nrItems:1, product:{name:"placeholder", id:0 , price:0, description:"",imgURL:""}}],
+    savedCartTotalPrice: 0,
+    emptyCart: () => {},
 })
 
 interface Props{}
@@ -15,6 +18,9 @@ interface State{
     addProduct:(inItemId: number, inNrItems: number) => void
     removeItemFromCart:(inItemId: number) => void
     cartTotalPrice: number
+    savedCheckoutCartList: Array<CartItem>
+    savedCartTotalPrice: number
+    emptyCart: () => void
 }
 
 export class CartProvider extends React.Component<Props, State>{
@@ -25,6 +31,9 @@ export class CartProvider extends React.Component<Props, State>{
             addProduct: this.addProduct,
             removeItemFromCart: this.removeItemFromCart,
             cartTotalPrice: 0,
+            savedCheckoutCartList:[],
+            savedCartTotalPrice: 0,
+            emptyCart: this.emptyCart,
         }
     }
 
@@ -44,7 +53,9 @@ export class CartProvider extends React.Component<Props, State>{
             } else {
                 this.setState({
                     cartList: [...updatedCartList],
-                    cartTotalPrice: this.calcTotalCartPrice(updatedCartList)
+                    cartTotalPrice: this.calcTotalCartPrice(updatedCartList),
+                    savedCheckoutCartList: [...updatedCartList],
+                    savedCartTotalPrice: this.calcTotalCartPrice(updatedCartList),
                 })
             }
             console.log("update cart item " )
@@ -62,7 +73,9 @@ export class CartProvider extends React.Component<Props, State>{
                 this.setState({
                     // cartList: [...this.state.cartList, {id: inItemId, nrItems: inNrItems}]
                     cartList: [...updatedCartList],
-                    cartTotalPrice: this.calcTotalCartPrice(updatedCartList)
+                    cartTotalPrice: this.calcTotalCartPrice(updatedCartList),
+                    savedCheckoutCartList: [...updatedCartList],
+                    savedCartTotalPrice: this.calcTotalCartPrice(updatedCartList),
                 })
             } else {
                 console.log("Cannot add zero or negative nr of items.")
@@ -111,11 +124,20 @@ export class CartProvider extends React.Component<Props, State>{
             console.log("item removed")
             this.setState({
                 cartList: [...updatedCartList],
-                cartTotalPrice: this.calcTotalCartPrice(updatedCartList)
+                cartTotalPrice: this.calcTotalCartPrice(updatedCartList),
+                savedCheckoutCartList: [...updatedCartList],
+                savedCartTotalPrice: this.calcTotalCartPrice(updatedCartList),
             })
         } else {
             console.log("item to remove not found.")
         }
+    }
+
+    emptyCart = () => {
+        this.setState({
+            cartList: [],
+            cartTotalPrice: 0,
+        })
     }
 
     render(){

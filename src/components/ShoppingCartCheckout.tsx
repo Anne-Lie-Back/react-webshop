@@ -11,8 +11,8 @@ export default function ShoppingCart() {
             {(cartState) => (
                 <div >
                     <List>
-                    {cartState.cartList?.length > 0 ? 
-                        cartState.cartList.map(cartItem =>
+                    {cartState.savedCheckoutCartList?.length > 0 ? 
+                        cartState.savedCheckoutCartList.map(cartItem =>
                             <div key={cartItem.id}>
                                 <ListItem >
                                     <Hidden only="xs">
@@ -40,7 +40,7 @@ export default function ShoppingCart() {
                     <ListItem>
                     <ListItemText primary={
                         <Typography noWrap align="right">
-                            {"Total: " + cartState.cartTotalPrice + "kr"}
+                            {"Total: " + cartState.savedCartTotalPrice + "kr"}
                         </Typography> 
                         } />
                     </ListItem>
