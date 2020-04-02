@@ -24,11 +24,11 @@ export default function ShoppingCart() {
                                     </Hidden>
                                     <ListItemText primary={<Typography style = {{textDecoration: 'none', color: 'black'}} component = {RouterLink} to={"product/"+ cartItem.id} noWrap>{cartItem.product.name}</Typography> } />
                                     <div style={nextFlex}>
-                                    <IconButton size="small" onClick={() => cartState.addProduct(cartItem.id, -1)}>
+                                    <IconButton size="small" onClick ={(e) => {e.stopPropagation(); cartState.addProduct(cartItem.id, -1)}}>
                                         <RemoveIcon fontSize="small"/>
                                     </IconButton>
                                     <ListItemText primary={<Typography noWrap >{cartItem.nrItems}</Typography> } />
-                                    <IconButton size="small" onClick={() => cartState.addProduct(cartItem.id, 1)}>
+                                    <IconButton size="small" onClick={(e) => {e.stopPropagation(); cartState.addProduct(cartItem.id, 1)}}>
                                         <AddIcon fontSize="small"/>
                                     </IconButton>
                                     </div>
@@ -38,7 +38,7 @@ export default function ShoppingCart() {
                                             {cartItem.product.price + " kr"}
                                         </Typography> 
                                         } />
-                                    <IconButton size="small" edge="end" aria-label="delete" onClick={() => cartState.removeItemFromCart(cartItem.id)}>
+                                    <IconButton size="small" edge="end" aria-label="delete" onClick={(e) => {e.stopPropagation(); cartState.removeItemFromCart(cartItem.id)}}>
                                         <DeleteRoundedIcon fontSize="small"/>
                                     </IconButton>
                                     </div>
