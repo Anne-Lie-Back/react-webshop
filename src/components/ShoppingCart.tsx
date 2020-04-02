@@ -22,7 +22,7 @@ export default function ShoppingCart() {
                                         <Avatar src={cartItem.product.imgURL}/>
                                     </ListItemAvatar>
                                     </Hidden>
-                                    <ListItemText primary={<Typography style = {{textDecoration: 'none', color: 'black'}} component = {RouterLink} to={"product/"+ cartItem.id} noWrap>{cartItem.product.name}</Typography> } />
+                                    <ListItemText primary={<Typography style = {{textDecoration: 'none', color: 'black', display: 'flex'}} component = {RouterLink} to={"product/"+ cartItem.id} noWrap>{cartItem.product.name}</Typography> } />
                                     <div style={nextFlex}>
                                     <IconButton size="small" onClick ={(e) => {e.stopPropagation(); cartState.addProduct(cartItem.id, -1)}}>
                                         <RemoveIcon fontSize="small"/>
