@@ -80,6 +80,15 @@ export default class CheckOut extends React.Component<Props, State>{
 
     render(){
         const { step } = this.state
+        let continueButton:any
+        if(!this.state.disableOrderButton){
+            continueButton = <Button 
+                                variant="contained" 
+                                color="primary"
+                                onClick = {this.previousStep}> 
+                                Stämmer inte?                                   
+                            </Button>
+        }
 
         switch(step){
             case 1:
@@ -123,11 +132,7 @@ export default class CheckOut extends React.Component<Props, State>{
                                     customerInfo={this.state.customerInfo}
                                     isDisabled = {this.state.disableOrderButton}
                                     />
-                                    <Button variant="contained" 
-                                        color="primary"
-                                        onClick = {this.previousStep}> 
-                                        Stämmer inte?                                   
-                                    </Button>
+                                    {continueButton}
                                 </div>
                             </Container>
                         )}                   

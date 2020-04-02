@@ -152,14 +152,6 @@ export default class Payment extends React.Component<Props, CustomerPaymentInfo>
       }
     }
 
-    private waitingForPayment(){
-      if (this.props.isDisabled){
-        return(
-          <p style = {{color: 'rgba(0, 0, 0, 0.38)'}}>Kontrollerar betalning</p>
-        )
-      }
-    }
-
     private handleRadioChange = (event: { target: { value: any } }) => { 
         this.setState({paymentMethod: event.target.value})
     } 
@@ -262,6 +254,11 @@ render(){
   const swish = require("./../../assets/images/swish.png")
   const klarna = require("./../../assets/images/klarna.png")
 
+  let waitingForPaymentText
+  if (this.props.isDisabled){
+    waitingForPaymentText = <p style = {{color: 'rgba(0, 0, 0, 0.38)'}}>Kontrollerar betalning</p> 
+  }
+
     return (
       <>
         <FormControl component="fieldset" error = {this.state.isPaymentError} style = {spaceing}>
@@ -298,7 +295,7 @@ render(){
               disabled = {this.props.isDisabled}>
                 Slutför ditt köp
             </Button>
-            {this.waitingForPayment()} 
+            {waitingForPaymentText} 
       </>
     );
 
