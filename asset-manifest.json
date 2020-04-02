@@ -1,0 +1,27 @@
+{
+  "files": {
+    "main.css": "/react-webshop/static/css/main.f31feee6.chunk.css",
+    "main.js": "/react-webshop/static/js/main.4c8ea7e1.chunk.js",
+    "main.js.map": "/react-webshop/static/js/main.4c8ea7e1.chunk.js.map",
+    "runtime-main.js": "/react-webshop/static/js/runtime-main.684b0842.js",
+    "runtime-main.js.map": "/react-webshop/static/js/runtime-main.684b0842.js.map",
+    "static/js/2.e7b2451f.chunk.js": "/react-webshop/static/js/2.e7b2451f.chunk.js",
+    "static/js/2.e7b2451f.chunk.js.map": "/react-webshop/static/js/2.e7b2451f.chunk.js.map",
+    "index.html": "/react-webshop/index.html",
+    "precache-manifest.8c3e200d378496f0e7bba2657dc6ba6d.js": "/react-webshop/precache-manifest.8c3e200d378496f0e7bba2657dc6ba6d.js",
+    "service-worker.js": "/react-webshop/service-worker.js",
+    "static/css/main.f31feee6.chunk.css.map": "/react-webshop/static/css/main.f31feee6.chunk.css.map",
+    "static/js/2.e7b2451f.chunk.js.LICENSE.txt": "/react-webshop/static/js/2.e7b2451f.chunk.js.LICENSE.txt",
+    "static/media/klarna.png": "/react-webshop/static/media/klarna.ebff2ac1.png",
+    "static/media/logo.png": "/react-webshop/static/media/logo.30c19a33.png",
+    "static/media/mastercard.png": "/react-webshop/static/media/mastercard.530bf4e0.png",
+    "static/media/sphere.png": "/react-webshop/static/media/sphere.14d6fc55.png",
+    "static/media/swish.png": "/react-webshop/static/media/swish.1d4efc37.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.684b0842.js",
+    "static/js/2.e7b2451f.chunk.js",
+    "static/css/main.f31feee6.chunk.css",
+    "static/js/main.4c8ea7e1.chunk.js"
+  ]
+}
