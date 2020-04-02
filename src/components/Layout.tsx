@@ -17,23 +17,25 @@ export default class Layout extends React.Component<Props, State> {
                 <div >
                 </div>
                 <Header/>
-                    <Switch>
-                        <Route path="/checkout">
-                            <CheckOut/>
-                        </Route>
-                        <Route path="/admin">
-                            <Admin/>
-                        </Route>
-                        <Route exact path="/product">
-                            <div><h2>Select a product</h2></div>
-                        </Route>
-                        <Route path="/product/:id">
-                            <ProductPage/>
-                        </Route> 
-                        <Route exact path="/">
-                            <Home/>
-                        </Route>
-                    </Switch>
+                    <div style={{minHeight: 'calc(100vh - 15em)'}}>
+                        <Switch>
+                            <Route path="/checkout">
+                                <CheckOut/>
+                            </Route>
+                            <Route path="/admin">
+                                <Admin/>
+                            </Route>
+                            <Route exact path="/product">
+                                <div><h2>Select a product</h2></div>
+                            </Route>
+                            <Route path="/product/:id">
+                                <ProductPage/>
+                            </Route> 
+                            <Route exact path="/">
+                                <Home/>
+                            </Route>
+                        </Switch>
+                    </div>
                 <Footer/>
             </BrowserRouter>
         );   

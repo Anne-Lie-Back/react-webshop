@@ -301,7 +301,8 @@ render(){
             type = 'submit'
             onClick={() => this.onSubmit()}
             variant="contained" 
-            color="primary">
+            color="primary"
+            style={{marginRight:'1em'}}>
               Slutför ditt köp
           </Button>  
       </>

@@ -39,7 +39,7 @@ export default function ShoppingCart() {
                     }
                     <ListItem>
                     <ListItemText primary={
-                        <Typography noWrap align="right">
+                        <Typography noWrap align="right" variant="h6" color="primary">
                             {"Total: " + cartState.cartTotalPrice + "kr"}
                         </Typography> 
                         } />
