@@ -47,11 +47,6 @@ export default function AddedToCart(props:Props){
     )
 }
 
-const relativeContainer:CSSProperties = {
-    display:'flex',
-    position:'relative'
-}
-
 const shoppingCartContainer:CSSProperties = {
    // width: '18.5rem',
     position:'absolute',
