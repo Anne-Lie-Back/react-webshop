@@ -15,15 +15,22 @@ interface Props{
 }
 
 interface State {
-    toggleItem: boolean
+    toggleItem: boolean,
+    deleted: boolean
 }
 
 export default class ProductAdminList extends React.Component<Props, State> {
     constructor(props:Props){
         super(props)
         this.state = {
-            toggleItem: false
+            toggleItem: false,
+            deleted: false
         }   
+    }
+
+    isDeleted = () =>{
+        this.setState({deleted: true})
+        console.log("object")
     }
     
     toggle = () => { this.setState({toggleItem: !this.state.toggleItem})}
@@ -31,18 +38,24 @@ export default class ProductAdminList extends React.Component<Props, State> {
     render(){
         return(
             <Card style={adminListStyle} variant="outlined">
-                <Typography onClick={this.toggle}>
+                <Typography onClick={this.toggle} color={this.state.deleted?"error":"inherit"}>
                     <IconButton>
                         {this.state.toggleItem?  <ExpandLessIcon/> : <ExpandMoreIcon/>}
                     </IconButton>
-                    {'Prod# ' + this.props.itemData.id + " - " + this.props.itemData.name} 
+                    {'Prod# ' + this.props.itemData.id + " - " + this.props.itemData.name}
+                    {this.state.deleted? " - [Raderad]":""}
                 </Typography>
-                {this.state.toggleItem?
-                    <EditItem itemData={this.props.itemData} 
-                    arrayIndex={this.props.arrayIndex} 
-                    delete={this.props.delete}
-                    handleSubmit={this.props.handleSubmit}/> 
-                : null}
+
+                    {this.state.toggleItem?
+                        <EditItem 
+                            itemData={this.props.itemData} 
+                            arrayIndex={this.props.arrayIndex} 
+                            delete={this.props.delete}
+                            handleSubmit={this.props.handleSubmit}
+                            isDeleted={this.isDeleted}
+                            deleted={this.state.deleted}
+                        /> 
+                    :null}
             </Card>
         )
     }

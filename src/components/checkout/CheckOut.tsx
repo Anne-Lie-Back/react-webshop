@@ -1,15 +1,20 @@
 import React, {CSSProperties} from 'react'
 import AddressForm from './AddressForm'
 import Payment from './Payment'
-import Button from '@material-ui/core/Button';
+import Button from '@material-ui/core/Button'
 import { CustomerInfo, CustomerPaymentInfo } from './../../typings'
+import { Grid } from '@material-ui/core'
+import { Card } from '@material-ui/core'
+import { Typography } from '@material-ui/core'
+import HomeButton from './HomeButton'
 import ShoppingCart from '../ShoppingCart';
-import { CartContext } from '../../contexts/cartContext';
+import { CartContext , State as CartState} from '../../contexts/cartContext';
 import { Container } from '@material-ui/core';
 import ShoppigCartCheckout from './../ShoppingCartCheckout'
 import mockAPI from '../../mockAPI';
 
 interface Props{
+    cartState: CartState
 }
 
 interface State{
@@ -77,6 +82,12 @@ export default class CheckOut extends React.Component<Props, State>{
        
     }
 
+    componentDidUpdate(prevProps: Props, prevState: State){
+        if(this.state.step === 3 && prevState.step !== 3){
+            this.props.cartState.emptyCart()
+        }
+    }
+
     render(){
         const { step } = this.state
         let continueButton:any
@@ -92,12 +103,27 @@ export default class CheckOut extends React.Component<Props, State>{
         switch(step){
             case 1:
                 return(
-                    <Container>
-                        <ShoppingCart/>
-                        <AddressForm 
-                            customerInfo={this.state.customerInfo} 
-                            onSubmit={this.onAddressFormSubmit}/>
-                    </Container>
+                    <div>
+                        <HomeButton/>
+                        <Grid 
+                            container
+                            justify="center"
+                            style={gridStyle}
+                        >
+                            <Grid item xs={12} sm={6}>
+                                <Card style={cardStyle}>
+                                        <Typography color="primary" variant="h4" style={{marginTop:"1.5em"}}>
+                                            Checkout
+                                        </Typography>
+                                        <ShoppingCart/>
+                                        <AddressForm 
+                                            customerInfo={this.state.customerInfo} 
+                                            onSubmit={this.onAddressFormSubmit}
+                                            />
+                                </Card>
+                            </Grid>
+                        </Grid>
+                    </div>
                 )
             break
 
@@ -105,35 +131,47 @@ export default class CheckOut extends React.Component<Props, State>{
                 if(this.state.customerInfo) {
                     return(
                         <CartContext.Consumer>
-                        {(cartState) => (                   
-                            <Container>
-                                <div style = {temporaryStyling}>
-                                    <ShoppigCartCheckout/>
-                                    <p>Skickas till:</p>
-                                    <p>{this.state.customerInfo?.firstName} {this.state.customerInfo?.lastName}</p>
-                                    <p>{this.state.customerInfo?.address}</p>
-                                    <p>{this.state.customerInfo?.zipCode} {this.state.customerInfo?.city}</p>
-                                    <br/>
-                                    <p>E-Mail: {this.state.customerInfo?.email}</p>
-                                    <p>Mobilnummer: {this.state.customerInfo?.mobile}</p>          
-                                    <br/>           
-                                    <p>Valt Fraktsätt: {this.state.customerInfo?.shippingMethod} ({this.state.customerInfo?.shippingCost} kr)</p>
-                                    <p>Förväntad leveransdag: {this.state.customerInfo?.deliveryDate} </p>
-{/*                                     <p> Kostnad: {cartState.cartTotalPrice} kr plus frakt (+{this.state.customerInfo?.shippingCost} kr)</p>
-                                    <br/> */}
-                                    <p>Totalkostnad: {cartState.cartTotalPrice + this.state.customerInfo?.shippingCost} kr 
-                                        <span style = {{fontSize: '0.6rem'}}>(varav {cartState.cartTotalPrice * 0.25} kr moms).</span>
-                                    </p>
-            
-                                    <b/>
-                                    <Payment
-                                    onSubmit={this.onPaymentFormSubmit}
-                                    customerInfo={this.state.customerInfo}
-                                    isDisabled = {this.state.disableOrderButton}
-                                    />
-                                    {continueButton}
-                                </div>
-                            </Container>
+                        {(cartState) => (
+                             <div>
+                                <HomeButton/>
+                                <Grid container
+                                    justify="center"
+                                    style={gridStyle}
+                                >
+                                    <Grid item xs={12} sm={6}>
+
+                                        <Card style={cardStyle}>
+                                            <div style = {temporaryStyling}>
+                                                <ShoppigCartCheckout/>
+                                                <p>Skickas till:</p>
+                                                <p>{this.state.customerInfo?.firstName} {this.state.customerInfo?.lastName}</p>
+                                                <p>{this.state.customerInfo?.address}</p>
+                                                <p>{this.state.customerInfo?.zipCode} {this.state.customerInfo?.city}</p>
+                                                <br/>
+                                                <p>E-Mail: {this.state.customerInfo?.email}</p>
+                                                <p>Mobilnummer: {this.state.customerInfo?.mobile}</p>          
+                                                <br/>           
+                                                <p>Valt Fraktsätt: {this.state.customerInfo?.shippingMethod} ({this.state.customerInfo?.shippingCost} kr)</p>
+                                                <p>Förväntad leveransdag: {this.state.customerInfo?.deliveryDate} </p>
+            {/*                                     <p> Kostnad: {cartState.cartTotalPrice} kr plus frakt (+{this.state.customerInfo?.shippingCost} kr)</p>
+                                                <br/> */}
+                                                <p>Totalkostnad: {cartState.cartTotalPrice + this.state.customerInfo?.shippingCost} kr 
+                                                    <span style = {{fontSize: '0.6rem'}}>(varav {cartState.cartTotalPrice * 0.25} kr moms).</span>
+                                                </p>
+                        
+                                                <b/>
+                                                <Payment
+                                                onSubmit={this.onPaymentFormSubmit}
+                                                customerInfo={this.state.customerInfo}
+                                                isDisabled = {this.state.disableOrderButton}
+                                                />
+                                                {continueButton}
+                                            </div>
+                                        </Card>
+                                    </Grid>
+                                </Grid>
+                             </div>               
+
                         )}                   
                         </CartContext.Consumer>
                     )
@@ -145,13 +183,24 @@ export default class CheckOut extends React.Component<Props, State>{
                     return(
                         <CartContext.Consumer>
                         {(cartState) => (  
-                            <Container>
-                                <h1>Bravo!</h1>
-                                <p>Du har beställt supergott te för den totala kostnaden av {cartState.cartTotalPrice + this.state.customerInfo?.shippingCost}kr! <br/> Vi har skickat bekräftelse till din mail: {this.state.customerInfo?.email}</p>
-                                <p>Beräknad leveransdag: {this.state.customerInfo?.deliveryDate}</p>
-                                <p>Ditt ordernummer är: {this.state.orderNumber}</p>
-                                <ShoppigCartCheckout/>
-                            </Container>
+                            <div>
+                                <HomeButton/>
+                                <Grid container
+                                    justify="center"
+                                    style={gridStyle}
+                                >
+                                    <Grid item xs={12} sm={6}>
+                                        <Card style={cardStyle}>
+                                            <h1>Bravo!</h1>
+                                            <p>Du har beställt supergott te för den totala kostnaden av {cartState.savedCartTotalPrice + this.state.customerInfo?.shippingCost}kr! <br/> Vi har skickat bekräftelse till din mail: {this.state.customerInfo?.email}</p>
+                                            <p>Beräknad leveransdag: {this.state.customerInfo?.deliveryDate}</p>
+                                            <p>Ditt ordernummer är: {this.state.orderNumber}</p>
+                                            <ShoppigCartCheckout/>
+                                        </Card>
+                                    </Grid>
+                                </Grid>
+                            </div>
+
                         )}                   
                         </CartContext.Consumer>
                     )
@@ -165,4 +214,12 @@ const temporaryStyling:CSSProperties ={
     border: '2px solid #346933',
     margin: '3rem',
     padding: '2rem'
+}
+
+const cardStyle:CSSProperties ={
+    padding: '3rem'
+}
+
+const gridStyle:CSSProperties ={
+    maxWidth:'100vw',
 }

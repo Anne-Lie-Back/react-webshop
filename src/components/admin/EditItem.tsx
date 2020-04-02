@@ -13,11 +13,12 @@ interface Props {
     arrayIndex: number
     delete: any
     handleSubmit: any
+    isDeleted: any
+    deleted: boolean
 }
 
 interface State {
     isSentMessage: string,
-    deletedMessage: boolean
     id: number,
     name: string, 
     price: number,
@@ -30,7 +31,6 @@ export default class EditItem extends React.Component<Props, State> {
         super(props)
         this.state = {
             isSentMessage: "",
-            deletedMessage: false,
             id: props.itemData.id,
             name: props.itemData.name, 
             price: props.itemData.price,
@@ -72,9 +72,6 @@ export default class EditItem extends React.Component<Props, State> {
         }
         return userMassage
     }
-    isDeleted(){
-        this.setState({deletedMessage: true})
-    }
     
     render(){
         let itemData = {
@@ -87,66 +84,73 @@ export default class EditItem extends React.Component<Props, State> {
         let userMassage = this.checkInput()
         return(
             <Container>
-                {this.state.deletedMessage?<Typography color="error">Raderad</Typography>:null}
+                {this.props.deleted?null:
                 <Button 
                     variant="contained"
                     color="primary" 
                     fullWidth 
                     onClick={() => {this.props.delete(this.props.arrayIndex)
-                                    this.isDeleted()
+                                    this.props.isDeleted()
                     }}>
                     <RemoveCircleOutlineIcon/>Ta bort #{this.props.itemData.id}
                 </Button>
-                <div style={divSpace}/>
-                <FormControl fullWidth>
-                    <form autoComplete="off">
-                        <TextField 
-                            fullWidth 
-                            name="name" 
-                            label="Namn" 
-                            variant="outlined" 
-                            value={this.state.name} 
-                            onChange={this.handleNameInput}
-                            error={this.state.name === ""}
-                            helperText={this.state.name === "" ? 'Tomt fält' : ' '}
-                        />
-                        <TextField
-                            fullWidth 
-                            name="price" 
-                            label="Pris" 
-                            variant="outlined" 
-                            value={this.state.price} 
-                            onChange={this.handlePriceInput}
-                            error = {isNaN(this.state.price)}
-                            helperText={isNaN(this.state.price)? 'Inte en siffra' : ' '}
-                        />
-                        <TextField
-                            fullWidth 
-                            name="imgURL" 
-                            label="ImgURL" 
-                            variant="outlined" 
-                            value={this.state.imgURL} 
-                            onChange={this.handleimgURLChange}
-                            error={this.state.imgURL === ""}
-                            helperText={this.state.imgURL === "" ? 'Tomt fält' : ' '}
-                        />
-                        <TextField
-                            fullWidth
-                            name="description" 
-                            label="Beskrivning" 
-                            variant="outlined" 
-                            value={this.state.description} 
-                            onChange={this.handleDescriptionInput}
-                            multiline 
-                            rowsMax="4"
-                            error={this.state.description === ""}
-                            helperText={this.state.description === "" ? 'Tomt fält' : ' '}
-                        />
-                    </form>
-                </FormControl>
-                <Typography color="primary">
-                    {userMassage + this.state.isSentMessage}
-                </Typography>
+                }
+                {this.props.deleted?null:
+                <div style={divSpace}/>}
+                {this.props.deleted?null:
+                    <FormControl fullWidth>
+                        <form autoComplete="off">
+                            <TextField 
+                                fullWidth 
+                                name="name" 
+                                label="Namn" 
+                                variant="outlined" 
+                                value={this.state.name} 
+                                onChange={this.handleNameInput}
+                                error={this.state.name === ""}
+                                helperText={this.state.name === "" ? 'Tomt fält' : ' '}
+                            />
+                            <TextField
+                                fullWidth 
+                                name="price" 
+                                label="Pris" 
+                                variant="outlined" 
+                                value={this.state.price} 
+                                onChange={this.handlePriceInput}
+                                error = {isNaN(this.state.price)}
+                                helperText={isNaN(this.state.price)? 'Inte en siffra' : ' '}
+                            />
+                            <TextField
+                                fullWidth 
+                                name="imgURL" 
+                                label="ImgURL" 
+                                variant="outlined" 
+                                value={this.state.imgURL} 
+                                onChange={this.handleimgURLChange}
+                                error={this.state.imgURL === ""}
+                                helperText={this.state.imgURL === "" ? 'Tomt fält' : ' '}
+                            />
+                            <TextField
+                                fullWidth
+                                name="description" 
+                                label="Beskrivning" 
+                                variant="outlined" 
+                                value={this.state.description} 
+                                onChange={this.handleDescriptionInput}
+                                multiline 
+                                rowsMax="4"
+                                error={this.state.description === ""}
+                                helperText={this.state.description === "" ? 'Tomt fält' : ' '}
+                            />
+                        </form>
+                    </FormControl>
+                }
+                {this.props.deleted?null:
+                    <Typography color="primary">
+                        {userMassage + this.state.isSentMessage}
+                    </Typography>
+                }
+                {this.props.deleted?null:
                 <Button 
                     variant="outlined"
                     color="primary" 
@@ -157,6 +161,7 @@ export default class EditItem extends React.Component<Props, State> {
                     >
                     <EditIcon/> Ändra #{this.props.itemData.id}
                 </Button>
+                }
             </Container>
         )
     }

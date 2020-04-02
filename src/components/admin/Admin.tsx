@@ -20,7 +20,7 @@ export default class Admin extends React.Component<Props, State> {
     }
 
     handleSubmit = (arrayIndex:number, itemData:Product) => {
-            this.state.items[arrayIndex] = {
+            itemsLS[arrayIndex] = {
             id: itemData.id,
             name: itemData.name, 
             price: itemData.price,
@@ -31,10 +31,8 @@ export default class Admin extends React.Component<Props, State> {
             isNaN(itemData.price) ||
             itemData.imgURL === "" ||
             itemData.description === ""){
-                //this.setState({userMassage: "Något blev fel"})
                 console.log("fail")
             } else {
-                //this.setState({userMassage: "Ändrat"})
                 console.log("ändrat")
                 localStorage.setItem('productList', JSON.stringify(this.state.items))
                 this.setState({items: this.state.items})

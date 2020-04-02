@@ -292,7 +292,8 @@ render(){
               onClick={() => this.onSubmit()}
               variant="contained" 
               color="primary"
-              disabled = {this.props.isDisabled}>
+              disabled = {this.props.isDisabled}
+              style={{marginRight:'1em'}}>
                 Slutför ditt köp
             </Button>
             {waitingForPaymentText} 

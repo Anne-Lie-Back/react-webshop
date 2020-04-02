@@ -197,7 +197,7 @@ export default class AddressForm extends React.Component<Props, CustomerInfo> {
 
   render(){ 
     return (
-      <>
+      <div>
           <form autoComplete="on" >
             <TextField 
               color="secondary"
@@ -205,11 +205,11 @@ export default class AddressForm extends React.Component<Props, CustomerInfo> {
               autoComplete = 'given-name'
               label="Förnamn" 
               value={this.state.firstName} 
-              error = {Boolean(this.state.firstNameError)} //Gör this på alla boleans
+              error = {this.state.isFirstNameError}
               helperText = {this.state.firstNameError} 
               onChange={(event) => { this.setState({ firstName: event.target.value }) }} 
             />
-            <TextField  
+            <TextField 
               color="secondary" 
               name="lname"
               autoComplete="family-name"
@@ -224,7 +224,6 @@ export default class AddressForm extends React.Component<Props, CustomerInfo> {
               name="ship-address"
               autoComplete="shipping street-address"
               label="Adress" 
-              style = {{width:'52ch'}} 
               value={this.state.address} 
               error = {this.state.isAddressError} 
               helperText = {this.state.addressError} 
@@ -280,7 +279,7 @@ export default class AddressForm extends React.Component<Props, CustomerInfo> {
                 value = {this.state.shippingMethod} 
                 onChange = {this.handleShipmentInput}
                 style={flex}>
-                  <div style  = {temporaryStyling}>
+                  <div style  = {deliverensBox}>
                     <h3>PostNord Hemleverans</h3>
                     <p>Leverans: 1 arbetsdag. Pris: 99kr </p>
                     <FormControlLabel
@@ -289,7 +288,7 @@ export default class AddressForm extends React.Component<Props, CustomerInfo> {
                       label="PostNord Hemleverans"
                     />
                   </div>
-                  <div style  = {temporaryStyling}>
+                  <div style  = {deliverensBox}>
                     <h3>PostNord Ombud</h3>
                     <p>Leverans: 3 arbetsdagar. Pris: 39kr</p>
                     <FormControlLabel
@@ -298,7 +297,7 @@ export default class AddressForm extends React.Component<Props, CustomerInfo> {
                       label="PostNord Ombud" 
                     />
                   </div>
-                  <div style  = {temporaryStyling}>
+                  <div style  = {deliverensBox}>
                     <h3>DB Schenker</h3>
                     <p>Leverans: 5 arbetsdagar. Pris: Fri frakt </p>
                     <FormControlLabel 
@@ -317,16 +316,16 @@ export default class AddressForm extends React.Component<Props, CustomerInfo> {
             color="primary">
               Fortsätt 
           </Button>         
-      </>
+      </div>
     );
   }
 }
 
-const temporaryStyling:CSSProperties = {
+const deliverensBox:CSSProperties = {
     border: '2px solid #346933',
-    margin: '2rem',
-    padding: '1rem'
-
+    margin: '1rem 0.5em',
+    padding: '1rem',
+    width: '100%'
 }
 const flex:CSSProperties = {
   display:'flex',
