@@ -11,10 +11,13 @@ import EditIcon from '@material-ui/icons/Edit';
 interface Props {
     itemData: Product
     arrayIndex: number
+    delete: any
+    handleSubmit: any
 }
 
 interface State {
-    userMassage: string,
+    isSentMessage: string,
+    deletedMessage: boolean
     id: number,
     name: string, 
     price: number,
@@ -26,7 +29,8 @@ export default class EditItem extends React.Component<Props, State> {
     constructor(props:Props){
         super(props)
         this.state = {
-            userMassage: "",
+            isSentMessage: "",
+            deletedMessage: false,
             id: props.itemData.id,
             name: props.itemData.name, 
             price: props.itemData.price,
@@ -40,39 +44,57 @@ export default class EditItem extends React.Component<Props, State> {
     handlePriceInput = (event: { target: { value: any } }) => this.setState({price:event.target.value})
     handleimgURLChange = (event: { target: { value: any } }) => this.setState({imgURL:event.target.value})
     handleDescriptionInput = (event: { target: { value: any } }) => this.setState({description:event.target.value})
+    checkInput(){
+        let userMassage
+        if(
+            this.state.name === "" ||
+            isNaN(this.state.price) ||
+            this.state.imgURL === "" ||
+            this.state.description === ""
+        ){
+            userMassage = "Kan inte skicka"
+        } else {
+            userMassage = ""
+        }
+        return userMassage
+    }
+    isSent(){
+        let userMassage
+        if(
+            this.state.name === "" ||
+            isNaN(this.state.price) ||
+            this.state.imgURL === "" ||
+            this.state.description === ""
+        ){
+            this.setState({isSentMessage:"Uppdaterad"})
+        } else {
+            this.setState({isSentMessage:"Uppdaterad"})
+        }
+        return userMassage
+    }
+    isDeleted(){
+        this.setState({deletedMessage: true})
+    }
     
-    handleSubmit = (event: any) => {
-        const productList = JSON.parse(localStorage.getItem('productList') || '{}')
-        productList[this.props.arrayIndex] = {
+    render(){
+        let itemData = {
             id: this.state.id,
             name: this.state.name, 
             price: this.state.price,
             imgURL: this.state.imgURL,
             description: this.state.description
         }
-        if( this.state.name === "" ||
-            isNaN(this.state.price) ||
-            this.state.imgURL === "" ||
-            this.state.description === ""){
-                this.setState({userMassage: "Något blev fel"})
-            } else {
-                this.setState({userMassage: "Ändrat"})
-                localStorage.setItem('productList', JSON.stringify(productList))
-            }
-    }
-
-    delete = () => {
-        const items = JSON.parse(localStorage.getItem('productList') || '{}')
-        const i = this.props.arrayIndex
-        const productList = items.slice(0, i).concat(items.slice(i + 1, items.length))
-        localStorage.setItem('productList', JSON.stringify(productList))
-    }
-    
-
-    render(){
+        let userMassage = this.checkInput()
         return(
             <Container>
-                <Button variant="contained" color="primary" fullWidth onClick={this.delete}>
+                {this.state.deletedMessage?<Typography color="error">Raderad</Typography>:null}
+                <Button 
+                    variant="contained"
+                    color="primary" 
+                    fullWidth 
+                    onClick={() => {this.props.delete(this.props.arrayIndex)
+                                    this.isDeleted()
+                    }}>
                     <RemoveCircleOutlineIcon/>Ta bort #{this.props.itemData.id}
                 </Button>
                 <div style={divSpace}/>
@@ -122,10 +144,17 @@ export default class EditItem extends React.Component<Props, State> {
                         />
                     </form>
                 </FormControl>
-                <Typography>
-                    {this.state.userMassage}
+                <Typography color="primary">
+                    {userMassage + this.state.isSentMessage}
                 </Typography>
-                <Button variant="outlined" color="primary" fullWidth onClick={this.handleSubmit}>
+                <Button 
+                    variant="outlined"
+                    color="primary" 
+                    fullWidth
+                    onClick={() => {this.props.handleSubmit(this.props.arrayIndex, itemData);
+                                    this.isSent()
+                            }}
+                    >
                     <EditIcon/> Ändra #{this.props.itemData.id}
                 </Button>
             </Container>
