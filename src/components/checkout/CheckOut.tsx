@@ -95,6 +95,7 @@ export default class CheckOut extends React.Component<Props, State>{
             continueButton = <Button 
                                 variant="contained" 
                                 color="primary"
+                                style={{margin:'0 0 1em 1em'}}
                                 onClick = {this.previousStep}> 
                                 Stämmer inte?                                   
                             </Button>
@@ -141,7 +142,6 @@ export default class CheckOut extends React.Component<Props, State>{
                                     <Grid item xs={12} sm={6}>
 
                                         <Card style={cardStyle}>
-                                            <div style = {temporaryStyling}>
                                                 <ShoppigCartCheckout/>
                                                 <p>Skickas till:</p>
                                                 <p>{this.state.customerInfo?.firstName} {this.state.customerInfo?.lastName}</p>
@@ -155,9 +155,10 @@ export default class CheckOut extends React.Component<Props, State>{
                                                 <p>Förväntad leveransdag: {this.state.customerInfo?.deliveryDate} </p>
             {/*                                     <p> Kostnad: {cartState.cartTotalPrice} kr plus frakt (+{this.state.customerInfo?.shippingCost} kr)</p>
                                                 <br/> */}
-                                                <p>Totalkostnad: {cartState.cartTotalPrice + this.state.customerInfo?.shippingCost} kr 
+                                                <Typography variant="h5" color="primary">
+                                                    Totalkostnad: {cartState.cartTotalPrice + this.state.customerInfo?.shippingCost} kr 
                                                     <span style = {{fontSize: '0.6rem'}}>(varav {cartState.cartTotalPrice * 0.25} kr moms).</span>
-                                                </p>
+                                                </Typography>
                         
                                                 <b/>
                                                 <Payment
@@ -166,7 +167,6 @@ export default class CheckOut extends React.Component<Props, State>{
                                                 isDisabled = {this.state.disableOrderButton}
                                                 />
                                                 {continueButton}
-                                            </div>
                                         </Card>
                                     </Grid>
                                 </Grid>
@@ -210,14 +210,9 @@ export default class CheckOut extends React.Component<Props, State>{
     }
 }
 
-const temporaryStyling:CSSProperties ={
-    border: '2px solid #346933',
-    margin: '3rem',
-    padding: '2rem'
-}
 
 const cardStyle:CSSProperties ={
-    padding: '3rem'
+    padding: '2rem'
 }
 
 const gridStyle:CSSProperties ={
