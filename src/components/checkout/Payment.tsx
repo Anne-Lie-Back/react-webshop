@@ -12,6 +12,7 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 interface Props{
   onSubmit: (customerPaymentInfo: CustomerPaymentInfo) => void
     customerInfo: any
+    isDisabled: boolean
 /*   handleChange:(userInput:string) => ((event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void) | undefined
   values: any */
 }
@@ -50,7 +51,7 @@ export default class Payment extends React.Component<Props, CustomerPaymentInfo>
         }
     }
 
-    validateInput = () =>{
+    private validateInput = () =>{
     
       let isError = false
       const errors = {paymentErrorText:'', isPaymentError: false, cardOwnerErrorText:'', isCardOwnerError:false, isCardNrError:false, cardNrErrorText:'', isCardExpError:false, cardExpErrorText: '', isCardCVCError: false, cardCVCErrorText: '', 
@@ -82,7 +83,6 @@ export default class Payment extends React.Component<Props, CustomerPaymentInfo>
         }
 
         const cardExpVal = /^(0?[1-9]|1[012])[\/\-](?:202[0-5])/
-        //const cardExpVal = /^([0-1][0-9][-\s\.]?:202[0-5])$/
  
        if(this.state.cardExp.match(cardExpVal)){
          errors.isCardExpError = false
@@ -150,28 +150,13 @@ export default class Payment extends React.Component<Props, CustomerPaymentInfo>
       if(!err){
         this.props.onSubmit(this.state)
       }
-      
     }
 
-/*     handleChange = (input:string) => (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        this.setState({[input]: event.target.value})
-      } */
-
-/*      handleChange = (event.target.value) => {
-        this.setState({[input]: event.target.value})
-    }  */
-
-/*     handleRadioChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        this.setState
-      setValue((event.target as HTMLInputElement).value);
-    }; */
-
-     handleRadioChange = (event: { target: { value: any } }) => { 
+    private handleRadioChange = (event: { target: { value: any } }) => { 
         this.setState({paymentMethod: event.target.value})
-        //this.setShipmentDetails(event.target.value)
     } 
 
-     handleMoreInformationBank() {
+    private handleMoreInformationBank() {
       if(this.state.paymentMethod === 'Bankkort'){
       return(
         <form autoComplete="on" >
@@ -231,7 +216,7 @@ export default class Payment extends React.Component<Props, CustomerPaymentInfo>
       )}
     }
 
-  handleMoreInformationSwish() {
+  private handleMoreInformationSwish() {
     if(this.state.paymentMethod  === 'Swish'){
     return(
       <TextField id="outlined-basic" 
@@ -244,7 +229,7 @@ export default class Payment extends React.Component<Props, CustomerPaymentInfo>
     )}
   }
 
-  handleMoreInformationFaktura() {
+  private handleMoreInformationFaktura() {
     if(this.state.paymentMethod  === 'Faktura'){
     
         
@@ -268,6 +253,11 @@ render(){
   const visa = require("./../../assets/images/visa.png")
   const swish = require("./../../assets/images/swish.png")
   const klarna = require("./../../assets/images/klarna.png")
+
+  let waitingForPaymentText
+  if (this.props.isDisabled){
+    waitingForPaymentText = <p style = {{color: 'rgba(0, 0, 0, 0.38)'}}>Kontrollerar betalning</p> 
+  }
 
     return (
       <>
@@ -297,20 +287,21 @@ render(){
           </RadioGroup>
         </FormControl>
         <br/>
-        <Button
-            type = 'submit'
-            onClick={() => this.onSubmit()}
-            variant="contained" 
-            color="primary"
-            style={{marginRight:'1em'}}>
-              Slutför ditt köp
-          </Button>  
+          <Button
+              type = 'submit'
+              onClick={() => this.onSubmit()}
+              variant="contained" 
+              color="primary"
+              disabled = {this.props.isDisabled}
+              style={{marginRight:'1em'}}>
+                Slutför ditt köp
+            </Button>
+            {waitingForPaymentText} 
       </>
     );
 
 }
   
-
 }
 
 const spaceing:CSSProperties = {

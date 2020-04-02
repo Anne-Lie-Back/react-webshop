@@ -4,7 +4,7 @@ import { List, ListItem, ListItemText, IconButton, ListItemAvatar, Avatar, Divid
 import DeleteRoundedIcon from '@material-ui/icons/DeleteForeverRounded'
 import AddIcon from '@material-ui/icons/Add'
 import RemoveIcon from '@material-ui/icons/Remove'
-import { Link } from 'react-router-dom';
+import { Link as RouterLink} from 'react-router-dom';
 
 export default function ShoppingCart() {
 
@@ -22,7 +22,7 @@ export default function ShoppingCart() {
                                         <Avatar src={cartItem.product.imgURL}/>
                                     </ListItemAvatar>
                                     </Hidden>
-                                    <ListItemText primary={<Typography noWrap><Link to={"product/"+ cartItem.id}>{cartItem.product.name}</Link></Typography> } />
+                                    <ListItemText primary={<Typography style = {{textDecoration: 'none', color: 'black'}} component = {RouterLink} to={"product/"+ cartItem.id} noWrap>{cartItem.product.name}</Typography> } />
                                     <div style={nextFlex}>
                                     <IconButton size="small" onClick={() => cartState.addProduct(cartItem.id, -1)}>
                                         <RemoveIcon fontSize="small"/>

@@ -12,7 +12,6 @@ import { CartContext , State as CartState} from '../../contexts/cartContext';
 import { Container } from '@material-ui/core';
 import ShoppigCartCheckout from './../ShoppingCartCheckout'
 import mockAPI from '../../mockAPI';
-// import Admin from '../admin/Admin'
 
 interface Props{
     cartState: CartState
@@ -20,8 +19,8 @@ interface Props{
 
 interface State{
     step:number,
-    customerInfo?: CustomerInfo
-    customerPaymentInfo?: CustomerPaymentInfo
+    customerInfo?:any
+    customerPaymentInfo?:any
     orderNumber:number
     disableOrderButton: boolean
 }
@@ -91,6 +90,15 @@ export default class CheckOut extends React.Component<Props, State>{
 
     render(){
         const { step } = this.state
+        let continueButton:any
+        if(!this.state.disableOrderButton){
+            continueButton = <Button 
+                                variant="contained" 
+                                color="primary"
+                                onClick = {this.previousStep}> 
+                                Stämmer inte?                                   
+                            </Button>
+        }
 
         switch(step){
             case 1:
@@ -155,16 +163,15 @@ export default class CheckOut extends React.Component<Props, State>{
                                                 <Payment
                                                 onSubmit={this.onPaymentFormSubmit}
                                                 customerInfo={this.state.customerInfo}
+                                                isDisabled = {this.state.disableOrderButton}
                                                 />
-                                                <Button variant="contained" 
-                                                    color="primary"
-                                                    onClick = {this.previousStep}> Stämmer inte?
-                                                </Button>
+                                                {continueButton}
                                             </div>
                                         </Card>
                                     </Grid>
                                 </Grid>
                              </div>               
+
                         )}                   
                         </CartContext.Consumer>
                     )
@@ -185,7 +192,7 @@ export default class CheckOut extends React.Component<Props, State>{
                                     <Grid item xs={12} sm={6}>
                                         <Card style={cardStyle}>
                                             <h1>Bravo!</h1>
-                                            <p>Du har beställt supergott te för den totala kostnaden av {cartState.cartTotalPrice + this.state.customerInfo?.shippingCost}kr! <br/> Vi har skickat bekräftelse till din mail: {this.state.customerInfo?.email}</p>
+                                            <p>Du har beställt supergott te för den totala kostnaden av {cartState.savedCartTotalPrice + this.state.customerInfo?.shippingCost}kr! <br/> Vi har skickat bekräftelse till din mail: {this.state.customerInfo?.email}</p>
                                             <p>Beräknad leveransdag: {this.state.customerInfo?.deliveryDate}</p>
                                             <p>Ditt ordernummer är: {this.state.orderNumber}</p>
                                             <ShoppigCartCheckout/>

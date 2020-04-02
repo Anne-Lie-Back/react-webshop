@@ -18,34 +18,32 @@ export interface CartItem{
 
 export interface CustomerInfo {
     firstName: string
-    isFirstNameError: boolean
-    firstNameError: string
     lastName: string
-    isLastNameError: boolean
-    lastNameError: string
     address: string
-    isAddressError: boolean
-    addressError: string
     zipCode: any
-    zipCodeError: string
-    isZipCodeError: boolean  
     city: string
-    cityError: string
-    isCityError: boolean
-
     email: any
-    emailError: string
-    isEmailError: boolean
-
     mobile: any
-    isMobileError: boolean
-    mobileError: string
-
     shippingMethod: string
-    isShippingError: boolean,
-    shippingError: string,
     shippingCost:any
     deliveryDate:any
+
+    isFirstNameError: boolean
+    firstNameError: string
+    isLastNameError: boolean
+    lastNameError: string
+    isAddressError: boolean
+    addressError: string
+    zipCodeError: string
+    isZipCodeError: boolean
+    cityError: string
+    isCityError: boolean
+    emailError: string
+    isEmailError: boolean
+    isMobileError: boolean
+    mobileError: string
+    isShippingError: boolean,
+    shippingError: string,
 }
 
 export interface CustomerPaymentInfo {
