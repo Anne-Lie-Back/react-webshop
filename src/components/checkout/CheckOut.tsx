@@ -4,13 +4,14 @@ import Payment from './Payment'
 import Button from '@material-ui/core/Button';
 import { CustomerInfo, CustomerPaymentInfo } from './../../typings'
 import ShoppingCart from '../ShoppingCart';
-import { CartContext } from '../../contexts/cartContext';
+import { CartContext , State as CartState} from '../../contexts/cartContext';
 import { Container } from '@material-ui/core';
 import ShoppigCartCheckout from './../ShoppingCartCheckout'
 import mockAPI from '../../mockAPI';
 // import Admin from '../admin/Admin'
 
 interface Props{
+    cartState: CartState
 }
 
 interface State{
@@ -78,6 +79,12 @@ export default class CheckOut extends React.Component<Props, State>{
        
     }
 
+    componentDidUpdate(prevProps: Props, prevState: State){
+        if(this.state.step === 3 && prevState.step !== 3){
+            this.props.cartState.emptyCart()
+        }
+    }
+
     render(){
         const { step } = this.state
 
@@ -140,7 +147,7 @@ export default class CheckOut extends React.Component<Props, State>{
                         <CartContext.Consumer>
                         {(cartState) => (  
                             <Container>
-                                {/* {cartState.emptyCart} */}
+                                
                                 <h1>Bravo!</h1>
                                 <p>Du har beställt supergott te för den totala kostnaden av {cartState.savedCartTotalPrice + this.state.customerInfo?.shippingCost}kr! <br/> Vi har skickat bekräftelse till din mail: {this.state.customerInfo?.email}</p>
                                 <p>Beräknad leveransdag: {this.state.customerInfo?.deliveryDate}</p>

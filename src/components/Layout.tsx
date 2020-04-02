@@ -3,10 +3,11 @@ import Header from './Header';
 import Home from './home/Home';
 import Footer from './Footer';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import CheckOut from './checkout/CheckOut';
+// import CheckOut from './checkout/CheckOut';
 import ProductPage from './product/ProductPage';
 import Admin from './admin/Admin';
 import { items } from './items/itemList'
+import CheckoutWrapper from './checkout/CheckoutWrapper';
 
 interface Props{}
 interface State{}
@@ -23,7 +24,7 @@ export default class Layout extends React.Component<Props, State> {
                 <Header/>
                     <Switch>
                         <Route path="/checkout">
-                            <CheckOut/>
+                            <CheckoutWrapper/>
                         </Route>
                         <Route path="/admin">
                             <Admin/>

@@ -13,7 +13,7 @@ export const CartContext = React.createContext<State>({
 })
 
 interface Props{}
-interface State{
+export interface State{
     cartList: Array<CartItem>
     addProduct:(inItemId: number, inNrItems: number) => void
     removeItemFromCart:(inItemId: number) => void
