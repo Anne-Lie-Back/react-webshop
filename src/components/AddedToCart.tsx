@@ -1,8 +1,9 @@
 import React, {CSSProperties} from 'react'
 import ShoppingCart from './ShoppingCart'
 import { Link as RouterLink} from 'react-router-dom';
-import { Button } from '@material-ui/core'
+import { Button, Typography } from '@material-ui/core'
 import useMediaQuery from '@material-ui/core/useMediaQuery';
+import { CartContext } from '../contexts/cartContext'
 
 interface Props{
     handleClosing: () => void
@@ -21,21 +22,28 @@ export default function AddedToCart(props:Props){
         positionRight = {right: '0.7rem'}
     }
 
+    const emptyCart = <Typography variant="h6" color="primary" style = {{margin:'1rem'}}>Kundvagnen är tom</Typography>
+    const filledCart = <><ShoppingCart/>               
+                            <Button
+                                component={RouterLink} to ='/checkout'
+                                onClick = {props.handleClosing}
+                                variant="contained" 
+                                color="primary"
+                                style={{margin:'1rem'}}                                  
+                                >
+                                Ta mig till Kassan
+                            </Button>
+                        </>
+
     return(
-        <div style = {clickAwayDiv} onClick = {props.handleClosing}>
-            <div style = {{...shoppingCartContainer, ...divSize, ...positionTop, ...positionRight}}>
-                <ShoppingCart/>
-                <Button
-                    component={RouterLink} to ='/checkout'
-                    onClick = {props.handleClosing}
-                    variant="contained" 
-                    color="primary"
-                    style={{margin:'1rem'}}                                
-                    >
-                    Ta mig till Kassan
-                </Button>
+        <CartContext.Consumer>
+        {(cartState) => 
+            <div style = {clickAwayDiv} onClick = {props.handleClosing}>
+                <div style = {{...shoppingCartContainer, ...divSize, ...positionTop, ...positionRight}}>
+                    {cartState.cartList.length===0? emptyCart : filledCart}
+                </div>
             </div>
-        </div>
+        }</CartContext.Consumer>
     )
 }
 

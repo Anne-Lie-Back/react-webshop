@@ -30,7 +30,7 @@ export function CartIcon(){
 
 
      function displayCart(){
-        const emptyCart = <Typography variant="h6" color="primary" style = {{margin:'1rem'}}>Vagnen är tom</Typography>
+        const emptyCart = <Typography variant="h6" color="primary" style = {{margin:'1rem'}}>Kundvagnen är tom</Typography>
         const filledCart = <><ShoppingCart/>               
                                 <Button
                                     component={RouterLink} to ='/checkout'
@@ -45,13 +45,13 @@ export function CartIcon(){
         if(isCartShown){
             return (
                 <CartContext.Consumer>
-                {(cartState) => 
-                <div style = {clickAwayDiv} onClick={handleOnClick}>
-                    <div style={{...shoppingCartContainer, ...divSize}}>
-                    {cartState.cartList.length===0? emptyCart : filledCart}
+                    {(cartState) => 
+                    <div style = {clickAwayDiv} onClick={handleOnClick}>
+                        <div style={{...shoppingCartContainer, ...divSize}}>
+                        {cartState.cartList.length===0? emptyCart : filledCart}
+                        </div>
                     </div>
-                </div>
-        }</CartContext.Consumer>)
+                }</CartContext.Consumer>)
         }
     } 
 
