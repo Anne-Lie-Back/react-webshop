@@ -111,7 +111,8 @@ const shoppingCartContainer:CSSProperties = {
     display:'flex',
     flexDirection: 'column',
     alignItems:'center',
-    border:'1px solid black'
+    //border:'1px solid black'
+    boxShadow: '0 0 0.3rem black'
 }
 
 const clickAwayDiv:CSSProperties = {
