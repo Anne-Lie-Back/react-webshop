@@ -7,6 +7,7 @@ import FormLabel from '@material-ui/core/FormLabel';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { CustomerPaymentInfo} from './../../typings'
+import FormHelperText from '@material-ui/core/FormHelperText';
 
 interface Props{
   onSubmit: (customerPaymentInfo: CustomerPaymentInfo) => void
@@ -20,6 +21,8 @@ export default class Payment extends React.Component<Props, CustomerPaymentInfo>
         super(props)
         this.state = {
             paymentMethod:'',
+            isPaymentError: false,
+            paymentErrorText:'',
 
             cardOwner: this.props.customerInfo.firstName + ' ' + this.props.customerInfo.lastName,
             isCardOwnerError: false,
@@ -50,8 +53,14 @@ export default class Payment extends React.Component<Props, CustomerPaymentInfo>
     validateInput = () =>{
     
       let isError = false
-      const errors = {cardOwnerErrorText:'', isCardOwnerError:false, isCardNrError:false, cardNrErrorText:'', isCardExpError:false, cardExpErrorText: '', isCardCVCError: false, cardCVCErrorText: '', 
+      const errors = {paymentErrorText:'', isPaymentError: false, cardOwnerErrorText:'', isCardOwnerError:false, isCardNrError:false, cardNrErrorText:'', isCardExpError:false, cardExpErrorText: '', isCardCVCError: false, cardCVCErrorText: '', 
         isSwishNrError: false, swishErrorText: '', isEmailFakturaError: false, emailErrorText: ''};
+
+      if(this.state.paymentMethod === ''){
+        isError = true
+        errors.paymentErrorText =  'Du måste välja ett betalsätt'
+        errors.isPaymentError = true
+      }
 
      if(this.state.paymentMethod  === 'Bankkort'){  
        
@@ -255,28 +264,45 @@ export default class Payment extends React.Component<Props, CustomerPaymentInfo>
         
   }
 render(){
+  const mc = require("./../../assets/images/mastercard.png")
+  const visa = require("./../../assets/images/visa.png")
+  const swish = require("./../../assets/images/swish.png")
+  const klarna = require("./../../assets/images/klarna.png")
+
     return (
       <>
-        <FormControl component="fieldset" style = {spaceing}>
+        <FormControl component="fieldset" error = {this.state.isPaymentError} style = {spaceing}>
           <FormLabel component="legend">Betalsätt</FormLabel>
+          <FormHelperText>{this.state.paymentErrorText}</FormHelperText>
           <RadioGroup aria-label="gender" name="gender1" onChange={this.handleRadioChange}>
-            <FormControlLabel 
-              value="Bankkort" 
-              control={<Radio />} 
-              label="Bankkort" />
+          <div style = {radiobuttonContainer}>
+              <FormControlLabel 
+                value="Bankkort" 
+                control={<Radio />} 
+                label="Bankkort" />
+                <img src={mc} alt="" style={imgSize}/>
+                <img src={visa} alt="" style={imgSize}/>
+            </div>
             {this.handleMoreInformationBank()}
-            <FormControlLabel value="Swish" control={<Radio />} label="Swish" />
+            <div style = {radiobuttonContainer}>
+              <FormControlLabel value="Swish" control={<Radio />} label="Swish" />
+              <img src={swish} alt="" style={imgSize}/>
+            </div>
             {this.handleMoreInformationSwish()}
-            <FormControlLabel value="Faktura" control={<Radio />} label="Faktura" />
+            <div style = {radiobuttonContainer}>
+              <FormControlLabel value="Faktura" control={<Radio />} label="Klarna Faktura" />
+              <img src={klarna} alt="" style={imgSize}/>
+              </div>
             {this.handleMoreInformationFaktura()}
           </RadioGroup>
         </FormControl>
+        <br/>
         <Button
             type = 'submit'
             onClick={() => this.onSubmit()}
             variant="contained" 
             color="primary">
-              BETALA
+              Slutför ditt köp
           </Button>  
       </>
     );
@@ -288,4 +314,15 @@ render(){
 
 const spaceing:CSSProperties = {
     margin: '2rem 0'
+}
+
+const imgSize:CSSProperties = {
+  height: '1.5rem',
+  marginRight: '0.5rem'
+}
+
+const radiobuttonContainer:CSSProperties = {
+  display: 'flex',
+  flexDirection: 'row',
+  alignItems: 'center'
 }
