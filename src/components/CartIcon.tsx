@@ -37,19 +37,18 @@ export function CartIcon(){
 
      function displayCart(){
 
-
+        //IF CART BUTTON IS CLICKED THIS HAPPENS! NEED TO MAKE CLICK AWAYDIV STRETCH OVER THE WHOLE SCREEN
         if(isCartShown){
             return (
                 <div style = {clickAwayDiv} onClick={handleOnClick}>
                     <div style={{...shoppingCartContainer, ...divSize}}>
-                        <ShoppingCart/>
-                        
+                        <ShoppingCart/>                
                             <Button
                                 component={RouterLink} to ='/checkout'
                                 onClick = {handleOnClick}
                                 variant="contained" 
                                 color="primary"
-                                //disabled = {this.props.isDisabled}
+                                style={{margin:'1rem'}}
                                 >
                                 Ta mig till Kassan
                             </Button>
@@ -58,7 +57,6 @@ export function CartIcon(){
                 </div>)
         }
     } 
-
 
         return(
             <CartContext.Consumer>
@@ -106,10 +104,19 @@ const shoppingCartContainer:CSSProperties = {
     right: '0',
     top: '6rem',
     zIndex: 3,
-    backgroundColor:'white'
+    backgroundColor:'white',
+    display:'flex',
+    flexDirection: 'column',
+    alignItems:'center'
 }
 
 const clickAwayDiv:CSSProperties = {
-   width: '100%',
-   height: '100%'
+   width: '100vw',
+   height: '100vh',
+   position: 'absolute',
+   zIndex: 1,
+   top:0,
+   right:0
+
+
 }
