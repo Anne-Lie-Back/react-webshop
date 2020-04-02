@@ -9,12 +9,6 @@ import { Link as RouterLink} from 'react-router-dom';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 export function CartIcon(){
-/*     constructor(props:Props){
-        super(props)
-        this.state ={
-            isCartShown: false
-        }
-    } */
     const [isCartShown, setToggled] = useState(false);
     const handleOnClick = () => setToggled(!isCartShown);
 
@@ -122,6 +116,4 @@ const clickAwayDiv:CSSProperties = {
    zIndex: 1,
    top:0,
    right:0
-
-
 }

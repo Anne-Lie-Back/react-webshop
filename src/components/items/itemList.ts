@@ -75,7 +75,7 @@ export const items: Array<Product> = [
         imgURL: "https://dhb3yazwboecu.cloudfront.net/1007/fotosProducto/tes/11001_PuErhOriginal_1000x1000_l.jpg"
         },{
         id: 12,
-        name: "Yunnan Månljusknoppar",
+        name: "Yunnan Månljuste",
         price: 101,
         description: "Doftar av peppar och rostat havre med viss rökighet. En mycket dynamisk smak börjar kryddigt med toner av majs, men går sakta över till en lenare textur med lätt smak av rörsocker  Bryggs med fördel med 2.5g per 250ml vatten. 90°-gradigt vatten i 2 minuter. Säljs 50g/pkt.",
         imgURL: "https://cdn.shopify.com/s/files/1/1420/4130/products/moonlight-white_2048x.jpg?v=1578767570"
