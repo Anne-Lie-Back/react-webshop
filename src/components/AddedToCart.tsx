@@ -2,15 +2,22 @@ import React, {CSSProperties} from 'react'
 import ShoppingCart from './ShoppingCart'
 import { Link as RouterLink} from 'react-router-dom';
 import { Button } from '@material-ui/core'
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 interface Props{
     handleClosing: () => void
 }
 
 export default function AddedToCart(props:Props){
+    let screenSize = useMediaQuery('(min-width:430px)')
+    let divSize = {width: '18.5rem'}
+
+    if(screenSize === true){
+        divSize = {width: '25rem'}
+    }
     return(
         <div style = {clickAwayDiv} onClick = {props.handleClosing}>
-            <div style = {shoppingCartContainer}>
+            <div style = {{...shoppingCartContainer, ...divSize}}>
                 <ShoppingCart/>
                 <Button
                     component={RouterLink} to ='/checkout'
