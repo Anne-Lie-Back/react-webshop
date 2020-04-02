@@ -11,7 +11,7 @@ import { CustomerInfo} from '../../typings'
 
 interface Props {
   onSubmit: (customerInfo: CustomerInfo) => void
-  customerInfo: any
+  customerInfo:CustomerInfo
 }
 
 export default class AddressForm extends React.Component<Props, CustomerInfo> {
@@ -19,7 +19,7 @@ export default class AddressForm extends React.Component<Props, CustomerInfo> {
   constructor(props: Props) {
     super(props)
     this.state = {
-      firstName: '',//,
+      firstName: '',
       isFirstNameError: false,
       firstNameError: '',
 
@@ -65,7 +65,7 @@ export default class AddressForm extends React.Component<Props, CustomerInfo> {
     if(this.state.firstName.length < 1){
       isError = true
       errors.firstNameError = 'Minst 2 bokstäver'
-      errors.isFirstNameError = true   
+      errors.isFirstNameError = true   //Behövs eventuellt inte
     }
 
     if(this.state.lastName.length < 1){
@@ -205,7 +205,7 @@ export default class AddressForm extends React.Component<Props, CustomerInfo> {
               autoComplete = 'given-name'
               label="Förnamn" 
               value={this.state.firstName} 
-              error = {this.state.isFirstNameError} 
+              error = {Boolean(this.state.firstNameError)} //Gör this på alla boleans
               helperText = {this.state.firstNameError} 
               onChange={(event) => { this.setState({ firstName: event.target.value }) }} 
             />

@@ -8,15 +8,14 @@ import { CartContext } from '../../contexts/cartContext';
 import { Container } from '@material-ui/core';
 import ShoppigCartCheckout from './../ShoppingCartCheckout'
 import mockAPI from '../../mockAPI';
-// import Admin from '../admin/Admin'
 
 interface Props{
 }
 
 interface State{
     step:number,
-    customerInfo?: CustomerInfo
-    customerPaymentInfo?: CustomerPaymentInfo
+    customerInfo?:any
+    customerPaymentInfo?:any
     orderNumber:number
     disableOrderButton: boolean
 }

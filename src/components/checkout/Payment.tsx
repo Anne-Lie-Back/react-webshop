@@ -301,7 +301,6 @@ render(){
 
 }
   
-
 }
 
 const spaceing:CSSProperties = {
