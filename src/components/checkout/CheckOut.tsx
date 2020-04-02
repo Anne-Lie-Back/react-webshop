@@ -3,17 +3,19 @@ import AddressForm from './AddressForm'
 import Payment from './Payment'
 import Button from '@material-ui/core/Button'
 import { CustomerInfo, CustomerPaymentInfo } from './../../typings'
-import ShoppingCart from '../ShoppingCart'
-import { CartContext } from '../../contexts/cartContext'
 import { Grid } from '@material-ui/core'
 import { Card } from '@material-ui/core'
 import { Typography } from '@material-ui/core'
 import HomeButton from './HomeButton'
+import ShoppingCart from '../ShoppingCart';
+import { CartContext , State as CartState} from '../../contexts/cartContext';
+import { Container } from '@material-ui/core';
 import ShoppigCartCheckout from './../ShoppingCartCheckout'
 import mockAPI from '../../mockAPI';
 // import Admin from '../admin/Admin'
 
 interface Props{
+    cartState: CartState
 }
 
 interface State{
@@ -79,6 +81,12 @@ export default class CheckOut extends React.Component<Props, State>{
         })
        }
        
+    }
+
+    componentDidUpdate(prevProps: Props, prevState: State){
+        if(this.state.step === 3 && prevState.step !== 3){
+            this.props.cartState.emptyCart()
+        }
     }
 
     render(){
@@ -185,6 +193,7 @@ export default class CheckOut extends React.Component<Props, State>{
                                     </Grid>
                                 </Grid>
                             </div>
+
                         )}                   
                         </CartContext.Consumer>
                     )

@@ -11,8 +11,8 @@ export default function ShoppingCart() {
             {(cartState) => (
                 <div >
                     <List>
-                    {cartState.cartList?.length > 0 ? 
-                        cartState.cartList.map(cartItem =>
+                    {cartState.savedCheckoutCartList?.length > 0 ? 
+                        cartState.savedCheckoutCartList.map(cartItem =>
                             <div key={cartItem.id}>
                                 <ListItem >
                                     <Hidden only="xs">
