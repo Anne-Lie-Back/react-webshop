@@ -7,6 +7,7 @@ import ShoppingCart from '../ShoppingCart';
 import { CartContext } from '../../contexts/cartContext';
 import { Container } from '@material-ui/core';
 import ShoppigCartCheckout from './../ShoppingCartCheckout'
+import mockAPI from '../../mockAPI';
 // import Admin from '../admin/Admin'
 
 interface Props{
@@ -17,6 +18,7 @@ interface State{
     customerInfo?: CustomerInfo
     customerPaymentInfo?: CustomerPaymentInfo
     orderNumber:number
+    disableOrderButton: boolean
 }
 
 export default class CheckOut extends React.Component<Props, State>{
@@ -26,7 +28,8 @@ export default class CheckOut extends React.Component<Props, State>{
             step: 1,
             customerInfo: undefined,
             customerPaymentInfo: undefined,
-            orderNumber: 0
+            orderNumber: 0,
+            disableOrderButton: false,
         }   
     }
 
@@ -54,12 +57,26 @@ export default class CheckOut extends React.Component<Props, State>{
 
     private onPaymentFormSubmit = (customerInfoFromForm: CustomerPaymentInfo) => {
         const ts = Math.round((new Date()).getTime() / 1000);
+        console.log("waiting for API 3 sec, disable order button.")
+        if(this.state.disableOrderButton === false){
+            this.apiCall(customerInfoFromForm, ts)
+        }
+        this.setState({disableOrderButton: true})
+    }
+
+    async apiCall(customerInfoFromForm: CustomerPaymentInfo, ts: number){
+       const response = await mockAPI()
+       console.log(response)
+       if(response){
         this.setState({
             customerPaymentInfo: customerInfoFromForm,
             step: this.state.step + 1,
-            orderNumber: ts
+            orderNumber: ts,
+            disableOrderButton: false
         })
-    } 
+       }
+       
+    }
 
     render(){
         const { step } = this.state
