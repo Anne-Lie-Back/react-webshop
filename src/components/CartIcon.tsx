@@ -3,21 +3,31 @@ import { CartContext } from '../contexts/cartContext'
 import { IconButton } from '@material-ui/core'
 import { Typography } from '@material-ui/core'
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart'
+import { CartItem } from '../typings'
 
 
 export class CartIcon extends React.Component {
+
+    TotalProductCount(cartList: Array<CartItem>){
+        let totalCount = 0
+        for (const item of cartList) {
+            totalCount += item.nrItems
+        }
+
+        return totalCount
+    }
 
     render(){
         return(
             <CartContext.Consumer>
                 { (cartState) =>(
-                    <div>
+                    <div style = {{marginRight: '1rem'}}>
                         <IconButton color="secondary" 
                             style={{border:'solid #9cba98 0.1em'}}>
                             <ShoppingCartIcon fontSize="large" color="secondary"/>
                         </IconButton>
                         <Typography style={numberOfOrders}>
-                            {cartState.cartList.length > 99? "..." : cartState.cartList.length}
+                            {cartState.cartList.length > 99? "..." : this.TotalProductCount(cartState.cartList)}
                         </Typography>
                     </div>
                 )}
