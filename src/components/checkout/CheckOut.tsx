@@ -121,10 +121,12 @@ export default class CheckOut extends React.Component<Props, State>{
                                     <Payment
                                     onSubmit={this.onPaymentFormSubmit}
                                     customerInfo={this.state.customerInfo}
+                                    isDisabled = {this.state.disableOrderButton}
                                     />
                                     <Button variant="contained" 
                                         color="primary"
-                                        onClick = {this.previousStep}> Stämmer inte?
+                                        onClick = {this.previousStep}> 
+                                        Stämmer inte?                                   
                                     </Button>
                                 </div>
                             </Container>
