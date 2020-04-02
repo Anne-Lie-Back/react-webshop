@@ -11,6 +11,7 @@ interface Props{
     itemData: Product
     arrayIndex: number
     handleSubmit: any
+    delete: any
 }
 
 interface State {
@@ -36,7 +37,12 @@ export default class ProductAdminList extends React.Component<Props, State> {
                     </IconButton>
                     {'Prod# ' + this.props.itemData.id + " - " + this.props.itemData.name} 
                 </Typography>
-                {this.state.toggleItem?<EditItem itemData={this.props.itemData} arrayIndex={this.props.arrayIndex} handleSubmit={this.props.handleSubmit}/> : null}
+                {this.state.toggleItem?
+                    <EditItem itemData={this.props.itemData} 
+                    arrayIndex={this.props.arrayIndex} 
+                    delete={this.props.delete}
+                    handleSubmit={this.props.handleSubmit}/> 
+                : null}
             </Card>
         )
     }

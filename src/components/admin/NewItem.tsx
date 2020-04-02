@@ -8,9 +8,11 @@ import Button from '@material-ui/core/Button'
 
 
 interface Props{
+    handleNew: any
 }
 
 interface State{
+    addedMessage: boolean,
     userMassage: string,
     id: number,
     name: string, 
@@ -23,6 +25,7 @@ export default class NewItem extends React.Component<Props, State> {
     constructor(props:Props){
         super(props)
         this.state = {
+            addedMessage: false,
             userMassage: "",
             id: 0 ,
             name: "Namn" , 
@@ -35,37 +38,36 @@ export default class NewItem extends React.Component<Props, State> {
     handlePriceInput = (event: { target: { value: any } }) => this.setState({price:event.target.value})
     handleimgURLChange = (event: { target: { value: any } }) => this.setState({imgURL:event.target.value})
     handleDescriptionInput = (event: { target: { value: any } }) => this.setState({description:event.target.value})
-    
-    handleSubmit = (event: any) => {
-        const productList = JSON.parse(localStorage.getItem('productList') || '{}')
-        let allIDs = []
-        let highestID
-        for (let i = 0; i < productList.length; i++) {
-            allIDs.push(productList[i].id)
-        }
-        highestID = Math.max(...allIDs) + 1
-        productList.push({
-            id: highestID,
-            name: this.state.name, 
-            price: this.state.price,
-            imgURL: this.state.imgURL,
-            description: this.state.description
-        })
 
+    checkInput(){
+        let userMassage
         if(
             this.state.name === "" ||
             isNaN(this.state.price) ||
             this.state.imgURL === "" ||
             this.state.description === ""
         ){
-            this.setState({userMassage: "Något blev fel"})
-            } else {
-                this.setState({userMassage: "Tillagd"})
-                localStorage.setItem('productList', JSON.stringify(productList))
-            }
+            userMassage = "Kan inte skicka"
+        } else {
+            userMassage = ""
+        }
+        return userMassage
+    }
+    added(){
+        this.setState({addedMessage: true})
     }
 
     render(){
+        const newItem = {
+            id: this.state.id,
+            name: this.state.name , 
+            price: this.state.price ,
+            imgURL: this.state.imgURL ,
+            description: this.state.description
+        }
+        let userMassage = this.checkInput()
+
+
         return(
             <div>
                 <div style={divSpace}/>
@@ -116,9 +118,17 @@ export default class NewItem extends React.Component<Props, State> {
                     </form>
                 </FormControl>
                 <Typography color="primary">
-                    {this.state.userMassage}
+                    {userMassage}
                 </Typography>
-                <Button variant="outlined" color="primary" fullWidth onClick={this.handleSubmit}>
+                {this.state.addedMessage?<Typography color="primary" >Tillagd</Typography>:null}
+                <Button 
+                    variant="outlined"
+                    color="primary" 
+                    fullWidth 
+                    onClick={() => {
+                        this.props.handleNew(newItem);
+                        this.added()
+                        }}>
                     <AddCircleOutlineOutlinedIcon/> Lägg till
                 </Button>
             </div>

@@ -1,26 +1,26 @@
 import React from 'react'
-import Container from '@material-ui/core/Container'
 import { Product } from '../items/itemList'
 import { itemsLS } from '../ItemListLS'
-import Card from '@material-ui/core/Card'
-import ProductAdminList from './ProductAdminList'
-import RenameItem from './NewItemToggle'
+import AdminLayout from './AdminLayout'
+
 
 interface Props {
 }
 
 interface State {
+    items: Product[]
 }
 
 export default class Admin extends React.Component<Props, State> {
     constructor(props:Props){
         super(props)
         this.state = {
+            items: itemsLS
         }   
     }
 
     handleSubmit = (arrayIndex:number, itemData:Product) => {
-        itemsLS[arrayIndex] = {
+            this.state.items[arrayIndex] = {
             id: itemData.id,
             name: itemData.name, 
             price: itemData.price,
@@ -31,24 +31,58 @@ export default class Admin extends React.Component<Props, State> {
             isNaN(itemData.price) ||
             itemData.imgURL === "" ||
             itemData.description === ""){
-                this.setState({userMassage: "Något blev fel"})
+                //this.setState({userMassage: "Något blev fel"})
+                console.log("fail")
             } else {
-                this.setState({userMassage: "Ändrat"})
+                //this.setState({userMassage: "Ändrat"})
+                console.log("ändrat")
+                localStorage.setItem('productList', JSON.stringify(this.state.items))
+                this.setState({items: this.state.items})
             }
-        localStorage.setItem('productList', JSON.stringify(itemsLS))
     }
 
+    delete = (i:number) => {
+        let productList = this.state.items
+        productList = productList.slice(0, i).concat(productList.slice(i + 1, productList.length))
+        this.setState({items: productList})
+        localStorage.setItem('productList', JSON.stringify(productList))
+    }
+
+    handleNew = (newItem:any) => {
+        const productList = itemsLS
+        let allIDs = []
+        let highestID
+        for (let i = 0; i < itemsLS.length; i++) {
+            allIDs.push(productList[i].id)
+        }
+        highestID = Math.max(...allIDs) + 1
+        productList.push({
+            id: highestID,
+            name: newItem.name, 
+            price: newItem.price,
+            imgURL: newItem.imgURL,
+            description: newItem.description
+        })
+        
+        if(
+            newItem.name === "" ||
+            isNaN(newItem.price) ||
+            newItem.imgURL === "" ||
+            newItem.description === ""
+        ){
+            } else {
+                localStorage.setItem('productList', JSON.stringify(productList))
+            }
+    }
 
     render(){
         return(
-            <Container>
-                {itemsLS.map((itemData:Product, index:number) =>
-                    <ProductAdminList itemData={itemData} key={index} arrayIndex={index} handleSubmit={this.handleSubmit}/>
-                )}
-                <Card variant="outlined">
-                    <RenameItem/>
-                </Card>
-            </Container>
+            <AdminLayout 
+            items={this.state.items}
+            delete={this.delete}
+            handleSubmit={this.handleSubmit}
+            handleNew={this.handleNew}
+            />
         )
     }
 }

@@ -6,6 +6,7 @@ import AddCircleOutlineOutlinedIcon from '@material-ui/icons/AddCircleOutlineOut
 import NewItem from './NewItem'
 
 interface Props{
+    handleNew:any
 }
 
 interface State {
@@ -32,7 +33,7 @@ export default class NewItemToggle extends React.Component<Props, State> {
                     </IconButton>
                     Ny produkt
                 </Typography>  
-                {this.state.toggleItem? <NewItem/> : null}
+                {this.state.toggleItem? <NewItem handleNew={this.props.handleNew}/> : null}
                 <div style={space}/>
             </Container>
         )
