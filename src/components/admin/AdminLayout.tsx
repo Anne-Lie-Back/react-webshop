@@ -1,7 +1,7 @@
 import React from 'react'
 import Container from '@material-ui/core/Container'
-import { Product } from '../items/itemList'
-import { itemsLS } from '../ItemListLS'
+import { Product } from '../items/itemListCore'
+import { items } from '../../ItemList'
 import Card from '@material-ui/core/Card'
 import ProductAdminList from './ProductAdminList'
 import NewItemToggle from './NewItemToggle'
@@ -29,7 +29,7 @@ export default class AdminLayout extends React.Component<Props, State> {
                 <Card variant="outlined">
                     <NewItemToggle handleNew={this.props.handleNew}/>
                 </Card>
-                {itemsLS.map((itemData:Product, index:number) =>
+                {items.map((itemData:Product, index:number) =>
                     <ProductAdminList itemData={itemData} key={index} arrayIndex={index} delete={this.props.delete} handleSubmit={this.props.handleSubmit}/>
                 )}
             </Container>

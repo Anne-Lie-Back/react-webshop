@@ -1,5 +1,5 @@
 import React from 'react'
-import { Product } from '../items/itemList'
+import { Product } from '../items/itemListCore'
 import { makeStyles } from '@material-ui/core/styles'
 import Card from '@material-ui/core/Card'
 import CardMedia from '@material-ui/core/CardMedia'

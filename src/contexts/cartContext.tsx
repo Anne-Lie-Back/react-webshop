@@ -3,7 +3,7 @@
 
 import React from 'react'
 import { CartItem } from '../typings'
-import { items } from '../components/items/itemList'
+import { items } from '../ItemList'
 
 export const CartContext = React.createContext<State>({
     cartList: [{id:1, nrItems:1, product:{name:"placeholder", id:0 , price:0, description:"",imgURL:""}}],

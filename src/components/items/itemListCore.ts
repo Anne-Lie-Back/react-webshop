@@ -7,7 +7,7 @@ export interface Product {
 }
 
 //core itemlist
-export const items: Array<Product> = [
+export const itemsCore: Array<Product> = [
     {
         id: 1,
         name: "Fengqing Svart Te",
