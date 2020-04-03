@@ -1,23 +1,23 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "da8fde373edc0659cc8bc9ff8df1b26e",
+    "revision": "85f673b3fe0f327dea24c423c9f950c1",
     "url": "/react-webshop/index.html"
   },
   {
-    "revision": "6c13a3a0f9090466484b",
-    "url": "/react-webshop/static/css/main.f31feee6.chunk.css"
+    "revision": "19bd1cac57f48fa7f8cc",
+    "url": "/react-webshop/static/css/main.3f34886b.chunk.css"
   },
   {
-    "revision": "712f4ffbd71830e51928",
-    "url": "/react-webshop/static/js/2.8755f611.chunk.js"
+    "revision": "e057da62c7f76e8d709b",
+    "url": "/react-webshop/static/js/2.5724c8fb.chunk.js"
   },
   {
     "revision": "0749163b59fbee32225059cb60c18af6",
-    "url": "/react-webshop/static/js/2.8755f611.chunk.js.LICENSE.txt"
+    "url": "/react-webshop/static/js/2.5724c8fb.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "6c13a3a0f9090466484b",
-    "url": "/react-webshop/static/js/main.a0825fd1.chunk.js"
+    "revision": "19bd1cac57f48fa7f8cc",
+    "url": "/react-webshop/static/js/main.f520b813.chunk.js"
   },
   {
     "revision": "4f54b90de3cf3c7c625e",
