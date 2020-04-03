@@ -4,7 +4,7 @@ import Container from '@material-ui/core/Container'
 import { Typography } from '@material-ui/core'
 import { Grid } from '@material-ui/core'
 import { CartIcon } from './CartIcon'
-import useMediaQuery from '@material-ui/core/useMediaQuery';
+import useMediaQuery from '@material-ui/core/useMediaQuery'
 
 export default function Header() {
     const logo = require("./items/images/logo.png")

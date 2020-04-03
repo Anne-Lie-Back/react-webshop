@@ -2,7 +2,7 @@ import React, {CSSProperties}from 'react'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
 import Radio from '@material-ui/core/Radio'
-import RadioGroup from '@material-ui/core/RadioGroup';
+import RadioGroup from '@material-ui/core/RadioGroup'
 import FormControlLabel from '@material-ui/core/FormControlLabel'
 import FormControl from '@material-ui/core/FormControl'
 import FormHelperText from '@material-ui/core/FormHelperText'
@@ -183,13 +183,13 @@ export default class AddressForm extends React.Component<Props, CustomerInfo> {
   }
 
   private calculateDeliveryDate(daysToDeliver:any){
-    let today = new Date();
-    let business_days = daysToDeliver;
-    let deliveryDate = today; 
-    let total_days = business_days;
+    let today = new Date()
+    let business_days = daysToDeliver
+    let deliveryDate = today
+    let total_days = business_days
 
     for(let days=1; days <= total_days; days++) {
-       deliveryDate = new Date(today.getTime() + (days *24*60*60*1000));
+       deliveryDate = new Date(today.getTime() + (days *24*60*60*1000))
        if(deliveryDate.getDay() === 0 || deliveryDate.getDay() === 6) {
          total_days++
        }
@@ -198,13 +198,13 @@ export default class AddressForm extends React.Component<Props, CustomerInfo> {
     let deliveryNumberDate:any = deliveryDate.getDate()
     let deliveryWeekday:any = deliveryDate.getDay()
 
-    let fixWeekday = [6, 0, 1, 2, 3, 4, 5];
-    deliveryWeekday = fixWeekday[deliveryWeekday];
-    let weekdayName = ["Måndag", "Tisdag", "Onsdag", "Torsdag", "Fredag", "Lördag", "Söndag"];
-    deliveryWeekday = weekdayName[deliveryWeekday];
+    let fixWeekday = [6, 0, 1, 2, 3, 4, 5]
+    deliveryWeekday = fixWeekday[deliveryWeekday]
+    let weekdayName = ["Måndag", "Tisdag", "Onsdag", "Torsdag", "Fredag", "Lördag", "Söndag"]
+    deliveryWeekday = weekdayName[deliveryWeekday]
 
     let deliveryMonth:any = deliveryDate.getMonth()
-    const monthName = ["Januari", "Februari", "Mars", "April", "Maj", "Juni", "Juli", "Augusti", "September", "Oktober", "November", "December"];
+    const monthName = ["Januari", "Februari", "Mars", "April", "Maj", "Juni", "Juli", "Augusti", "September", "Oktober", "November", "December"]
     deliveryMonth = monthName[deliveryMonth]
 
     let calculatedDeliveryDate = deliveryWeekday + ' ' + deliveryNumberDate + ' ' + deliveryMonth
@@ -369,7 +369,7 @@ export default class AddressForm extends React.Component<Props, CustomerInfo> {
               Fortsätt 
           </Button>         
       </div>
-    );
+    )
   }
 }
 

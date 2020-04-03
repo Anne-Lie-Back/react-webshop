@@ -48,14 +48,14 @@ export default class CheckOut extends React.Component<Props, State>{
     }
 
     nextStep = () => {
-        const { step } = this.state;
+        const { step } = this.state
         this.setState({
           step: step + 1
         })
     }
 
     previousStep = () => {
-        const { step } = this.state;
+        const { step } = this.state
         this.setState({
             step: step - 1
         })
@@ -69,7 +69,7 @@ export default class CheckOut extends React.Component<Props, State>{
     }
 
     private onPaymentFormSubmit = (customerInfoFromForm: CustomerPaymentInfo) => {
-        const ts = Math.round((new Date()).getTime() / 1000);
+        const ts = Math.round((new Date()).getTime() / 1000)
 
         if(this.state.disableOrderButton === false){
             this.apiCall(customerInfoFromForm, ts)
@@ -203,7 +203,9 @@ export default class CheckOut extends React.Component<Props, State>{
                                         <Card style={cardStyle}>
                                             <h1>Bravo!</h1>
                                             <Typography>Du har beställt supergott te för den totala kostnaden av {cartState.savedCartTotalPrice + this.state.customerInfo?.shippingCost}kr! <br/> Vi har skickat bekräftelse till din mail: {this.state.customerInfo?.email}</Typography>
+                                            <br/>
                                             <Typography>Beräknad leveransdag: {this.state.customerInfo?.deliveryDate}</Typography>
+                                            <br/>
                                             <Typography>Ditt ordernummer är: {this.state.orderNumber}</Typography>
                                             <ShoppigCartCheckout/>
                                         </Card>

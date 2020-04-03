@@ -7,7 +7,7 @@ import FormLabel from '@material-ui/core/FormLabel'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
 import { CustomerPaymentInfo } from './../../typings'
-import FormHelperText from '@material-ui/core/FormHelperText';
+import FormHelperText from '@material-ui/core/FormHelperText'
 
 interface Props{
   onSubmit: (customerPaymentInfo: CustomerPaymentInfo) => void
