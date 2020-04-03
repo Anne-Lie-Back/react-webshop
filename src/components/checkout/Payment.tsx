@@ -19,33 +19,33 @@ export default class Payment extends React.Component<Props, CustomerPaymentInfo>
     constructor(props:Props){
         super(props)
         this.state = {
-            paymentMethod:'',
-            isPaymentError: false,
-            paymentErrorText:'',
+          paymentMethod:'',
+          isPaymentError: false,
+          paymentErrorText:'',
 
-            cardOwner: this.props.customerInfo.firstName + ' ' + this.props.customerInfo.lastName,
-            isCardOwnerError: false,
-            cardOwnerErrorText: '',
-            
-            cardNr: '',
-            isCardNrError: false,
-            cardNrErrorText: '',
+          cardOwner: this.props.customerInfo.firstName + ' ' + this.props.customerInfo.lastName,
+          isCardOwnerError: false,
+          cardOwnerErrorText: '',
+          
+          cardNr: '',
+          isCardNrError: false,
+          cardNrErrorText: '',
 
-            cardExp: '',
-            isCardExpError: false,
-            cardExpErrorText: '',
+          cardExp: '',
+          isCardExpError: false,
+          cardExpErrorText: '',
 
-            cardCVC: '',
-            isCardCVCError: false,
-            cardCVCErrorText: '',
+          cardCVC: '',
+          isCardCVCError: false,
+          cardCVCErrorText: '',
 
-            swishNr: this.props.customerInfo.mobile,
-            isSwishNrError: false,
-            swishErrorText: '',
+          swishNr: this.props.customerInfo.mobile,
+          isSwishNrError: false,
+          swishErrorText: '',
 
-            emailFaktura: this.props.customerInfo.email,
-            isEmailFakturaError: false,
-            emailErrorText: ''
+          emailFaktura: this.props.customerInfo.email,
+          isEmailFakturaError: false,
+          emailErrorText: ''
         }
     }
 
@@ -168,6 +168,7 @@ export default class Payment extends React.Component<Props, CustomerPaymentInfo>
           <TextField id="outlined-basic" 
             label="kortägare" 
             variant="outlined"
+            style = {margins}
             name="ccname"
             autoComplete="cc-name"
             value={this.state.cardOwner}
@@ -179,6 +180,7 @@ export default class Payment extends React.Component<Props, CustomerPaymentInfo>
           <TextField id="outlined-basic" 
             label="kortnummer" 
             variant="outlined"
+            style = {margins}
             name="cardnumber"       
             autoComplete="cc-number"
             value= {this.state.cardNr} 
@@ -198,7 +200,7 @@ export default class Payment extends React.Component<Props, CustomerPaymentInfo>
             error = {this.state.isCardExpError} 
             helperText= {this.state.cardExpErrorText}
             inputProps={{ maxLength: 7}}
-            style = {{width:'15ch'}}
+            style = {{...{width:'15ch'},...margins}}
             onChange={(event) => { this.setState({ cardExp: event.target.value }) }}
             //onChange = {this.handleChange('kortNr')}
             />
@@ -212,7 +214,7 @@ export default class Payment extends React.Component<Props, CustomerPaymentInfo>
             error = {this.state.isCardCVCError} 
             helperText= {this.state.cardCVCErrorText}
             inputProps={{ maxLength: 3}}
-            style = {{width:'10ch'}}
+            style = {{...{width:'10ch'}, ...margins}}
             onChange={(event) => { this.setState({ cardCVC: event.target.value }) }}
             //onChange = {this.handleChange('kortNr')}
             />
@@ -226,6 +228,7 @@ export default class Payment extends React.Component<Props, CustomerPaymentInfo>
         <TextField id="outlined-basic" 
           label="Mobil-nummer"
           variant="outlined"
+          style = {margins}
           value={this.state.swishNr}
           error = {this.state.isSwishNrError} 
           helperText = {this.state.swishErrorText}
@@ -239,6 +242,7 @@ export default class Payment extends React.Component<Props, CustomerPaymentInfo>
         <TextField 
           label= "E-mail"
           variant="outlined"
+          style = {margins}
           color="secondary"
           name="email"
           autoComplete="email"
@@ -261,7 +265,7 @@ export default class Payment extends React.Component<Props, CustomerPaymentInfo>
     return (
       <>
         <FormControl component="fieldset" error = {this.state.isPaymentError} style = {spaceing}>
-          <FormLabel component="legend">Betalsätt</FormLabel>
+          <FormLabel component="legend" style = {{marginLeft: '0.5rem'}}>Betalsätt</FormLabel>
           <FormHelperText>{this.state.paymentErrorText}</FormHelperText>
           <RadioGroup aria-label="gender" name="gender1" onChange={this.handleRadioChange}>
           <div style = {radiobuttonContainer}>
@@ -300,6 +304,10 @@ export default class Payment extends React.Component<Props, CustomerPaymentInfo>
 
 const spaceing:CSSProperties = {
     margin: '2rem 0'
+}
+
+const margins:CSSProperties = {
+  margin: '0.3rem'
 }
 
 const imgSize:CSSProperties = {
