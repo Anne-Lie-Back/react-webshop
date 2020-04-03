@@ -7,10 +7,10 @@ import { Grid } from '@material-ui/core'
 import { Card } from '@material-ui/core'
 import { Typography } from '@material-ui/core'
 import HomeButton from './HomeButton'
-import ShoppingCart from '../ShoppingCart';
-import { CartContext , State as CartState} from '../../contexts/cartContext';
+import ShoppingCart from '../ShoppingCart'
+import { CartContext , State as CartState} from '../../contexts/cartContext'
 import ShoppigCartCheckout from './../ShoppingCartCheckout'
-import serverAPI from '../../serverAPI';
+import serverAPI from '../../serverAPI'
 import { Link } from 'react-router-dom'
 
 interface Props{
@@ -37,22 +37,31 @@ export default class CheckOut extends React.Component<Props, State>{
         }   
     }
 
+    componentDidMount() {
+        window.scrollTo(0, 0)
+    }
+
+    componentDidUpdate(prevProps: Props, prevState: State){
+        if(this.state.step === 3 && prevState.step !== 3){
+            this.props.cartState.emptyCart()
+        }
+    }
+
     nextStep = () => {
         const { step } = this.state;
         this.setState({
           step: step + 1
         })
-      }
+    }
 
-      previousStep = () => {
+    previousStep = () => {
         const { step } = this.state;
         this.setState({
-          step: step - 1
+            step: step - 1
         })
-      }
+    }
 
     private onAddressFormSubmit = (customerInfoFromForm: CustomerInfo) => {
-        // Sätt stateeet i CheckOut
         this.setState({
             customerInfo: customerInfoFromForm,
             step: this.state.step + 1
@@ -61,7 +70,7 @@ export default class CheckOut extends React.Component<Props, State>{
 
     private onPaymentFormSubmit = (customerInfoFromForm: CustomerPaymentInfo) => {
         const ts = Math.round((new Date()).getTime() / 1000);
-        console.log("waiting for API 3 sec, disable order button.")
+
         if(this.state.disableOrderButton === false){
             this.apiCall(customerInfoFromForm, ts)
         }
@@ -78,14 +87,7 @@ export default class CheckOut extends React.Component<Props, State>{
             orderNumber: ts,
             disableOrderButton: false
         })
-       }
-       
-    }
-
-    componentDidUpdate(prevProps: Props, prevState: State){
-        if(this.state.step === 3 && prevState.step !== 3){
-            this.props.cartState.emptyCart()
-        }
+       } 
     }
 
     render(){
@@ -109,15 +111,14 @@ export default class CheckOut extends React.Component<Props, State>{
                         <Grid 
                             container
                             justify="center"
-                            style={gridStyle}
-                        >
+                            style={gridStyle}>
                             <Grid item xs={12} sm={6}>
                                 <Card style={checkoutStyle}>
-                                        <Typography color="primary" variant="h4" style={{marginTop:"1.5em"}}>
-                                            Checkout
-                                        </Typography>
+                                    <Typography color="primary" variant="h4" style={{...{marginLeft:"1rem"}, ...{marginTop:"1.5em"}}}>
+                                        Checkout
+                                    </Typography>
 
-                                        {this.props.cartState.cartList.length > 0 ? 
+                                    {this.props.cartState.cartList.length > 0 ? 
                                         <div>
                                             <ShoppingCart/>
                                             <AddressForm 
@@ -126,24 +127,25 @@ export default class CheckOut extends React.Component<Props, State>{
                                             />
                                         </div>
                                         :
-                                        <div>
-                                            <br></br>
+                                        <div style = {flexIt}>
                                             <Typography variant="h5" color="primary">Kundvagnen är tom.</Typography>
+                                            <br/>
                                             <Typography variant="h5" color="primary">Gå till <Link to="/" style={{textDecoration: 'none', color: 'black'}}>Startsidan</Link></Typography>
                                         </div>
-                                        }
+                                    }
                                 </Card>
                             </Grid>
                         </Grid>
                     </div>
                 )
             break
+
             case 2:
                 if(this.state.customerInfo) {
                     return(
                         <CartContext.Consumer>
                         {(cartState) => (
-                             <div>
+                            <div>
                                 <HomeButton/>
                                 <Grid container
                                     justify="center"
@@ -154,7 +156,7 @@ export default class CheckOut extends React.Component<Props, State>{
 
                                         <Card style={cardStyle}>
                                                 <ShoppigCartCheckout/>
-                                                <Typography>Skickas till:</Typography>
+                                                <Typography variant = "h6">Skickas till:</Typography>
                                                 <Typography>{this.state.customerInfo?.firstName} {this.state.customerInfo?.lastName}</Typography>
                                                 <Typography>{this.state.customerInfo?.address}</Typography>
                                                 <Typography>{this.state.customerInfo?.zipCode} {this.state.customerInfo?.city}</Typography>
@@ -163,15 +165,13 @@ export default class CheckOut extends React.Component<Props, State>{
                                                 <Typography>Mobilnummer: {this.state.customerInfo?.mobile}</Typography>          
                                                 <br/>           
                                                 <Typography>Valt Fraktsätt: {this.state.customerInfo?.shippingMethod} ({this.state.customerInfo?.shippingCost} kr)</Typography>
-                                                <Typography>Förväntad leveransdag: {this.state.customerInfo?.deliveryDate} </Typography>
-            {/*                                     <Typography> Kostnad: {cartState.cartTotalPrice} kr plus frakt (+{this.state.customerInfo?.shippingCost} kr)</Typography>
-                                                <br/> */}
+                                                <Typography style = {{fontWeight:'bold'}}>Förväntad leveransdag: {this.state.customerInfo?.deliveryDate} </Typography>
                                                 <br/>
                                                 <Typography variant="h5" color="primary">
-                                                    Totalkostnad: {cartState.cartTotalPrice + this.state.customerInfo?.shippingCost} kr 
-                                                    <span style = {{fontSize: '0.6rem'}}>(varav {cartState.cartTotalPrice * 0.25} kr moms).</span>
-                                                </Typography>
-                        
+                                                    Totalkostnad: {cartState.cartTotalPrice + this.state.customerInfo?.shippingCost} kr
+                                                    <br/>
+                                                    <span style = {{...{fontSize: '0.6rem'}, ...{marginLeft:'6.5rem'}}}>(varav {cartState.cartTotalPrice * 0.25} kr moms).</span>
+                                                </Typography>                      
                                                 <b/>
                                                 <Payment
                                                 onSubmit={this.onPaymentFormSubmit}
@@ -182,13 +182,12 @@ export default class CheckOut extends React.Component<Props, State>{
                                         </Card>
                                     </Grid>
                                 </Grid>
-                             </div>               
-
+                            </div>               
                         )}                   
                         </CartContext.Consumer>
                     )
                 }
-                break
+            break
 
             case 3:
                 if(this.state.customerInfo && this.state.customerPaymentInfo) {
@@ -199,8 +198,7 @@ export default class CheckOut extends React.Component<Props, State>{
                                 <HomeButton/>
                                 <Grid container
                                     justify="center"
-                                    style={gridStyle}
-                                >
+                                    style={gridStyle}>
                                     <Grid item xs={12} sm={6}>
                                         <Card style={cardStyle}>
                                             <h1>Bravo!</h1>
@@ -212,25 +210,32 @@ export default class CheckOut extends React.Component<Props, State>{
                                     </Grid>
                                 </Grid>
                             </div>
-
                         )}                   
                         </CartContext.Consumer>
                     )
                 }
-                break
+            break
         }
     }
 }
 
-const checkoutStyle:CSSProperties ={
+const checkoutStyle:CSSProperties = {
     padding: '1rem'
 }
 
-const cardStyle:CSSProperties ={
+const cardStyle:CSSProperties = {
     padding: '2rem'
 }
 
-const gridStyle:CSSProperties ={
+const gridStyle:CSSProperties = {
     maxWidth:'100vw',
 }
 
+const flexIt:CSSProperties = {
+    marginTop: '3rem',
+    marginBottom: '2rem',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center'
+} 

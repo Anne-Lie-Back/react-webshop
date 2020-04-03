@@ -32,6 +32,7 @@ class ProductPage extends React.Component<Props, State>  {
     }
     componentDidMount(){
         this.findProduct(this.props.match.params.id)
+        window.scrollTo(0, 0)
     }
     
     render(){

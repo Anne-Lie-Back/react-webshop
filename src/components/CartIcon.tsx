@@ -17,19 +17,16 @@ export function CartIcon(){
         for (const item of cartList) {
             totalCount += item.nrItems
         }
-
         return totalCount
     }
 
     let screenSize = useMediaQuery('(min-width:430px)')
     let divSize = {width: '18.5rem'}
-
     if(screenSize === true){
         divSize = {width: '25rem'}
     }
 
-
-     function displayCart(){
+    function displayCart(){
         const emptyCart = <Typography variant="h6" color="primary" style = {{margin:'1rem'}}>Kundvagnen är tom</Typography>
         const filledCart = <><ShoppingCart/>               
                                 <Button
@@ -51,31 +48,31 @@ export function CartIcon(){
                         {cartState.cartList.length===0? emptyCart : filledCart}
                         </div>
                     </div>
-                }</CartContext.Consumer>)
+                }</CartContext.Consumer>
+            )
         }
     } 
 
-        return(
-            <CartContext.Consumer>
-                { (cartState) =>(
-                    <div style={relativeContainer}>
-                        <div style = {{marginRight: '1rem'}}>
-                            <IconButton 
-                                color="secondary" 
-                                style={{border:'solid #9cba98 0.1em'}}
-                                onClick = {handleOnClick}>
-                                <ShoppingCartIcon fontSize="large" color="secondary"/>
-                            </IconButton>
-                            <Typography style={numberOfOrders}>
-                                {cartState.cartList.length > 99? "..." : TotalProductCount(cartState.cartList)}
-                            </Typography>
-                        </div>
-                        {displayCart()}
+    return(
+        <CartContext.Consumer>
+            { (cartState) =>(
+                <div style={relativeContainer}>
+                    <div style = {{marginRight: '1rem'}}>
+                        <IconButton 
+                            color="secondary" 
+                            style={{border:'solid #9cba98 0.1em'}}
+                            onClick = {handleOnClick}>
+                            <ShoppingCartIcon fontSize="large" color="secondary"/>
+                        </IconButton>
+                        <Typography style={numberOfOrders}>
+                            {cartState.cartList.length > 99? "..." : TotalProductCount(cartState.cartList)}
+                        </Typography>
                     </div>
-                )}
-            </CartContext.Consumer>
-        )
-    
+                    {displayCart()}
+                </div>
+            )}
+        </CartContext.Consumer>
+    )
 }
 
 const numberOfOrders:CSSProperties = {
@@ -96,7 +93,6 @@ const relativeContainer:CSSProperties = {
 }
 
 const shoppingCartContainer:CSSProperties = {
-    //width: '25rem',
     position:'absolute',
     right: '0',
     top: '6rem',
@@ -115,5 +111,4 @@ const clickAwayDiv:CSSProperties = {
    zIndex: 1,
    top:0,
    right:0,
-
 }
