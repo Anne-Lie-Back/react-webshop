@@ -111,7 +111,7 @@ export default class CheckOut extends React.Component<Props, State>{
                             style={gridStyle}
                         >
                             <Grid item xs={12} sm={6}>
-                                <Card style={cardStyle}>
+                                <Card style={checkoutStyle}>
                                         <Typography color="primary" variant="h4" style={{marginTop:"1.5em"}}>
                                             Checkout
                                         </Typography>
@@ -119,7 +119,7 @@ export default class CheckOut extends React.Component<Props, State>{
                                         <AddressForm 
                                             customerInfo={this.state.customerInfo} 
                                             onSubmit={this.onAddressFormSubmit}
-                                            />
+                                        />
                                 </Card>
                             </Grid>
                         </Grid>
@@ -137,22 +137,24 @@ export default class CheckOut extends React.Component<Props, State>{
                                     justify="center"
                                     style={gridStyle}
                                 >
+
                                     <Grid item xs={12} sm={6}>
 
                                         <Card style={cardStyle}>
                                                 <ShoppigCartCheckout/>
-                                                <p>Skickas till:</p>
-                                                <p>{this.state.customerInfo?.firstName} {this.state.customerInfo?.lastName}</p>
-                                                <p>{this.state.customerInfo?.address}</p>
-                                                <p>{this.state.customerInfo?.zipCode} {this.state.customerInfo?.city}</p>
+                                                <Typography>Skickas till:</Typography>
+                                                <Typography>{this.state.customerInfo?.firstName} {this.state.customerInfo?.lastName}</Typography>
+                                                <Typography>{this.state.customerInfo?.address}</Typography>
+                                                <Typography>{this.state.customerInfo?.zipCode} {this.state.customerInfo?.city}</Typography>
                                                 <br/>
-                                                <p>E-Mail: {this.state.customerInfo?.email}</p>
-                                                <p>Mobilnummer: {this.state.customerInfo?.mobile}</p>          
+                                                <Typography>E-Mail: {this.state.customerInfo?.email}</Typography>
+                                                <Typography>Mobilnummer: {this.state.customerInfo?.mobile}</Typography>          
                                                 <br/>           
-                                                <p>Valt Fraktsätt: {this.state.customerInfo?.shippingMethod} ({this.state.customerInfo?.shippingCost} kr)</p>
-                                                <p>Förväntad leveransdag: {this.state.customerInfo?.deliveryDate} </p>
-            {/*                                     <p> Kostnad: {cartState.cartTotalPrice} kr plus frakt (+{this.state.customerInfo?.shippingCost} kr)</p>
+                                                <Typography>Valt Fraktsätt: {this.state.customerInfo?.shippingMethod} ({this.state.customerInfo?.shippingCost} kr)</Typography>
+                                                <Typography>Förväntad leveransdag: {this.state.customerInfo?.deliveryDate} </Typography>
+            {/*                                     <Typography> Kostnad: {cartState.cartTotalPrice} kr plus frakt (+{this.state.customerInfo?.shippingCost} kr)</Typography>
                                                 <br/> */}
+                                                <br/>
                                                 <Typography variant="h5" color="primary">
                                                     Totalkostnad: {cartState.cartTotalPrice + this.state.customerInfo?.shippingCost} kr 
                                                     <span style = {{fontSize: '0.6rem'}}>(varav {cartState.cartTotalPrice * 0.25} kr moms).</span>
@@ -190,9 +192,9 @@ export default class CheckOut extends React.Component<Props, State>{
                                     <Grid item xs={12} sm={6}>
                                         <Card style={cardStyle}>
                                             <h1>Bravo!</h1>
-                                            <p>Du har beställt supergott te för den totala kostnaden av {cartState.savedCartTotalPrice + this.state.customerInfo?.shippingCost}kr! <br/> Vi har skickat bekräftelse till din mail: {this.state.customerInfo?.email}</p>
-                                            <p>Beräknad leveransdag: {this.state.customerInfo?.deliveryDate}</p>
-                                            <p>Ditt ordernummer är: {this.state.orderNumber}</p>
+                                            <Typography>Du har beställt supergott te för den totala kostnaden av {cartState.savedCartTotalPrice + this.state.customerInfo?.shippingCost}kr! <br/> Vi har skickat bekräftelse till din mail: {this.state.customerInfo?.email}</Typography>
+                                            <Typography>Beräknad leveransdag: {this.state.customerInfo?.deliveryDate}</Typography>
+                                            <Typography>Ditt ordernummer är: {this.state.orderNumber}</Typography>
                                             <ShoppigCartCheckout/>
                                         </Card>
                                     </Grid>
@@ -208,6 +210,9 @@ export default class CheckOut extends React.Component<Props, State>{
     }
 }
 
+const checkoutStyle:CSSProperties ={
+    padding: '1rem'
+}
 
 const cardStyle:CSSProperties ={
     padding: '2rem'
@@ -216,3 +221,4 @@ const cardStyle:CSSProperties ={
 const gridStyle:CSSProperties ={
     maxWidth:'100vw',
 }
+
