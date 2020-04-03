@@ -1,3 +1,6 @@
+//Context keeps track of the cart list and handles add/remove items from the list.
+//The state content is provided to the rest of the app to consume with <CartContext.Consumer>.
+
 import React from 'react'
 import { CartItem } from '../typings'
 import { items } from '../components/items/itemList'
@@ -18,7 +21,7 @@ export interface State{
     addProduct:(inItemId: number, inNrItems: number) => void
     removeItemFromCart:(inItemId: number) => void
     cartTotalPrice: number
-    savedCheckoutCartList: Array<CartItem>
+    savedCheckoutCartList: Array<CartItem>  //saved cartList for checkout after cartList is removed after purchase.
     savedCartTotalPrice: number
     emptyCart: () => void
 }
@@ -42,13 +45,10 @@ export class CartProvider extends React.Component<Props, State>{
     addProduct = (inItemId: number, inNrItems: number) => {
         const cartListPosition = this.findItemInCart(inItemId)
         const updatedCartList = [...this.state.cartList]
-        console.log("start cart list")
-        console.log(this.state.cartList)
         
-        if(cartListPosition !== false){
+        if(cartListPosition !== false){ //If item is already in cartList just update the number of items.
             updatedCartList[cartListPosition].nrItems = updatedCartList[cartListPosition].nrItems + inNrItems
-            if(updatedCartList[cartListPosition].nrItems < 1){
-                console.log("negative item count, remove from list")
+            if(updatedCartList[cartListPosition].nrItems < 1){  //If count is zero or less, remove it from list.
                 this.removeItemFromCart(inItemId)
             } else {
                 this.setState({
@@ -58,27 +58,19 @@ export class CartProvider extends React.Component<Props, State>{
                     savedCartTotalPrice: this.calcTotalCartPrice(updatedCartList),
                 })
             }
-            console.log("update cart item " )
-            console.log(updatedCartList)
-        } else {
+        } else {    //If item is not in list then a new item is pushed to list.
             if(inNrItems > 0){
                 const product = items.find(({id}) => id === inItemId)
                 if(product){
                     updatedCartList.push({id: inItemId, nrItems: inNrItems, product:product})
-                } else{
-                    console.log("product not found")
                 }
-                console.log("push new item to list " )
-                console.log(updatedCartList)
+
                 this.setState({
-                    // cartList: [...this.state.cartList, {id: inItemId, nrItems: inNrItems}]
                     cartList: [...updatedCartList],
                     cartTotalPrice: this.calcTotalCartPrice(updatedCartList),
                     savedCheckoutCartList: [...updatedCartList],
                     savedCartTotalPrice: this.calcTotalCartPrice(updatedCartList),
                 })
-            } else {
-                console.log("Cannot add zero or negative nr of items.")
             }
         }
     }
@@ -88,7 +80,6 @@ export class CartProvider extends React.Component<Props, State>{
         for (const item of cartList) {
             TotalPrice += item.nrItems * item.product.price
         }
-
         return TotalPrice
     }
 
@@ -99,7 +90,6 @@ export class CartProvider extends React.Component<Props, State>{
         let cartListPosition = 0
         for (let i = 0; i < this.state.cartList.length; i++) {
             const item = this.state.cartList[i];
-            // console.log(item.id + " id and inId: " + InItemId)
             if(item.id === InItemId){
                 itemFound = true
                 cartListPosition = i
@@ -107,10 +97,8 @@ export class CartProvider extends React.Component<Props, State>{
         }
 
         if(itemFound){
-            // console.log("item array position " + cartListPosition)
             return cartListPosition
         } else {
-            // console.log("item not found.")
             return false
         }
 
@@ -121,18 +109,16 @@ export class CartProvider extends React.Component<Props, State>{
         let updatedCartList = [...this.state.cartList]
         if(cartListPosition !== false){
             updatedCartList.splice(cartListPosition,1)
-            console.log("item removed")
             this.setState({
                 cartList: [...updatedCartList],
                 cartTotalPrice: this.calcTotalCartPrice(updatedCartList),
                 savedCheckoutCartList: [...updatedCartList],
                 savedCartTotalPrice: this.calcTotalCartPrice(updatedCartList),
             })
-        } else {
-            console.log("item to remove not found.")
         }
     }
 
+    //Empty cart after purchase.
     emptyCart = () => {
         this.setState({
             cartList: [],
