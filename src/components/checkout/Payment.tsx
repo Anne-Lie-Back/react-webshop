@@ -53,11 +53,29 @@ export default class Payment extends React.Component<Props, CustomerPaymentInfo>
       window.scrollTo(0, 0)
     }
 
+    private onSubmit = () => {
+      const err = this.validateInput()
+      if(!err){
+        this.props.onSubmit(this.state)
+      }
+    }
+
+    private handleRadioChange = (event: { target: { value: any } }) => { 
+        this.setState({paymentMethod: event.target.value})
+    } 
+
     private validateInput = () =>{
     
       let isError = false
-      const errors = {paymentErrorText:'', isPaymentError: false, cardOwnerErrorText:'', isCardOwnerError:false, isCardNrError:false, cardNrErrorText:'', isCardExpError:false, cardExpErrorText: '', isCardCVCError: false, cardCVCErrorText: '', 
-        isSwishNrError: false, swishErrorText: '', isEmailFakturaError: false, emailErrorText: ''};
+      const errors = {
+        paymentErrorText:'', isPaymentError: false, 
+        cardOwnerErrorText:'', isCardOwnerError:false, 
+        isCardNrError:false, cardNrErrorText:'', 
+        isCardExpError:false, cardExpErrorText: '', 
+        isCardCVCError: false, cardCVCErrorText: '', 
+        isSwishNrError: false, swishErrorText: '', 
+        isEmailFakturaError: false, emailErrorText: ''
+      }
 
       if(this.state.paymentMethod === ''){
         isError = true
@@ -65,13 +83,14 @@ export default class Payment extends React.Component<Props, CustomerPaymentInfo>
         errors.isPaymentError = true
       }
 
-     if(this.state.paymentMethod  === 'Bankkort'){  
+      if(this.state.paymentMethod  === 'Bankkort'){  
        
-      if(this.state.cardOwner.length < 4){
-        isError = true
-        errors.cardOwnerErrorText = 'Ogiltigt namn'
-        errors.isCardOwnerError = true   
-      }
+        if(this.state.cardOwner.length < 4){
+          isError = true
+          errors.cardOwnerErrorText = 'Ogiltigt namn'
+          errors.isCardOwnerError = true   
+        }
+
         const cardnoVisa = /^(?:4[0-9]{12}(?:[0-9]{3})?)$/
         const cardnoMC = /^(?:5[1-5][0-9]{14})$/
 
@@ -84,31 +103,30 @@ export default class Payment extends React.Component<Props, CustomerPaymentInfo>
           errors.isCardNrError = true
         }
 
-      const cardExpVal = /^(0?[1-9]|1[012])[/-](?:202[0-5])/
- 
-       if(this.state.cardExp.match(cardExpVal)){
-         errors.isCardExpError = false
-       }
-       else{
-         isError = true
-         errors.cardExpErrorText =  'ogiltigt, MM/YYYY'
-         errors.isCardExpError = true
-       } 
-
-      const cardCVCVal = /^\d{3}$/
-
-      if( this.state.cardCVC.match(cardCVCVal)){
-        errors.isCardCVCError= false
-      }
+        const cardExpVal = /^(0?[1-9]|1[012])[/-](?:202[0-5])/
+  
+        if(this.state.cardExp.match(cardExpVal)){
+          errors.isCardExpError = false
+        }
         else{
           isError = true
-          errors.cardCVCErrorText =  'tre siffror'
-          errors.isCardCVCError = true
-      }
+          errors.cardExpErrorText =  'ogiltigt, MM/YYYY'
+          errors.isCardExpError = true
+        } 
+
+        const cardCVCVal = /^\d{3}$/
+
+        if( this.state.cardCVC.match(cardCVCVal)){
+          errors.isCardCVCError= false
+        }
+          else{
+            isError = true
+            errors.cardCVCErrorText =  'tre siffror'
+            errors.isCardCVCError = true
+        }
       }
  
       if(this.state.paymentMethod  === 'Swish'){
-        console.log(this.state.swishNr)
         const phoneVal = /^[+]?[(]?[0-9]{3}[)]?[-/s.]?[0-9]{3}[-\s.]?[0-9]{4,6}$/
 
         if( this.state.swishNr.match(phoneVal)){
@@ -119,10 +137,8 @@ export default class Payment extends React.Component<Props, CustomerPaymentInfo>
           errors.swishErrorText =  'ogiltigt mobilnummer-format'
           errors.isSwishNrError = true
         }
-  
       } 
 
-      
       if(this.state.paymentMethod  === 'Faktura'){  
         const mailVal = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/
 
@@ -134,7 +150,6 @@ export default class Payment extends React.Component<Props, CustomerPaymentInfo>
           errors.emailErrorText =  'ogiltig e-mail'
           errors.isEmailFakturaError = true
         }
-  
       }
 
       if(isError){
@@ -143,20 +158,8 @@ export default class Payment extends React.Component<Props, CustomerPaymentInfo>
           ...errors,
         })
       }
-        return isError
+      return isError
     }
-
-    private onSubmit = () => {
-      const err = this.validateInput()
-      //VALIDATE HERE
-      if(!err){
-        this.props.onSubmit(this.state)
-      }
-    }
-
-    private handleRadioChange = (event: { target: { value: any } }) => { 
-        this.setState({paymentMethod: event.target.value})
-    } 
 
     private handleMoreInformationBank() {
       if(this.state.paymentMethod === 'Bankkort'){
@@ -217,49 +220,43 @@ export default class Payment extends React.Component<Props, CustomerPaymentInfo>
         </form>
       )}
     }
-
   private handleMoreInformationSwish() {
     if(this.state.paymentMethod  === 'Swish'){
-    return(
-      <TextField id="outlined-basic" 
-        label="Mobil-nummer"
-        variant="outlined"
-        value={this.state.swishNr}
-        error = {this.state.isSwishNrError} 
-        helperText = {this.state.swishErrorText}
-        onChange={(event) => { this.setState({ swishNr: event.target.value }) }}    />
-    )}
+      return(
+        <TextField id="outlined-basic" 
+          label="Mobil-nummer"
+          variant="outlined"
+          value={this.state.swishNr}
+          error = {this.state.isSwishNrError} 
+          helperText = {this.state.swishErrorText}
+          onChange={(event) => { this.setState({ swishNr: event.target.value }) }}    
+        />
+      )}
   }
-
   private handleMoreInformationFaktura() {
     if(this.state.paymentMethod  === 'Faktura'){
-    
-        
-            return(
-                <TextField 
-                label= "E-mail"
-                variant="outlined"
-                color="secondary"
-                name="email"
-                autoComplete="email"
-                value={this.state.emailFaktura}
-                onChange={(event) => { this.setState({ emailFaktura: event.target.value }) }}
-        /*         error = {this.state.isEmailError} 
-                helperText= {this.state.emailError}  */
-                /* onChange ={(event) => { this.setState({ email:event.target.value }) }} */ />
-            )}
-        
+      return(
+        <TextField 
+          label= "E-mail"
+          variant="outlined"
+          color="secondary"
+          name="email"
+          autoComplete="email"
+          value={this.state.emailFaktura}
+          onChange={(event) => { this.setState({ emailFaktura: event.target.value }) }}
+        />
+      )
+    }    
   }
-render(){
-  const mc = require("./../../assets/images/mastercard.png")
-  const visa = require("./../../assets/images/visa.png")
-  const swish = require("./../../assets/images/swish.png")
-  const klarna = require("./../../assets/images/klarna.png")
-
-  let waitingForPaymentText
-  if (this.props.isDisabled){
-    waitingForPaymentText = <p style = {{color: 'rgba(0, 0, 0, 0.38)'}}>Kontrollerar betalning</p> 
-  }
+  render(){
+    const mc = require("./../../assets/images/mastercard.png")
+    const visa = require("./../../assets/images/visa.png")
+    const swish = require("./../../assets/images/swish.png")
+    const klarna = require("./../../assets/images/klarna.png")
+    let waitingForPaymentText
+    if (this.props.isDisabled){
+      waitingForPaymentText = <p style = {{color: 'rgba(0, 0, 0, 0.38)'}}>Kontrollerar betalning</p> 
+    }
 
     return (
       <>
@@ -268,12 +265,9 @@ render(){
           <FormHelperText>{this.state.paymentErrorText}</FormHelperText>
           <RadioGroup aria-label="gender" name="gender1" onChange={this.handleRadioChange}>
           <div style = {radiobuttonContainer}>
-              <FormControlLabel 
-                value="Bankkort" 
-                control={<Radio />} 
-                label="Bankkort" />
-                <img src={mc} alt="" style={imgSize}/>
-                <img src={visa} alt="" style={imgSize}/>
+              <FormControlLabel value="Bankkort" control={<Radio />} label="Bankkort" />
+              <img src={mc} alt="" style={imgSize}/>
+              <img src={visa} alt="" style={imgSize}/>
             </div>
             {this.handleMoreInformationBank()}
             <div style = {radiobuttonContainer}>
@@ -300,10 +294,8 @@ render(){
             </Button>
             {waitingForPaymentText} 
       </>
-    );
-
-}
-  
+    )
+  } 
 }
 
 const spaceing:CSSProperties = {
