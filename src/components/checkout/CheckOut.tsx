@@ -36,22 +36,31 @@ export default class CheckOut extends React.Component<Props, State>{
         }   
     }
 
+    componentDidMount() {
+        window.scrollTo(0, 0)
+    }
+
+    componentDidUpdate(prevProps: Props, prevState: State){
+        if(this.state.step === 3 && prevState.step !== 3){
+            this.props.cartState.emptyCart()
+        }
+    }
+
     nextStep = () => {
         const { step } = this.state;
         this.setState({
           step: step + 1
         })
-      }
+    }
 
-      previousStep = () => {
+    previousStep = () => {
         const { step } = this.state;
         this.setState({
-          step: step - 1
+            step: step - 1
         })
-      }
+    }
 
     private onAddressFormSubmit = (customerInfoFromForm: CustomerInfo) => {
-        // Sätt stateeet i CheckOut
         this.setState({
             customerInfo: customerInfoFromForm,
             step: this.state.step + 1
@@ -60,7 +69,7 @@ export default class CheckOut extends React.Component<Props, State>{
 
     private onPaymentFormSubmit = (customerInfoFromForm: CustomerPaymentInfo) => {
         const ts = Math.round((new Date()).getTime() / 1000);
-        console.log("waiting for API 3 sec, disable order button.")
+
         if(this.state.disableOrderButton === false){
             this.apiCall(customerInfoFromForm, ts)
         }
@@ -77,14 +86,7 @@ export default class CheckOut extends React.Component<Props, State>{
             orderNumber: ts,
             disableOrderButton: false
         })
-       }
-       
-    }
-
-    componentDidUpdate(prevProps: Props, prevState: State){
-        if(this.state.step === 3 && prevState.step !== 3){
-            this.props.cartState.emptyCart()
-        }
+       } 
     }
 
     render(){

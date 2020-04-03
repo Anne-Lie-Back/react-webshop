@@ -15,7 +15,6 @@ export default function AddedToCart(props:Props){
     let positionTop = {top: '0.7rem'}
     let positionRight = {right: '6%'}
   
-
     if(screenSize === true){
         divSize = {width: '25rem'}
         positionTop = {top: '0.7rem'}
@@ -48,32 +47,23 @@ export default function AddedToCart(props:Props){
 }
 
 const shoppingCartContainer:CSSProperties = {
-   // width: '18.5rem',
-    position:'absolute',
-    //right: '0.7rem',
-    zIndex: 3,
     backgroundColor:'white',
+    position:'absolute',
+    zIndex: 3,
     display:'flex',
     flexDirection: 'column',
     alignItems:'center',
-    //border:'1px solid black'
     boxShadow: '0 0 0.3rem black',
     maxHeight:'70%',
     overflowX:'auto',
-/*     WebkitTextStrokeWidth: '1px',
-    WebkitTextStrokeColor: 'black' */
-
 }
 
 const clickAwayDiv:CSSProperties = {
    width: '110vw',
    height: '110vh',
    position: 'fixed',
-   zIndex: 1,
    top:'-1rem',
    right:'-1rem',
-   display:'flex',
-   alignItems:'center',
-   justifyContent:'center',
+   zIndex: 1,
    backgroundColor: '#00000090'
 }

@@ -57,6 +57,10 @@ export default class AddressForm extends React.Component<Props, CustomerInfo> {
     }
   }
 
+  componentDidMount() {
+    window.scrollTo(0, 0)
+  }
+
   validateInput = () =>{
     
     let isError = false
