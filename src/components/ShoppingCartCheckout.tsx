@@ -20,7 +20,7 @@ export default function ShoppingCart() {
                                         <Avatar src={cartItem.product.imgURL}/>
                                     </ListItemAvatar>
                                     </Hidden>
-                                    <ListItemText primary={<Typography noWrap><Link to={"product/"+ cartItem.id}>{cartItem.product.name}</Link></Typography> } />
+                                    <ListItemText primary={<Typography noWrap><Link to={"product/"+ cartItem.id} style={{textDecoration: 'none', color: 'black'}}>{cartItem.product.name}</Link></Typography> } />
                                     {/* <div style={nextFlex}>
                                         <ListItemText primary={<Typography noWrap >{cartItem.nrItems + " st "}</Typography> } />
                                     </div> */}
