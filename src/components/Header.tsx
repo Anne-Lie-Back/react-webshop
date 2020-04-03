@@ -53,9 +53,6 @@ export default function Header() {
                 </Grid>
             </Link>
                 <Grid item>
-{/*                     <Link to="/checkout" style={{textDecoration: 'none',...shoppingLogoPos,...shoppingLogoY}}>
-                        <CartIcon/>
-                    </Link> */}
                     <div style={{textDecoration: 'none',...shoppingLogoPos,...shoppingLogoY}}>
                         <CartIcon/>
                     </div>

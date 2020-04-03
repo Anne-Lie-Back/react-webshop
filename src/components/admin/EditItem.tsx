@@ -39,11 +39,14 @@ export default class EditItem extends React.Component<Props, State> {
         }   
     }
 
+    //Updates states so it matches the textboxes content
     handleIdInput = (event: { target: { value: any } }) => this.setState({id:event.target.value})
     handleNameInput = (event: { target: { value: any } }) => this.setState({name:event.target.value})
     handlePriceInput = (event: { target: { value: any } }) => this.setState({price:event.target.value})
     handleimgURLChange = (event: { target: { value: any } }) => this.setState({imgURL:event.target.value})
     handleDescriptionInput = (event: { target: { value: any } }) => this.setState({description:event.target.value})
+
+    //Disables the button if there is no content or the number value is NaN
     checkInput(){
         let userMassage
         if(
@@ -58,6 +61,8 @@ export default class EditItem extends React.Component<Props, State> {
         }
         return userMassage
     }
+
+    //Let the user know if they updated correctly or not
     isSent(){
         let userMassage
         if(
@@ -66,7 +71,7 @@ export default class EditItem extends React.Component<Props, State> {
             this.state.imgURL === "" ||
             this.state.description === ""
         ){
-            this.setState({isSentMessage:"Uppdaterad"})
+            this.setState({isSentMessage:"Uppdaterade inte"})
         } else {
             this.setState({isSentMessage:"Uppdaterad"})
         }

@@ -6,6 +6,8 @@ import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import { Typography } from '@material-ui/core';
 
+
+//Picks images and text i slider
 const tutorialSteps = [
   {
     imgPath:
