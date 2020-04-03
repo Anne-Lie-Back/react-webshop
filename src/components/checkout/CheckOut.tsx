@@ -165,7 +165,7 @@ export default class CheckOut extends React.Component<Props, State>{
                                                 <Typography>Mobilnummer: {this.state.customerInfo?.mobile}</Typography>          
                                                 <br/>           
                                                 <Typography>Valt Fraktsätt: {this.state.customerInfo?.shippingMethod} ({this.state.customerInfo?.shippingCost} kr)</Typography>
-                                                <Typography>Förväntad leveransdag: {this.state.customerInfo?.deliveryDate} </Typography>
+                                                <Typography style = {{fontWeight:'bold'}}>Förväntad leveransdag: {this.state.customerInfo?.deliveryDate} </Typography>
                                                 <br/>
                                                 <Typography variant="h5" color="primary">
                                                     Totalkostnad: {cartState.cartTotalPrice + this.state.customerInfo?.shippingCost} kr
