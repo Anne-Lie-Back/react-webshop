@@ -30,7 +30,6 @@ export default class ProductAdminList extends React.Component<Props, State> {
     // Sends a state that disables the EditItem view
     isDeleted = () =>{
         this.setState({deleted: true})
-        console.log("object")
     }
 
     //toggles the EditItem view
