@@ -1,6 +1,6 @@
 import React from 'react'
-import { Product } from '../items/itemList'
-import { itemsLS } from '../ItemListLS'
+import { Product } from '../items/itemListCore'
+import { items } from '../../ItemList'
 import AdminLayout from './AdminLayout'
 
 
@@ -15,13 +15,13 @@ export default class Admin extends React.Component<Props, State> {
     constructor(props:Props){
         super(props)
         this.state = {
-            items: itemsLS
+            items: items
         }   
     }
 
     //Updates the edited item in Local Storage (is lifted from EditItem)
     handleSubmit = (arrayIndex:number, itemData:Product) => {
-            itemsLS[arrayIndex] = {
+            items[arrayIndex] = {
             id: itemData.id,
             name: itemData.name, 
             price: itemData.price,
@@ -50,10 +50,10 @@ export default class Admin extends React.Component<Props, State> {
 
     //Add a new item to Local Storage (is lifted from NewItem)
     handleNew = (newItem:any) => {
-        const productList = itemsLS
+        const productList = items
         let allIDs = []
         let highestID
-        for (let i = 0; i < itemsLS.length; i++) {
+        for (let i = 0; i < items.length; i++) {
             allIDs.push(productList[i].id)
         }
         //Checks the highest ID and adds 1 so that no ID is the same
@@ -76,7 +76,7 @@ export default class Admin extends React.Component<Props, State> {
         ){
             } else {
                 localStorage.setItem('productList', JSON.stringify(productList))
-                this.setState({items: itemsLS})
+                this.setState({items: items})
             }
     }
 
