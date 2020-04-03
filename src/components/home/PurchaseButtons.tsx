@@ -23,9 +23,11 @@ interface Props {
 export default function PurchaseButtons(props : Props) {
   const classes = useStyles();
 
+  //Adds items to the Cart
   const [isCartShown, setToggled] = useState(false);
   const handleOnClick = () => setToggled(!isCartShown);
 
+  //Displays Cart
   function displayCart(){
       if(isCartShown){
           return <AddedToCart handleClosing = {handleOnClick}/>

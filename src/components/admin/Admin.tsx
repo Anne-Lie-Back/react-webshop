@@ -19,6 +19,7 @@ export default class Admin extends React.Component<Props, State> {
         }   
     }
 
+    //Updates the edited item in Local Storage (is lifted from EditItem)
     handleSubmit = (arrayIndex:number, itemData:Product) => {
             itemsLS[arrayIndex] = {
             id: itemData.id,
@@ -39,6 +40,7 @@ export default class Admin extends React.Component<Props, State> {
             }
     }
 
+    //Removes a item in Local Storage (is lifted from EditItem)
     delete = (i:number) => {
         let productList = this.state.items
         productList = productList.slice(0, i).concat(productList.slice(i + 1, productList.length))
@@ -46,6 +48,7 @@ export default class Admin extends React.Component<Props, State> {
         localStorage.setItem('productList', JSON.stringify(productList))
     }
 
+    //Add a new item to Local Storage (is lifted from NewItem)
     handleNew = (newItem:any) => {
         const productList = itemsLS
         let allIDs = []
@@ -53,6 +56,9 @@ export default class Admin extends React.Component<Props, State> {
         for (let i = 0; i < itemsLS.length; i++) {
             allIDs.push(productList[i].id)
         }
+        //Checks the highest ID and adds 1 so that no ID is the same
+        //Known "bug", if every item is removed, the first item added will have ID null
+        //Second will have 1
         highestID = Math.max(...allIDs) + 1
         productList.push({
             id: highestID,

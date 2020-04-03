@@ -34,11 +34,14 @@ export default class NewItem extends React.Component<Props, State> {
             description: "Beskrivning"
         }   
     }
+
+    //Updates states so it matches the textboxes content
     handleNameInput = (event: { target: { value: any } }) => this.setState({name:event.target.value})
     handlePriceInput = (event: { target: { value: any } }) => this.setState({price:event.target.value})
     handleimgURLChange = (event: { target: { value: any } }) => this.setState({imgURL:event.target.value})
     handleDescriptionInput = (event: { target: { value: any } }) => this.setState({description:event.target.value})
-
+    
+    //Let the user know if they added a item correctly or not
     checkInput(){
         let userMassage
         if(
@@ -47,12 +50,14 @@ export default class NewItem extends React.Component<Props, State> {
             this.state.imgURL === "" ||
             this.state.description === ""
         ){
-            userMassage = "Kan inte skicka"
+            userMassage = "Något blev fel"
         } else {
             userMassage = ""
         }
         return userMassage
     }
+
+    //Let the user know if the have added it
     added(){
         this.setState({addedMessage: true})
     }

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { CSSProperties } from 'react'
 import Header from './Header';
 import Home from './home/Home';
 import Footer from './Footer';
@@ -16,7 +16,7 @@ export default class Layout extends React.Component<Props, State> {
          return (
             <BrowserRouter basename="/react-webshop">
                 <Header/>
-                    <div style={{minHeight: 'calc(100vh - 15em)'}}>
+                    <div style={stickyFooter}>
                         <Switch>
                             <Route path="/checkout">
                                 <CheckoutWrapper/>
@@ -41,3 +41,7 @@ export default class Layout extends React.Component<Props, State> {
     }
 }
 
+//Keeps the footer on the bottom
+const stickyFooter:CSSProperties = {
+    minHeight: 'calc(100vh - 15em)'
+}
