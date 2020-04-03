@@ -6,6 +6,7 @@ export interface Product {
     imgURL: string        
 }
 
+//core itemlist
 export const items: Array<Product> = [
     {
         id: 1,

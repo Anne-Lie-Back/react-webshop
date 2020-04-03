@@ -12,7 +12,6 @@ interface Props extends RouteComponentProps{
     match: RouteMatch
 }
 interface State{
-    // itemFound: boolean
     selectedItem: Product | undefined
 }
 
@@ -20,28 +19,22 @@ class ProductPage extends React.Component<Props, State>  {
     constructor(props: Props){
         super(props)
         this.state = {
-            // itemFound: false,
             selectedItem: undefined
         }
     }
-
+    
     findProduct(inUrlId: string){
-        let foundIt = false
         for(let item of itemsLS){
             if(item.id === parseInt(inUrlId)){
-                // console.log("found it! " + inUrlId)
-                // foundIt = true itemFound: true,
                 this.setState({selectedItem: item})
             }
-        }
-        if(!foundIt){
-            console.log("not found: " + inUrlId)
         }
     }
     componentDidMount(){
         this.findProduct(this.props.match.params.id)
         window.scrollTo(0, 0)
     }
+    
     render(){
         if(this.state.selectedItem){
             return (

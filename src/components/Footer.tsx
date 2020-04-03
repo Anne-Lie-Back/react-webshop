@@ -47,6 +47,8 @@ export default function Footer() {
     );
 }
 
+
+//Footer placement is controlled in Layouts, const stickyFooter
 const footerStyle:CSSProperties = {
     backgroundColor: '#346933',
     width: '100vw',

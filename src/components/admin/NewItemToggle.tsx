@@ -20,7 +20,7 @@ export default class NewItemToggle extends React.Component<Props, State> {
             toggleItem: false
         }   
     }
-
+    //toggles the NewItem view
     toggle = () => { this.setState({toggleItem: !this.state.toggleItem})}
 
     render(){
