@@ -1,3 +1,6 @@
+//Context keeps track of the cart list and handles add/remove items from the list.
+//The state content is provided to the rest of the app to consume with <CartContext.Consumer>.
+
 import React from 'react'
 import { CartItem } from '../typings'
 import { items } from '../components/items/itemList'
@@ -18,7 +21,7 @@ export interface State{
     addProduct:(inItemId: number, inNrItems: number) => void
     removeItemFromCart:(inItemId: number) => void
     cartTotalPrice: number
-    savedCheckoutCartList: Array<CartItem>
+    savedCheckoutCartList: Array<CartItem>  //saved cartList for checkout after cartList is removed after purchase.
     savedCartTotalPrice: number
     emptyCart: () => void
 }
@@ -43,9 +46,9 @@ export class CartProvider extends React.Component<Props, State>{
         const cartListPosition = this.findItemInCart(inItemId)
         const updatedCartList = [...this.state.cartList]
         
-        if(cartListPosition !== false){
+        if(cartListPosition !== false){ //If item is already in cartList just update the number of items.
             updatedCartList[cartListPosition].nrItems = updatedCartList[cartListPosition].nrItems + inNrItems
-            if(updatedCartList[cartListPosition].nrItems < 1){
+            if(updatedCartList[cartListPosition].nrItems < 1){  //If count is zero or less, remove it from list.
                 this.removeItemFromCart(inItemId)
             } else {
                 this.setState({
@@ -55,7 +58,7 @@ export class CartProvider extends React.Component<Props, State>{
                     savedCartTotalPrice: this.calcTotalCartPrice(updatedCartList),
                 })
             }
-        } else {
+        } else {    //If item is not in list then a new item is pushed to list.
             if(inNrItems > 0){
                 const product = items.find(({id}) => id === inItemId)
                 if(product){
@@ -63,7 +66,6 @@ export class CartProvider extends React.Component<Props, State>{
                 }
 
                 this.setState({
-                    // cartList: [...this.state.cartList, {id: inItemId, nrItems: inNrItems}]
                     cartList: [...updatedCartList],
                     cartTotalPrice: this.calcTotalCartPrice(updatedCartList),
                     savedCheckoutCartList: [...updatedCartList],
@@ -78,7 +80,6 @@ export class CartProvider extends React.Component<Props, State>{
         for (const item of cartList) {
             TotalPrice += item.nrItems * item.product.price
         }
-
         return TotalPrice
     }
 
@@ -117,6 +118,7 @@ export class CartProvider extends React.Component<Props, State>{
         }
     }
 
+    //Empty cart after purchase.
     emptyCart = () => {
         this.setState({
             cartList: [],
