@@ -32,9 +32,7 @@ export default class Admin extends React.Component<Props, State> {
             isNaN(itemData.price) ||
             itemData.imgURL === "" ||
             itemData.description === ""){
-                console.log("fail")
             } else {
-                console.log("ändrat")
                 localStorage.setItem('productList', JSON.stringify(this.state.items))
                 this.setState({items: this.state.items})
             }
@@ -76,6 +74,7 @@ export default class Admin extends React.Component<Props, State> {
         ){
             } else {
                 localStorage.setItem('productList', JSON.stringify(productList))
+                this.setState({items: productList})
             }
     }
 

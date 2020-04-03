@@ -7,7 +7,6 @@ import Container from '@material-ui/core/Container'
 import TextMobileStepper from './TextMobileStepper'
 
 export default function Home() {
-    console.log(items)
     return (
         <div>
             <TextMobileStepper/>
