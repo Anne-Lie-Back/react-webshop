@@ -82,7 +82,7 @@ export default class Payment extends React.Component<Props, CustomerPaymentInfo>
           errors.isCardNrError = true
         }
 
-        const cardExpVal = /^(0?[1-9]|1[012])[\/\-](?:202[0-5])/
+      const cardExpVal = /^(0?[1-9]|1[012])[/-](?:202[0-5])/
  
        if(this.state.cardExp.match(cardExpVal)){
          errors.isCardExpError = false
@@ -107,7 +107,7 @@ export default class Payment extends React.Component<Props, CustomerPaymentInfo>
  
       if(this.state.paymentMethod  === 'Swish'){
         console.log(this.state.swishNr)
-        const phoneVal = /^[\+]?[(]?[0-9]{3}[)]?[-/s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/
+        const phoneVal = /^[+]?[(]?[0-9]{3}[)]?[-/s.]?[0-9]{3}[-\s.]?[0-9]{4,6}$/
 
         if( this.state.swishNr.match(phoneVal)){
             errors.isSwishNrError = false
@@ -122,7 +122,7 @@ export default class Payment extends React.Component<Props, CustomerPaymentInfo>
 
       
       if(this.state.paymentMethod  === 'Faktura'){  
-        const mailVal = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
+        const mailVal = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/
 
         if( this.state.emailFaktura.match(mailVal)){
             errors.isEmailFakturaError = false

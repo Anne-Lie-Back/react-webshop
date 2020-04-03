@@ -9,7 +9,6 @@ import { Typography } from '@material-ui/core'
 import HomeButton from './HomeButton'
 import ShoppingCart from '../ShoppingCart';
 import { CartContext , State as CartState} from '../../contexts/cartContext';
-import { Container } from '@material-ui/core';
 import ShoppigCartCheckout from './../ShoppingCartCheckout'
 import mockAPI from '../../mockAPI';
 
@@ -127,7 +126,6 @@ export default class CheckOut extends React.Component<Props, State>{
                     </div>
                 )
             break
-
             case 2:
                 if(this.state.customerInfo) {
                     return(
