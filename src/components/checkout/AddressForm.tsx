@@ -62,7 +62,7 @@ export default class AddressForm extends React.Component<Props, CustomerInfo> {
     let isError = false
     const errors = {firstNameError:'', isFirstNameError: false, lastNameError:'', isLastNameError:false, isAddressError: false, 
       addressError: '', isZipCodeError:false, zipCodeError:'', isCityError: false, cityError:'', emailError:'', isEmailError: false, 
-      mobileError:'', isMobileError: false, isShippingError:false, shippingError: 'Välj ett fraktsätt' };
+      mobileError:'', isMobileError: false, isShippingError:false, shippingError: '' };
 
     if(this.state.firstName.length < 1){
       isError = true
@@ -99,7 +99,7 @@ export default class AddressForm extends React.Component<Props, CustomerInfo> {
         errors.isZipCodeError = true
     }
 
-    const mailVal = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
+    const mailVal = /^\w+([.-]?w+)*@\w+([.-]?w+)*(\.\w{2,3})+$/
 
     if (mailVal.test(this.state.email)){
         errors.isEmailError = false
@@ -110,7 +110,7 @@ export default class AddressForm extends React.Component<Props, CustomerInfo> {
       errors.isEmailError = true
     } 
     
-    const phoneVal = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/
+    const phoneVal = /^[+]?[(]?[0-9]{3}[)]?[-\s.]?[0-9]{3}[-\s.]?[0-9]{4,6}$/
 
     if( this.state.mobile.match(phoneVal)){
         errors.isMobileError = false
@@ -141,7 +141,7 @@ export default class AddressForm extends React.Component<Props, CustomerInfo> {
     //VALIDATE HERE
     if(!err){
       this.props.onSubmit(this.state)
-    }   
+    }
   }
 
   private handleShipmentInput = (event: { target: { value: any } }) => { 
@@ -177,7 +177,7 @@ export default class AddressForm extends React.Component<Props, CustomerInfo> {
 
     for(let days=1; days <= total_days; days++) {
        deliveryDate = new Date(today.getTime() + (days *24*60*60*1000));
-       if(deliveryDate.getDay() == 0 || deliveryDate.getDay() == 6) {
+       if(deliveryDate.getDay() === 0 || deliveryDate.getDay() === 6) {
          total_days++
        }
     }
