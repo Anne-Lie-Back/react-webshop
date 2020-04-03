@@ -1,8 +1,8 @@
 import React,{CSSProperties} from 'react'
 import {RouteComponentProps , withRouter } from 'react-router-dom'
 import { RouteMatch } from '../../typings'
-import { Product} from '../items/itemList'
-import { itemsLS } from '../ItemListLS'
+import { Product} from '../items/itemListCore'
+import { items } from '../../ItemList'
 import ViewProduct from './ViewProduct'
 import { Link } from 'react-router-dom'
 import IconButton from '@material-ui/core/IconButton'
@@ -24,7 +24,7 @@ class ProductPage extends React.Component<Props, State>  {
     }
     
     findProduct(inUrlId: string){
-        for(let item of itemsLS){
+        for(let item of items){
             if(item.id === parseInt(inUrlId)){
                 this.setState({selectedItem: item})
             }

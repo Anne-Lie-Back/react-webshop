@@ -1,5 +1,5 @@
 import React, { CSSProperties } from 'react'
-import { Product } from '../items/itemList'
+import { Product } from '../items/itemListCore'
 import TextField from '@material-ui/core/TextField'
 import Typography from '@material-ui/core/Typography'
 import FormControl from '@material-ui/core/FormControl'

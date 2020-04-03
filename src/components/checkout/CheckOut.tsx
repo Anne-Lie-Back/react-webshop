@@ -79,7 +79,6 @@ export default class CheckOut extends React.Component<Props, State>{
 
     async apiCall(customerInfoFromForm: CustomerPaymentInfo, ts: number){
        const response = await serverAPI(customerInfoFromForm)
-       console.log(response)
        if(response){
         this.setState({
             customerPaymentInfo: customerInfoFromForm,

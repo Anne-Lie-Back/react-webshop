@@ -1,5 +1,5 @@
 import React,{CSSProperties} from 'react'
-import { Product } from '../items/itemList'
+import { Product } from '../items/itemListCore'
 import Card from '@material-ui/core/Card';
 import Typography from '@material-ui/core/Typography';
 import EditItem from './EditItem'
@@ -30,7 +30,6 @@ export default class ProductAdminList extends React.Component<Props, State> {
     // Sends a state that disables the EditItem view
     isDeleted = () =>{
         this.setState({deleted: true})
-        console.log("object")
     }
 
     //toggles the EditItem view
