@@ -10,7 +10,7 @@ import HomeButton from './HomeButton'
 import ShoppingCart from '../ShoppingCart';
 import { CartContext , State as CartState} from '../../contexts/cartContext';
 import ShoppigCartCheckout from './../ShoppingCartCheckout'
-import mockAPI from '../../mockAPI';
+import serverAPI from '../../serverAPI';
 import { Link } from 'react-router-dom'
 
 interface Props{
@@ -69,7 +69,7 @@ export default class CheckOut extends React.Component<Props, State>{
     }
 
     async apiCall(customerInfoFromForm: CustomerPaymentInfo, ts: number){
-       const response = await mockAPI()
+       const response = await serverAPI(customerInfoFromForm)
        console.log(response)
        if(response){
         this.setState({
