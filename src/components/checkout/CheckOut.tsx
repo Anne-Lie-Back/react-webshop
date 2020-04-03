@@ -116,16 +116,19 @@ export default class CheckOut extends React.Component<Props, State>{
                                         <Typography color="primary" variant="h4" style={{marginTop:"1.5em"}}>
                                             Checkout
                                         </Typography>
-                                        <ShoppingCart/>
                                         {this.props.cartState.cartList.length > 0 ? 
+                                        <div>
+                                            <ShoppingCart/>
                                             <AddressForm 
                                                 customerInfo={this.state.customerInfo} 
                                                 onSubmit={this.onAddressFormSubmit}
                                             />
+                                        </div>
                                         :
                                         <div>
+                                            <br></br>
                                             <Typography variant="h5" color="primary">Kundvagnen är tom.</Typography>
-                                            <Typography variant="h5" color="primary">Gå till <Link to="/" style={{textDecoration: 'none', color: 'black'}}>Start</Link></Typography>
+                                            <Typography variant="h5" color="primary">Gå till <Link to="/" style={{textDecoration: 'none', color: 'black'}}>Startsidan</Link></Typography>
                                         </div>
                                         }
                                 </Card>
