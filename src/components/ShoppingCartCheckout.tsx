@@ -1,8 +1,8 @@
 import React from 'react'
-import { CartContext } from '../contexts/cartContext';
-import { List, ListItem, ListItemText, ListItemAvatar, Avatar, Divider, Typography, Hidden } from '@material-ui/core';
+import { CartContext } from '../contexts/cartContext'
+import { List, ListItem, ListItemText, ListItemAvatar, Avatar, Divider, Typography, Hidden } from '@material-ui/core'
 
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom'
 
 export default function ShoppingCart() {
 
@@ -48,7 +48,7 @@ export default function ShoppingCart() {
                 </div>
             )}
         </CartContext.Consumer>
-    );
+    )
 }
 
 const flexStyle: React.CSSProperties = {

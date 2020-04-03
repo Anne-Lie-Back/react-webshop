@@ -7,10 +7,10 @@ import { Grid } from '@material-ui/core'
 import { Card } from '@material-ui/core'
 import { Typography } from '@material-ui/core'
 import HomeButton from './HomeButton'
-import ShoppingCart from '../ShoppingCart';
-import { CartContext , State as CartState} from '../../contexts/cartContext';
+import ShoppingCart from '../ShoppingCart'
+import { CartContext , State as CartState} from '../../contexts/cartContext'
 import ShoppigCartCheckout from './../ShoppingCartCheckout'
-import serverAPI from '../../serverAPI';
+import serverAPI from '../../serverAPI'
 import { Link } from 'react-router-dom'
 
 interface Props{
@@ -38,14 +38,14 @@ export default class CheckOut extends React.Component<Props, State>{
     }
 
     nextStep = () => {
-        const { step } = this.state;
+        const { step } = this.state
         this.setState({
           step: step + 1
         })
       }
 
       previousStep = () => {
-        const { step } = this.state;
+        const { step } = this.state
         this.setState({
           step: step - 1
         })
@@ -60,7 +60,7 @@ export default class CheckOut extends React.Component<Props, State>{
     }
 
     private onPaymentFormSubmit = (customerInfoFromForm: CustomerPaymentInfo) => {
-        const ts = Math.round((new Date()).getTime() / 1000);
+        const ts = Math.round((new Date()).getTime() / 1000)
         console.log("waiting for API 3 sec, disable order button.")
         if(this.state.disableOrderButton === false){
             this.apiCall(customerInfoFromForm, ts)

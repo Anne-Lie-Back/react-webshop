@@ -1,8 +1,8 @@
 import React, {CSSProperties} from 'react'
 import ShoppingCart from './ShoppingCart'
-import { Link as RouterLink} from 'react-router-dom';
+import { Link as RouterLink} from 'react-router-dom'
 import { Button, Typography } from '@material-ui/core'
-import useMediaQuery from '@material-ui/core/useMediaQuery';
+import useMediaQuery from '@material-ui/core/useMediaQuery'
 import { CartContext } from '../contexts/cartContext'
 
 interface Props{

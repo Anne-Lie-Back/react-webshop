@@ -1,13 +1,13 @@
 import React, {CSSProperties} from 'react'
 import { Product } from '../items/itemListCore'
-import { makeStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
-import Typography from '@material-ui/core/Typography';
+import { makeStyles } from '@material-ui/core/styles'
+import Card from '@material-ui/core/Card'
+import CardActionArea from '@material-ui/core/CardActionArea'
+import CardContent from '@material-ui/core/CardContent'
+import CardMedia from '@material-ui/core/CardMedia'
+import Typography from '@material-ui/core/Typography'
 import PurchaseButtons from './PurchaseButtons'
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom'
 
 
 interface Props{
@@ -21,7 +21,7 @@ const useStyles = makeStyles({
     media: {
       height: 200,
     },
-  });
+  })
   
   export default function ProductCard(props : Props) {
     const classes = useStyles()
@@ -46,7 +46,7 @@ const useStyles = makeStyles({
         <PurchaseButtons itemPrice={props.itemData.price} itemId={props.itemData.id}/>
         </Card>
       </div>
-    );
+    )
   }
 
   const cardTitle:CSSProperties = {

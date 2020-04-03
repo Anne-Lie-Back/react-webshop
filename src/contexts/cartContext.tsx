@@ -89,7 +89,7 @@ export class CartProvider extends React.Component<Props, State>{
         let itemFound = false
         let cartListPosition = 0
         for (let i = 0; i < this.state.cartList.length; i++) {
-            const item = this.state.cartList[i];
+            const item = this.state.cartList[i]
             if(item.id === InItemId){
                 itemFound = true
                 cartListPosition = i

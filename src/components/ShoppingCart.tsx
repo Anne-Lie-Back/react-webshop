@@ -1,10 +1,10 @@
 import React from 'react'
-import { CartContext } from '../contexts/cartContext';
-import { List, ListItem, ListItemText, IconButton, ListItemAvatar, Avatar, Divider, Typography, Hidden } from '@material-ui/core';
+import { CartContext } from '../contexts/cartContext'
+import { List, ListItem, ListItemText, IconButton, ListItemAvatar, Avatar, Divider, Typography, Hidden } from '@material-ui/core'
 import DeleteRoundedIcon from '@material-ui/icons/DeleteForeverRounded'
 import AddIcon from '@material-ui/icons/Add'
 import RemoveIcon from '@material-ui/icons/Remove'
-import { Link as RouterLink} from 'react-router-dom';
+import { Link as RouterLink} from 'react-router-dom'
 
 export default function ShoppingCart() {
 

@@ -5,8 +5,8 @@ import Typography from '@material-ui/core/Typography'
 import FormControl from '@material-ui/core/FormControl'
 import Container from '@material-ui/core/Container'
 import Button from '@material-ui/core/Button'
-import RemoveCircleOutlineIcon from '@material-ui/icons/RemoveCircleOutline';
-import EditIcon from '@material-ui/icons/Edit';
+import RemoveCircleOutlineIcon from '@material-ui/icons/RemoveCircleOutline'
+import EditIcon from '@material-ui/icons/Edit'
 
 interface Props {
     itemData: Product
@@ -160,7 +160,7 @@ export default class EditItem extends React.Component<Props, State> {
                     variant="outlined"
                     color="primary" 
                     fullWidth
-                    onClick={() => {this.props.handleSubmit(this.props.arrayIndex, itemData);
+                    onClick={() => {this.props.handleSubmit(this.props.arrayIndex, itemData)
                                     this.isSent()
                             }}
                     >

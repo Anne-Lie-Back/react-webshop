@@ -1,12 +1,12 @@
 import React,{CSSProperties} from 'react'
-import {RouteComponentProps , withRouter } from 'react-router-dom';
-import { RouteMatch } from '../../typings';
-import { Product} from '../items/itemListCore';
+import {RouteComponentProps , withRouter } from 'react-router-dom'
+import { RouteMatch } from '../../typings'
+import { Product} from '../items/itemListCore'
 import { items } from '../../ItemList'
 import ViewProduct from './ViewProduct'
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom'
 import IconButton from '@material-ui/core/IconButton'
-import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack'
 
 interface Props extends RouteComponentProps{
     match: RouteMatch
@@ -45,7 +45,7 @@ class ProductPage extends React.Component<Props, State>  {
                     </Link>
                     <ViewProduct itemData={this.state.selectedItem} />
                 </div>
-            );
+            )
         } else{
             return(
                 <div>

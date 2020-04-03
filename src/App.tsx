@@ -1,8 +1,8 @@
-import React from 'react';
-import Layout from './components/Layout';
-import { ThemeProvider } from '@material-ui/core/styles';
+import React from 'react'
+import Layout from './components/Layout'
+import { ThemeProvider } from '@material-ui/core/styles'
 import Theme from './MuiTheme'
-import { CartProvider } from './contexts/cartContext';
+import { CartProvider } from './contexts/cartContext'
 
 function App() {
   return (
@@ -13,7 +13,7 @@ function App() {
         </div>
       </ThemeProvider>
     </CartProvider>
-  );
+  )
 }
 
-export default App;
+export default App

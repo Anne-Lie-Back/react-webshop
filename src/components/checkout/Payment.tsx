@@ -1,13 +1,13 @@
-import React, {CSSProperties} from 'react';
-import Radio from '@material-ui/core/Radio';
-import RadioGroup from '@material-ui/core/RadioGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormControl from '@material-ui/core/FormControl';
-import FormLabel from '@material-ui/core/FormLabel';
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
+import React, {CSSProperties} from 'react'
+import Radio from '@material-ui/core/Radio'
+import RadioGroup from '@material-ui/core/RadioGroup'
+import FormControlLabel from '@material-ui/core/FormControlLabel'
+import FormControl from '@material-ui/core/FormControl'
+import FormLabel from '@material-ui/core/FormLabel'
+import TextField from '@material-ui/core/TextField'
+import Button from '@material-ui/core/Button'
 import { CustomerPaymentInfo} from './../../typings'
-import FormHelperText from '@material-ui/core/FormHelperText';
+import FormHelperText from '@material-ui/core/FormHelperText'
 
 interface Props{
   onSubmit: (customerPaymentInfo: CustomerPaymentInfo) => void
@@ -55,7 +55,7 @@ export default class Payment extends React.Component<Props, CustomerPaymentInfo>
     
       let isError = false
       const errors = {paymentErrorText:'', isPaymentError: false, cardOwnerErrorText:'', isCardOwnerError:false, isCardNrError:false, cardNrErrorText:'', isCardExpError:false, cardExpErrorText: '', isCardCVCError: false, cardCVCErrorText: '', 
-        isSwishNrError: false, swishErrorText: '', isEmailFakturaError: false, emailErrorText: ''};
+        isSwishNrError: false, swishErrorText: '', isEmailFakturaError: false, emailErrorText: ''}
 
       if(this.state.paymentMethod === ''){
         isError = true
@@ -298,7 +298,7 @@ render(){
             </Button>
             {waitingForPaymentText} 
       </>
-    );
+    )
 
 }
   

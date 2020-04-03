@@ -1,5 +1,5 @@
 import React, { CSSProperties } from 'react'
-import AddCircleOutlineOutlinedIcon from '@material-ui/icons/AddCircleOutlineOutlined';
+import AddCircleOutlineOutlinedIcon from '@material-ui/icons/AddCircleOutlineOutlined'
 import Typography from '@material-ui/core/Typography'
 import TextField from '@material-ui/core/TextField'
 import FormControl from '@material-ui/core/FormControl'
@@ -131,7 +131,7 @@ export default class NewItem extends React.Component<Props, State> {
                     color="primary" 
                     fullWidth 
                     onClick={() => {
-                        this.props.handleNew(newItem);
+                        this.props.handleNew(newItem)
                         this.added()
                         }}>
                     <AddCircleOutlineOutlinedIcon/> Lägg till

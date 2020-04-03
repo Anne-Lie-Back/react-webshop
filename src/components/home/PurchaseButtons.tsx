@@ -2,7 +2,7 @@ import React, {CSSProperties, useState} from 'react'
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
 import Button from '@material-ui/core/Button'
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart'
-import { CartContext } from '../../contexts/cartContext';
+import { CartContext } from '../../contexts/cartContext'
 import AddedToCart from './../../components/AddedToCart'
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme: Theme) =>
       },
     },
   }),
-);
+)
 
 interface Props {
   itemPrice: number
@@ -21,11 +21,11 @@ interface Props {
 }
 
 export default function PurchaseButtons(props : Props) {
-  const classes = useStyles();
+  const classes = useStyles()
 
   //Adds items to the Cart
-  const [isCartShown, setToggled] = useState(false);
-  const handleOnClick = () => setToggled(!isCartShown);
+  const [isCartShown, setToggled] = useState(false)
+  const handleOnClick = () => setToggled(!isCartShown)
 
   //Displays Cart
   function displayCart(){
@@ -51,7 +51,7 @@ export default function PurchaseButtons(props : Props) {
         </div>
       )}
     </CartContext.Consumer>
-  );
+  )
 }
 
 const centerButton: CSSProperties = {

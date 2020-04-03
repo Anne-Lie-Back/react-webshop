@@ -12,8 +12,8 @@ interface Props{
 }
 
 export default function PurchasingArea( props: Props ){
-    const [isCartShown, setToggled] = useState(false);
-    const handleOnClick = () => setToggled(!isCartShown);
+    const [isCartShown, setToggled] = useState(false)
+    const handleOnClick = () => setToggled(!isCartShown)
 
     //Displays cart
     function displayCart(){
@@ -34,7 +34,8 @@ export default function PurchasingArea( props: Props ){
                         variant="contained"
                         color="primary"
                         fullWidth
-                        onClick={() => {handleOnClick();cartState.addProduct(props.itemData?.id, 1)}}
+                        onClick={() => {handleOnClick()
+                                        cartState.addProduct(props.itemData?.id, 1)}}
                     >
                     Köp
                     <ShoppingCartIcon
