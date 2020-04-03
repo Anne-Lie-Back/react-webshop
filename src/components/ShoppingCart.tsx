@@ -58,7 +58,7 @@ export default function ShoppingCart() {
                 </div>
             )}
         </CartContext.Consumer>
-    );
+    )
 }
 
 const flexStyle: React.CSSProperties = {

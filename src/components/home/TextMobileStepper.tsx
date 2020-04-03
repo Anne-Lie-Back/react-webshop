@@ -1,10 +1,10 @@
-import React,{useEffect, CSSProperties} from 'react';
-import { makeStyles, Theme, useTheme, createStyles } from '@material-ui/core/styles';
-import MobileStepper from '@material-ui/core/MobileStepper';
-import Button from '@material-ui/core/Button';
-import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
-import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
-import { Typography } from '@material-ui/core';
+import React,{useEffect, CSSProperties} from 'react'
+import { makeStyles, Theme, useTheme, createStyles } from '@material-ui/core/styles'
+import MobileStepper from '@material-ui/core/MobileStepper'
+import Button from '@material-ui/core/Button'
+import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos'
+import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos'
+import { Typography } from '@material-ui/core'
 
 
 //Picks images and text i slider
@@ -27,7 +27,7 @@ const tutorialSteps = [
     sliderText: 
       'Nu erbjuder vi\n även Pu Erh Te\n och Lapsang Souchong'
   }
-];
+]
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -45,21 +45,21 @@ const useStyles = makeStyles((theme: Theme) =>
       backgroundPosition: '50% 50%',
     },
   }),
-);
+)
 
 export default function TextMobileStepper() {
-  const classes = useStyles();
-  const theme = useTheme();
-  const [activeStep, setActiveStep] = React.useState(0);
-  const maxSteps = tutorialSteps.length;
+  const classes = useStyles()
+  const theme = useTheme()
+  const [activeStep, setActiveStep] = React.useState(0)
+  const maxSteps = tutorialSteps.length
 
   const handleNext = () => {
     if(activeStep === maxSteps - 1){
-      setActiveStep(prevActiveStep => prevActiveStep = 0);
+      setActiveStep(prevActiveStep => prevActiveStep = 0)
     } else {
-      setActiveStep(prevActiveStep => prevActiveStep + 1);
+      setActiveStep(prevActiveStep => prevActiveStep + 1)
     }
-  };
+  }
 
   const handleBack = () => {
     if(activeStep === 0){
@@ -67,14 +67,14 @@ export default function TextMobileStepper() {
     } else {
       setActiveStep(prevActiveStep => prevActiveStep - 1)
     }
-  };
+  }
 
   useEffect(() => {
     const interval = setInterval(() => {
       handleNext()
-    }, 5000);
-    return () => clearInterval(interval);
-  });
+    }, 5000)
+    return () => clearInterval(interval)
+  })
 
   return (
     <div className={classes.root} style={{margin:'0 0 1em 0'}} >
@@ -108,7 +108,7 @@ export default function TextMobileStepper() {
         }
       />
     </div>
-  );
+  )
 }
 
 const sliderTextStyle: CSSProperties = {

@@ -1,9 +1,9 @@
 import React,{CSSProperties} from 'react'
 import Container from '@material-ui/core/Container'
-import { Typography } from '@material-ui/core';
-import { Button } from '@material-ui/core';
-import { Grid } from '@material-ui/core';
-import { Link } from 'react-router-dom';
+import { Typography } from '@material-ui/core'
+import { Button } from '@material-ui/core'
+import { Grid } from '@material-ui/core'
+import { Link } from 'react-router-dom'
 
 export default function Footer() {
 
@@ -44,7 +44,7 @@ export default function Footer() {
                 </Grid>
             </Grid>
         </Container>
-    );
+    )
 }
 
 
