@@ -5,12 +5,12 @@ import { Typography } from '@material-ui/core'
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart'
 import { CartItem } from '../typings'
 import ShoppingCart from './ShoppingCart'
-import { Link as RouterLink} from 'react-router-dom';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
+import { Link as RouterLink} from 'react-router-dom'
+import useMediaQuery from '@material-ui/core/useMediaQuery'
 
 export function CartIcon(){
-    const [isCartShown, setToggled] = useState(false);
-    const handleOnClick = () => setToggled(!isCartShown);
+    const [isCartShown, setToggled] = useState(false)
+    const handleOnClick = () => setToggled(!isCartShown)
 
     function TotalProductCount(cartList: Array<CartItem>){
         let totalCount = 0

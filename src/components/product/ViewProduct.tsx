@@ -1,10 +1,10 @@
 import React from 'react'
 import { Product } from '../items/itemList'
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles'
 import Card from '@material-ui/core/Card'
 import CardMedia from '@material-ui/core/CardMedia'
-import Typography from '@material-ui/core/Typography';
-import CardContent from '@material-ui/core/CardContent';
+import Typography from '@material-ui/core/Typography'
+import CardContent from '@material-ui/core/CardContent'
 import Grid from '@material-ui/core/Grid'
 import PurchasingArea from './PurchasingArea'
 
@@ -17,7 +17,7 @@ const useStyles = makeStyles({
     media: {
       height: '50vh',
     },
-  });
+  })
 
 export default function ViewProduct(props:Props) {
     const classes = useStyles()
