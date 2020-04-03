@@ -23,35 +23,35 @@ export default class AddressForm extends React.Component<Props, CustomerInfo> {
     this.state = {
       firstName: '',
       isFirstNameError: false,
-      firstNameError: '',
+      firstNameErrorText: '',
 
       lastName: '',
       isLastNameError: false,
-      lastNameError: '',
+      lastNameErrorText: '',
 
       address: '',
       isAddressError: false,
-      addressError: '',
+      addressErrorText: '',
 
       zipCode: '',
-      zipCodeError: '',
+      zipCodeErrorText: '',
       isZipCodeError: false,
 
       city: '',
-      cityError: '',
+      cityErrorText: '',
       isCityError: false,
 
       email: '',
-      emailError: '',
+      emailErrorText: '',
       isEmailError: false,
 
       mobile: '',
       isMobileError: false,
-      mobileError: '',
+      mobileErrorText: '',
 
       shippingMethod:'',
       isShippingError: false,
-      shippingError: '',
+      shippingErrorText: '',
       deliveryDate:'',
       shippingCost: ''
     }
@@ -61,34 +61,42 @@ export default class AddressForm extends React.Component<Props, CustomerInfo> {
     window.scrollTo(0, 0)
   }
 
+  //---ALL INPUT VALIDATION
+
   validateInput = () =>{
     
     let isError = false
-    const errors = {firstNameError:'', isFirstNameError: false, lastNameError:'', isLastNameError:false, isAddressError: false, 
-      addressError: '', isZipCodeError:false, zipCodeError:'', isCityError: false, cityError:'', emailError:'', isEmailError: false, 
-      mobileError:'', isMobileError: false, isShippingError:false, shippingError: '' };
+    const errors = {
+      firstNameErrorText:'', isFirstNameError: false, 
+      lastNameErrorText:'', isLastNameError:false, 
+      addressErrorText: '', isAddressError: false, 
+      zipCodeErrorText:'', isZipCodeError:false,
+      cityErrorText:'', isCityError: false,
+      emailErrorText:'', isEmailError: false, 
+      mobileErrorText:'', isMobileError: false, 
+      shippingErrorText: '', isShippingError:false}
 
     if(this.state.firstName.length < 1){
       isError = true
-      errors.firstNameError = 'Minst 2 bokstäver'
+      errors.firstNameErrorText = 'Obligatorisk'
       errors.isFirstNameError = true   //Behövs eventuellt inte
     }
 
     if(this.state.lastName.length < 1){
       isError = true
-      errors.lastNameError = 'Minst 2 bokstäver'
+      errors.lastNameErrorText = 'Obligatorisk'
       errors.isLastNameError = true   
     }
 
     if(this.state.address.length < 2){
       isError = true
-      errors.addressError = 'Minst 3 tecken'
+      errors.addressErrorText = 'Obligatorisk'
       errors.isAddressError = true   
     }
 
     if(this.state.city.length < 1){
       isError = true
-      errors.cityError = 'Där kan man inte bo'
+      errors.cityErrorText = 'Obligatorisk'
       errors.isCityError = true   
     }
 
@@ -99,7 +107,7 @@ export default class AddressForm extends React.Component<Props, CustomerInfo> {
     }
       else{
         isError = true
-        errors.zipCodeError =  'fem siffror'
+        errors.zipCodeErrorText =  'fem siffror'
         errors.isZipCodeError = true
     }
 
@@ -110,7 +118,7 @@ export default class AddressForm extends React.Component<Props, CustomerInfo> {
       }
     else{
       isError = true
-      errors.emailError =  'ogiltig e-mail'
+      errors.emailErrorText =  'ogiltig e-mail'
       errors.isEmailError = true
     } 
     
@@ -121,13 +129,13 @@ export default class AddressForm extends React.Component<Props, CustomerInfo> {
     }
     else{
       isError = true
-      errors.mobileError =  'ogiltigt mobilnummer-format'
+      errors.mobileErrorText =  'ogiltigt mobilnummer-format'
       errors.isMobileError = true
     }
 
     if(this.state.shippingMethod === ''){
       isError = true
-      errors.shippingError =  'Du måste välja fraktsätt'
+      errors.shippingErrorText =  'Du måste välja fraktsätt'
       errors.isShippingError = true
     }
 
@@ -140,14 +148,16 @@ export default class AddressForm extends React.Component<Props, CustomerInfo> {
     return isError
   }
 
+  //----SUBMIT EVENT---------
+
   private onSubmit = () => {
     const err = this.validateInput()
-    //VALIDATE HERE
     if(!err){
       this.props.onSubmit(this.state)
     }
   }
 
+  // ------- SHIPPING ------
   private handleShipmentInput = (event: { target: { value: any } }) => { 
     this.setState({shippingMethod: event.target.value})
     this.setShipmentDetails(event.target.value)
@@ -175,7 +185,6 @@ export default class AddressForm extends React.Component<Props, CustomerInfo> {
   private calculateDeliveryDate(daysToDeliver:any){
     let today = new Date();
     let business_days = daysToDeliver;
-    
     let deliveryDate = today; 
     let total_days = business_days;
 
@@ -185,9 +194,10 @@ export default class AddressForm extends React.Component<Props, CustomerInfo> {
          total_days++
        }
     }
-    let deliveryNumberDate:any = deliveryDate.getDate()
 
+    let deliveryNumberDate:any = deliveryDate.getDate()
     let deliveryWeekday:any = deliveryDate.getDay()
+
     let fixWeekday = [6, 0, 1, 2, 3, 4, 5];
     deliveryWeekday = fixWeekday[deliveryWeekday];
     let weekdayName = ["Måndag", "Tisdag", "Onsdag", "Torsdag", "Fredag", "Lördag", "Söndag"];
@@ -221,7 +231,7 @@ export default class AddressForm extends React.Component<Props, CustomerInfo> {
                   value={this.state.firstName}
                   error = {this.state.isFirstNameError}
                   fullWidth
-                  helperText = {this.state.firstNameError} 
+                  helperText = {this.state.firstNameErrorText} 
                   onChange={(event) => { this.setState({ firstName: event.target.value }) }} 
                   />
               </Grid>
@@ -234,7 +244,7 @@ export default class AddressForm extends React.Component<Props, CustomerInfo> {
                   value={this.state.lastName}  
                   error = {this.state.isLastNameError}
                   fullWidth
-                  helperText = {this.state.lastNameError} 
+                  helperText = {this.state.lastNameErrorText} 
                   onChange={(event) => { this.setState({ lastName: event.target.value }) }}
                 />
               </Grid>
@@ -247,7 +257,7 @@ export default class AddressForm extends React.Component<Props, CustomerInfo> {
                 value={this.state.address} 
                 error = {this.state.isAddressError} 
                 fullWidth
-                helperText = {this.state.addressError} 
+                helperText = {this.state.addressErrorText} 
                 onChange={(event) => { this.setState({address: event.target.value}) }}
               />
               </Grid>
@@ -260,7 +270,7 @@ export default class AddressForm extends React.Component<Props, CustomerInfo> {
                   value={this.state.zipCode} 
                   error = {this.state.isZipCodeError} 
                   fullWidth
-                  helperText = {this.state.zipCodeError} 
+                  helperText = {this.state.zipCodeErrorText} 
                   onChange = {(event) => { this.setState({ zipCode: event.target.value }) }}
                 />
               </Grid>
@@ -273,7 +283,7 @@ export default class AddressForm extends React.Component<Props, CustomerInfo> {
                   value={this.state.city} 
                   error = {this.state.isCityError} 
                   fullWidth
-                  helperText = {this.state.cityError} 
+                  helperText = {this.state.cityErrorText} 
                   onChange ={(event) => { this.setState({ city: event.target.value }) }}
                 />
               </Grid>
@@ -286,7 +296,7 @@ export default class AddressForm extends React.Component<Props, CustomerInfo> {
                   value={this.state.mobile} 
                   error = {this.state.isMobileError} 
                   fullWidth
-                  helperText = {this.state.mobileError} 
+                  helperText = {this.state.mobileErrorText} 
                   onChange ={(event) => { this.setState({ mobile: event.target.value }) }}
                 />
               </Grid>
@@ -299,13 +309,12 @@ export default class AddressForm extends React.Component<Props, CustomerInfo> {
                   value={this.state.email} 
                   error = {this.state.isEmailError} 
                   fullWidth
-                  helperText= {this.state.emailError} 
+                  helperText= {this.state.emailErrorText} 
                   onChange ={(event) => { this.setState({ email:event.target.value }) }}
                 />
               </Grid>
             </Grid>
-            <br/>
-            
+            <br/>   
             <FormControl error = {this.state.isShippingError}>
               <br/>
               <br/>
@@ -347,7 +356,7 @@ export default class AddressForm extends React.Component<Props, CustomerInfo> {
                       />
                   </div>
               </RadioGroup>
-              <FormHelperText>{this.state.shippingError}</FormHelperText>
+              <FormHelperText>{this.state.shippingErrorText}</FormHelperText>
             </FormControl>
           </form>
           <Button

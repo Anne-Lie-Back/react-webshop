@@ -16,6 +16,7 @@ export interface CartItem{
     product: Product
 }
 
+//Sorry for long lump of code
 export interface CustomerInfo {
     firstName: string
     lastName: string
@@ -29,46 +30,44 @@ export interface CustomerInfo {
     deliveryDate:any
 
     isFirstNameError: boolean
-    firstNameError: string
+    firstNameErrorText: string
     isLastNameError: boolean
-    lastNameError: string
+    lastNameErrorText: string
     isAddressError: boolean
-    addressError: string
-    zipCodeError: string
+    addressErrorText: string
+    zipCodeErrorText: string
     isZipCodeError: boolean
-    cityError: string
+    cityErrorText: string
     isCityError: boolean
-    emailError: string
+    emailErrorText: string
     isEmailError: boolean
     isMobileError: boolean
-    mobileError: string
-    isShippingError: boolean,
-    shippingError: string,
+    mobileErrorText: string
+    isShippingError: boolean
+    shippingErrorText: string
 }
 
 export interface CustomerPaymentInfo {
     paymentMethod: string
-    isPaymentError: boolean,
-    paymentErrorText:string,
-
     cardOwner:string
+    cardNr: any
+    cardExp: any
+    cardCVC: any
+    swishNr: any
+    emailFaktura:any
+
+    isPaymentError: boolean
+    paymentErrorText:string
     isCardOwnerError: boolean,
     cardOwnerErrorText: string,
-    cardNr: any
     isCardNrError: boolean,
     cardNrErrorText: string
-    cardExp: any,
     isCardExpError: boolean,
-    cardCVC: any,
     isCardCVCError: boolean,
     cardCVCErrorText: string
     cardExpErrorText: string,
-
-    swishNr: any
     isSwishNrError: boolean,
     swishErrorText: string,
-    
-    emailFaktura:any
     isEmailFakturaError: boolean,
     emailErrorText: string
 }

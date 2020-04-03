@@ -242,7 +242,7 @@ export default class Payment extends React.Component<Props, CustomerPaymentInfo>
         <TextField 
           label= "E-mail"
           variant="outlined"
-          style = {margins}
+          style = {{...margins, ...{width:'16rem'}}}
           color="secondary"
           name="email"
           autoComplete="email"
@@ -259,7 +259,7 @@ export default class Payment extends React.Component<Props, CustomerPaymentInfo>
     const klarna = require("./../../assets/images/klarna.png")
     let waitingForPaymentText
     if (this.props.isDisabled){
-      waitingForPaymentText = <p style = {{color: 'rgba(0, 0, 0, 0.38)'}}>Kontrollerar betalning</p> 
+      waitingForPaymentText = <p style = {{...{color: 'rgba(0, 0, 0, 0.38)'}, ...{marginLeft: '1rem'}}}>Kontrollerar betalning</p> 
     }
 
     return (
