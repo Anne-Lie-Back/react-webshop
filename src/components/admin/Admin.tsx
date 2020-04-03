@@ -76,6 +76,7 @@ export default class Admin extends React.Component<Props, State> {
         ){
             } else {
                 localStorage.setItem('productList', JSON.stringify(productList))
+                this.setState({items: itemsLS})
             }
     }
 

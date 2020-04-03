@@ -3,7 +3,7 @@
 
 import React from 'react'
 import { CartItem } from '../typings'
-import { items } from '../components/items/itemList'
+import { itemsLS } from '../components/ItemListLS'
 
 export const CartContext = React.createContext<State>({
     cartList: [{id:1, nrItems:1, product:{name:"placeholder", id:0 , price:0, description:"",imgURL:""}}],
@@ -60,7 +60,7 @@ export class CartProvider extends React.Component<Props, State>{
             }
         } else {    //If item is not in list then a new item is pushed to list.
             if(inNrItems > 0){
-                const product = items.find(({id}) => id === inItemId)
+                const product = itemsLS.find(({id}) => id === inItemId)
                 if(product){
                     updatedCartList.push({id: inItemId, nrItems: inNrItems, product:product})
                 }
