@@ -206,6 +206,7 @@ export default class AddressForm extends React.Component<Props, CustomerInfo> {
                 direction="row"
                 justify="flex-start"
                 alignItems="stretch"
+                spacing={1}
               >
               <Grid item xs={12} sm={6}>
                 <TextField 
@@ -272,20 +273,7 @@ export default class AddressForm extends React.Component<Props, CustomerInfo> {
                   onChange ={(event) => { this.setState({ city: event.target.value }) }}
                 />
               </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField 
-                  color="secondary"
-                  name="email"
-                  autoComplete="email"
-                  label="E-Mail" 
-                  value={this.state.email} 
-                  error = {this.state.isEmailError} 
-                  fullWidth
-                  helperText= {this.state.emailError} 
-                  onChange ={(event) => { this.setState({ email:event.target.value }) }}
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
+              <Grid item xs={12}  sm={12} md={6}>
                 <TextField 
                   color="secondary"
                   name="phone"
@@ -298,6 +286,19 @@ export default class AddressForm extends React.Component<Props, CustomerInfo> {
                   onChange ={(event) => { this.setState({ mobile: event.target.value }) }}
                 />
               </Grid>
+              <Grid item xs={12}  sm={12} md={6}>
+                <TextField 
+                  color="secondary"
+                  name="email"
+                  autoComplete="email"
+                  label="E-Mail" 
+                  value={this.state.email} 
+                  error = {this.state.isEmailError} 
+                  fullWidth
+                  helperText= {this.state.emailError} 
+                  onChange ={(event) => { this.setState({ email:event.target.value }) }}
+                />
+              </Grid>
             </Grid>
             <br/>
             
@@ -305,7 +306,7 @@ export default class AddressForm extends React.Component<Props, CustomerInfo> {
               <br/>
               <br/>
               <FormLabel component="legend">
-                <Typography variant="h5" color="primary">
+                <Typography variant="h5" color="primary" style={{marginLeft:'0.5em'}}>
                   Välj fraktsätt
                 </Typography>
               </FormLabel>
@@ -343,14 +344,15 @@ export default class AddressForm extends React.Component<Props, CustomerInfo> {
                   </div>
               </RadioGroup>
               <FormHelperText>{this.state.shippingError}</FormHelperText>
-              <br/>
             </FormControl>
           </form>
           <Button
             type = 'submit'
             onClick={() => this.onSubmit()}
             variant="contained" 
-            color="primary">
+            color="primary"
+            style={{margin:'2em 0 1em 2em'}}
+          >
               Fortsätt 
           </Button>         
       </div>
