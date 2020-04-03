@@ -276,19 +276,6 @@ export default class AddressForm extends React.Component<Props, CustomerInfo> {
               <Grid item xs={12}  sm={12} md={6}>
                 <TextField 
                   color="secondary"
-                  name="email"
-                  autoComplete="email"
-                  label="E-Mail" 
-                  value={this.state.email} 
-                  error = {this.state.isEmailError} 
-                  fullWidth
-                  helperText= {this.state.emailError} 
-                  onChange ={(event) => { this.setState({ email:event.target.value }) }}
-                />
-              </Grid>
-              <Grid item xs={12}  sm={12} md={6}>
-                <TextField 
-                  color="secondary"
                   name="phone"
                   autoComplete="tel"
                   label="Mobil-nummer" 
@@ -297,6 +284,19 @@ export default class AddressForm extends React.Component<Props, CustomerInfo> {
                   fullWidth
                   helperText = {this.state.mobileError} 
                   onChange ={(event) => { this.setState({ mobile: event.target.value }) }}
+                />
+              </Grid>
+              <Grid item xs={12}  sm={12} md={6}>
+                <TextField 
+                  color="secondary"
+                  name="email"
+                  autoComplete="email"
+                  label="E-Mail" 
+                  value={this.state.email} 
+                  error = {this.state.isEmailError} 
+                  fullWidth
+                  helperText= {this.state.emailError} 
+                  onChange ={(event) => { this.setState({ email:event.target.value }) }}
                 />
               </Grid>
             </Grid>
